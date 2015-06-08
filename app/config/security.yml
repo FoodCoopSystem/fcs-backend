@@ -1,0 +1,33 @@
+security:
+    providers:
+        codifico_user:
+            id: codifico_user_provider
+
+    encoders:
+        AppBundle\Entity\User:
+            algorithm:          sha512
+            iterations:         5000
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt|error)|css|images|js)/
+            security: false
+
+        oauth_token:
+            pattern:    ^/oauth/v2/token
+            security:   false
+
+        api:
+            pattern:    ^/
+            fos_oauth:  true
+            stateless:  true
+            anonymous:  false
+
+
+
+    access_control:
+        - { path: ^/, roles: [ IS_AUTHENTICATED_FULLY ] }

@@ -1,0 +1,34 @@
+services:
+    codifico_user_provider:
+        class: %doctrine.orm.security.user.provider.class%
+        arguments:
+            - @doctrine
+            - AppBundle:User
+            - username
+
+    codifico_user.password.listener:
+        class: AppBundle\EventListener\PasswordListener
+        arguments:
+            - @security.password_encoder
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
+
+    controller.product:
+        class: AppBundle\Controller\ProductController
+        arguments:
+            - @repository.product
+
+    repository.product:
+        class: AppBundle\Entity\ProductRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments:
+            - AppBundle\Entity\Product
+
+    codifico_core.param_converter.query_criteria_converter:
+        class: AppBundle\Request\ParamConverter\CriteriaParamConverter
+        arguments:
+            - @serializer
+        tags:
+            - { name: request.param_converter, converter: query_criteria_converter }
