@@ -9,22 +9,22 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
- * @Route("/product", service="controller.product")
+ * @Route("/basket", service="controller.basket")
  */
-class ProductController
+class BasketController
 {
     /**
-     * @var ProductRepository
+     * @var BasketRepository
      */
     private $repository;
 
-    public function __construct(ProductRepository $repository)
+    public function __construct(BasketRepository $repository)
     {
         $this->repository = $repository;
     }
 
     /**
-     * @Route("", name="product_list")
+     * @Route("", name="basket_list")
      * @ParamConverter("queryCriteria", converter="query_criteria_converter")
      */
     public function indexAction(Criteria $criteria)

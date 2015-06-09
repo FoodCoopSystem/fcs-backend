@@ -60,6 +60,12 @@ class User implements UserInterface
      */
     private $email;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Basket", inversedBy="owner")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $basket;
+
 
     public function __construct($username, $password)
     {
