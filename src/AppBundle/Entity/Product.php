@@ -42,12 +42,6 @@ class Product
      */
     private $price;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Basket", inversedBy="products")
-     * @ORM\JoinColumn(name="basket_id", referencedColumnName="id")
-     */
-    private $basket;
-
     public function __construct($name, $price)
     {
         $this->name = $name;

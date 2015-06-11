@@ -19,12 +19,27 @@ services:
         arguments:
             - @repository.product
 
+    controller.basket:
+        class: AppBundle\Controller\BasketController
+        arguments:
+            - @repository.basket
+            - @form.factory
+            - @=service('security.context').getToken().getUser()
+            - @doctrine.orm.entity_manager
+
     repository.product:
         class: AppBundle\Entity\ProductRepository
         factory_service: doctrine.orm.default_entity_manager
         factory_method: getRepository
         arguments:
             - AppBundle\Entity\Product
+
+    repository.basket:
+        class: AppBundle\Entity\BasketRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments:
+            - AppBundle\Entity\Basket
 
     codifico_core.param_converter.query_criteria_converter:
         class: AppBundle\Request\ParamConverter\CriteriaParamConverter

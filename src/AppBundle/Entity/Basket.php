@@ -30,16 +30,18 @@ class Basket
     private $quantity;
 
     /**
-     * @OneToOne(targetEntity="User", mappedBy="basket")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="basket")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $owner;
 
     /**
      * @var ArrayCollection|Product[]
      *
-     * @ORM\@OneToMany(targetEntity="Product", mappedBy="basket")
+     * @ORM\OneToOne(targetEntity="Product")
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      */
-    private $products;
+    private $product;
 
     public function __construct()
     {
@@ -77,5 +79,37 @@ class Basket
     public function getQuantity()
     {
         return $this->quantity;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOwner()
+    {
+        return $this->owner;
+    }
+
+    /**
+     * @param mixed $owner
+     */
+    public function setOwner($owner)
+    {
+        $this->owner = $owner;
+    }
+
+    /**
+     * @return Product[]|ArrayCollection
+     */
+    public function getProduct()
+    {
+        return $this->product;
+    }
+
+    /**
+     * @param Product[]|ArrayCollection $product
+     */
+    public function setProduct($product)
+    {
+        $this->product = $product;
     }
 }

@@ -61,8 +61,7 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @ORM\OneToOne(targetEntity="Basket", inversedBy="owner")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\OneToMany(targetEntity="Basket", mappedBy="owner")
      */
     private $basket;
 
@@ -108,7 +107,7 @@ class User implements UserInterface
      */
     public function getRoles()
     {
-        return ['ROLE_USER'];
+        return ['ROLE_USER', 'ROLE_API'];
     }
 
     /**
