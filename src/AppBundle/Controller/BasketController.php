@@ -10,6 +10,7 @@ use AppBundle\Form\BasketType;
 use AppBundle\Request\Criteria;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use FOS\RestBundle\Util\Codes;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -23,6 +24,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
  */
 class BasketController
 {
+    use RestTrait;
+
     /**
      * @var BasketRepository
      */
@@ -55,10 +58,12 @@ class BasketController
      */
     public function indexAction(Criteria $criteria)
     {
-        return [
+        $data = [
             'total' => $this->repository->countByCriteria($criteria),
             'result' => $this->repository->findByCriteria($criteria),
         ];
+
+        return $this->renderRestView($data, Codes::HTTP_OK, [], ['basket_index']);
     }
 
     /**

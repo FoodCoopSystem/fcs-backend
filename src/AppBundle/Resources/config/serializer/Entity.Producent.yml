@@ -1,0 +1,9 @@
+AppBundle\Entity\Producent:
+    exclusion_policy: ALL
+    properties:
+        name:
+            expose: true
+            type: string
+            groups:
+                - product_index
+                - basket_index

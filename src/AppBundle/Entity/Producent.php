@@ -2,15 +2,16 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Product
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="AppBundle\Entity\ProductRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\ProducentRepository")
  */
-class Product
+class Producent
 {
     /**
      * @var integer
@@ -29,26 +30,11 @@ class Product
     private $name;
 
     /**
-     * @var string
+     * @var ArrayCollection||Product[]
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="producent")
      */
-    private $description;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="price", type="decimal")
-     */
-    private $price;
-
-    /**
-     * @var Producent
-     *
-     * @ORM\ManyToOne(targetEntity="Producent", inversedBy="products")
-     * @ORM\JoinColumn(name="producent_id", referencedColumnName="id")
-     */
-    private $producent;
+    private $products;
 
     public function __construct($name, $price)
     {
