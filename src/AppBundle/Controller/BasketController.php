@@ -144,6 +144,7 @@ class BasketController
      */
     public function orderAction()
     {
+
         $criteria = new Criteria(
             ['owner' => $this->user],
             null,
@@ -154,14 +155,23 @@ class BasketController
         $items = $this->basketRepository->findByCriteria($criteria);
         $order = $this->orderRepository->findNearest();
 
-        $orderItems = [];
-        foreach ($items as $item) {
-            $orderItem = OrderItem::createFromBasket($item, $order);
-            $this->entityManager->persist($orderItem);
-            $orderItems[] = $orderItem;
-        }
+        $connection = $this->entityManager->getConnection();
+        $connection->beginTransaction();
+        try {
+            $orderItems = [];
+            foreach ($items as $item) {
+                $orderItem = OrderItem::createFromBasket($item, $order);
+                $this->entityManager->persist($orderItem);
+                $this->entityManager->remove($item);
+                $orderItems[] = $orderItem;
+            }
 
-        $this->entityManager->flush($orderItems);
+            $this->entityManager->flush();
+            $connection->commit();
+        } catch (\Exception $e) {
+            $connection->rollBack();
+            return $e->getMessage();
+        }
     }
 
     /**

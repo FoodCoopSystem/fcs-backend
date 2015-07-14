@@ -65,12 +65,19 @@ class User implements UserInterface
      */
     private $basket;
 
+    /**
+     * @var string
+     * @ORM\Column(type="array",nullable=false);
+     */
+    private $roles;
+
 
     public function __construct($username, $password)
     {
         $this->username = $username;
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
         $this->setPlainPassword($password);
+        $this->setRoles(['ROLE_USER', 'ROLE_API']);
     }
 
     /**
@@ -107,7 +114,7 @@ class User implements UserInterface
      */
     public function getRoles()
     {
-        return ['ROLE_USER', 'ROLE_API'];
+        return $this->roles;
     }
 
     /**
@@ -216,5 +223,13 @@ class User implements UserInterface
     public function setEmail($email)
     {
         $this->email = $email;
+    }
+
+    /**
+     * @param string $roles
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
     }
 }
