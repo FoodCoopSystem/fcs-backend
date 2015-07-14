@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Request\Criteria;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * BasketRepository
@@ -28,6 +29,7 @@ class BasketRepository extends EntityRepository
         $offset = ($criteria->getPage() - 1) * $criteria->getCount();
         $builder->setFirstResult($offset);
 
+        $this->applyFilters($builder, $criteria);
         $query = $builder->getQuery();
 
         return $query->execute();
@@ -38,7 +40,16 @@ class BasketRepository extends EntityRepository
         $builder = $this->createQueryBuilder('t');
         $builder->select('count(t.id)');
 
+        $this->applyFilters($builder, $criteria);
         $query = $builder->getQuery();
         return $query->getSingleScalarResult();
+    }
+
+    private function applyFilters(QueryBuilder $builder, Criteria $criteria)
+    {
+        foreach ($criteria->getFilters() as $field => $value) {
+            $builder->andWhere('t.'.$field.' = :'.$field);
+            $builder->setParameter($field, $value);
+        }
     }
 }

@@ -4,8 +4,9 @@ namespace AppBundle\Entity;
 
 use AppBundle\Request\Criteria;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 
-class ProducentRepository extends EntityRepository
+class OrderRepository extends EntityRepository
 {
     public function findByCriteria(Criteria $criteria)
     {
@@ -39,5 +40,34 @@ class ProducentRepository extends EntityRepository
     public function add($entity)
     {
         $this->getEntityManager()->persist($entity);
+    }
+
+    private function applyFilters(QueryBuilder $builder, Criteria $criteria)
+    {
+        foreach ($criteria->getFilters() as $field => $value) {
+            $builder->andWhere('t.'.$field.' = :'.$field);
+            $builder->setParameter($field, $value);
+        }
+    }
+
+    public function findNearest()
+    {
+        $criteria = new Criteria(['active' => true], null, null, null);
+
+        return $this->findOneByCriteria($criteria);
+    }
+
+    private function findOneByCriteria(Criteria $criteria)
+    {
+        /** @var QueryBuilder $builder */
+        $builder = $this->createQueryBuilder('t');
+        $this->applyFilters($builder, $criteria);
+
+        $query = $builder->getQuery();
+
+        $results = $query->execute();
+        if ($results) {
+            return $results[0];
+        }
     }
 }

@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Product
+ * Producent
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\ProducentRepository")

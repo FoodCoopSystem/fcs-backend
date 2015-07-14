@@ -98,7 +98,7 @@ class Basket
     }
 
     /**
-     * @return Product[]|ArrayCollection
+     * @return Product
      */
     public function getProduct()
     {

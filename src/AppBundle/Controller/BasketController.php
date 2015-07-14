@@ -4,6 +4,8 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Basket;
 use AppBundle\Entity\BasketRepository;
+use AppBundle\Entity\OrderItem;
+use AppBundle\Entity\OrderRepository;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductRepository;
 use AppBundle\Form\BasketType;
@@ -29,7 +31,7 @@ class BasketController
     /**
      * @var BasketRepository
      */
-    private $repository;
+    private $basketRepository;
 
     /**
      * @var FormFactoryInterface
@@ -40,13 +42,18 @@ class BasketController
      * @var EntityManagerInterface
      */
     private $entityManager;
+    /**
+     * @var OrderRepository
+     */
+    private $orderRepository;
 
-    public function __construct(BasketRepository $repository, FormFactoryInterface $formFactory, UserInterface $user, EntityManagerInterface $entityManager)
+    public function __construct(BasketRepository $basketRepository, OrderRepository $orderRepository, FormFactoryInterface $formFactory, UserInterface $user, EntityManagerInterface $entityManager)
     {
-        $this->repository = $repository;
+        $this->basketRepository = $basketRepository;
         $this->formFactory = $formFactory;
         $this->user = $user;
         $this->entityManager = $entityManager;
+        $this->orderRepository = $orderRepository;
     }
 
     /**
@@ -58,16 +65,25 @@ class BasketController
      */
     public function indexAction(Criteria $criteria)
     {
+        $filters = $criteria->getFilters();
+        $filters['owner'] = $this->user;
+
+        $criteria = new Criteria(
+            $filters,
+            $criteria->getCount(),
+            $criteria->getPage(),
+            $criteria->getOrderBy()
+        );
         $data = [
-            'total' => $this->repository->countByCriteria($criteria),
-            'result' => $this->repository->findByCriteria($criteria),
+            'total' => $this->basketRepository->countByCriteria($criteria),
+            'result' => $this->basketRepository->findByCriteria($criteria),
         ];
 
         return $this->renderRestView($data, Codes::HTTP_OK, [], ['basket_index']);
     }
 
     /**
-     * @Route("/{id}", name="basket_update")
+     * @Route("/{id}", name="basket_update", requirements={"id" = "\d+"})
      * @Method("POST")
      * @param $id
      * @param Request $request
@@ -75,7 +91,8 @@ class BasketController
      */
     public function updateAction($id, Request $request)
     {
-        $basket = $this->repository->findOneBy([
+        /** @var Basket $basket */
+        $basket = $this->basketRepository->findOneBy([
             'id' => $id,
             'owner' => $this->user,
         ]);
@@ -101,13 +118,13 @@ class BasketController
     }
 
     /**
-     * @Route("/{id}", name="basket_remove")
+     * @Route("/{id}", name="basket_remove", requirements={"id" = "\d+"})
      * @Method("DELETE")
      * @param $id
      */
     public function removeAction($id)
     {
-        $basket = $this->repository->findOneBy([
+        $basket = $this->basketRepository->findOneBy([
             'id' => $id,
             'owner' => $this->user,
         ]);
@@ -118,6 +135,33 @@ class BasketController
 
         $this->entityManager->remove($basket);
         $this->entityManager->flush($basket);
+    }
+
+
+    /**
+     * @Route("/order", name="basket_order")
+     * @Method("POST")
+     */
+    public function orderAction()
+    {
+        $criteria = new Criteria(
+            ['owner' => $this->user],
+            null,
+            null,
+            null
+        );
+
+        $items = $this->basketRepository->findByCriteria($criteria);
+        $order = $this->orderRepository->findNearest();
+
+        $orderItems = [];
+        foreach ($items as $item) {
+            $orderItem = OrderItem::createFromBasket($item, $order);
+            $this->entityManager->persist($orderItem);
+            $orderItems[] = $orderItem;
+        }
+
+        $this->entityManager->flush($orderItems);
     }
 
     /**
