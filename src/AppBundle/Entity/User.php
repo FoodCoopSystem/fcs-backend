@@ -66,6 +66,11 @@ class User implements UserInterface
     private $basket;
 
     /**
+     * @ORM\OneToMany(targetEntity="OrderItem", mappedBy="owner")
+     */
+    private $orderItems;
+
+    /**
      * @var string
      * @ORM\Column(type="array",nullable=false);
      */

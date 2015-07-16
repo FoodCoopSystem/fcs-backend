@@ -1,0 +1,18 @@
+AppBundle\Entity\OrderItem:
+    exclusion_policy: ALL
+    properties:
+        owner:
+            expose: true
+            type: AppBundle\Entity\User
+            groups:
+                - order_list
+        product:
+            expose: true
+            type: AppBundle\Entity\Product
+            groups:
+                - order_list
+        quantity:
+            expose: true
+            type: integer
+            groups:
+                - order_list

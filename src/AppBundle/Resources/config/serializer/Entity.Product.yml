@@ -13,12 +13,14 @@ AppBundle\Entity\Product:
             groups:
                 - product_index
                 - basket_index
+                - order_list
         price:
             expose: true
             type: float
             groups:
                 - product_index
                 - basket_index
+                - order_list
         description:
             expose: true
             type: string
@@ -32,3 +34,4 @@ AppBundle\Entity\Product:
             groups:
                 - product_index
                 - basket_index
+                - order_list

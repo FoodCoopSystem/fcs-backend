@@ -7,3 +7,4 @@ AppBundle\Entity\Producent:
             groups:
                 - product_index
                 - basket_index
+                - order_list

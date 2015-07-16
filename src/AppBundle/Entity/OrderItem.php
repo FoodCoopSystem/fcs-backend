@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="AppBundle\Entity\OrderItem")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\OrderItemRepository")
  */
 class OrderItem
 {
@@ -27,7 +27,7 @@ class OrderItem
     private $quantity;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="basket")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="orderItems")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $owner;
@@ -60,4 +60,13 @@ class OrderItem
     {
         return new OrderItem($item->getProduct(), $item->getQuantity(), $item->getOwner(), $order);
     }
+
+    /**
+     * @return mixed
+     */
+    public function getOwner()
+    {
+        return $this->owner;
+    }
 }
+

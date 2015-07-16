@@ -28,6 +28,17 @@ services:
             - @=service('security.context').getToken().getUser()
             - @doctrine.orm.entity_manager
 
+    controller.profile:
+        class: AppBundle\Controller\UserController
+        arguments:
+            - @=service('security.context').getToken().getUser()
+
+    controller.order:
+            class: AppBundle\Controller\OrderController
+            arguments:
+                - @repository.order
+                - @repository.order_item
+
     repository.product:
         class: AppBundle\Entity\ProductRepository
         factory_service: doctrine.orm.default_entity_manager
@@ -48,6 +59,13 @@ services:
         factory_method: getRepository
         arguments:
             - AppBundle\Entity\Order
+
+    repository.order_item:
+        class: AppBundle\Entity\OrderItemRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments:
+            - AppBundle\Entity\OrderItem
 
     codifico_core.param_converter.query_criteria_converter:
         class: AppBundle\Request\ParamConverter\CriteriaParamConverter

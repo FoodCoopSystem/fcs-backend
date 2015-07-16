@@ -1,0 +1,25 @@
+AppBundle\Entity\User:
+    exclusion_policy: ALL
+    properties:
+        firstName:
+            expose: true
+            type: string
+            groups:
+                - user_profile
+                - order_list
+        lastName:
+            expose: true
+            type: string
+            groups:
+                - user_profile
+                - order_list
+        email:
+            expose: true
+            type: string
+            groups:
+                - user_profile
+        roles:
+            expose: true
+            type: array<string>
+            groups:
+                - user_profile
