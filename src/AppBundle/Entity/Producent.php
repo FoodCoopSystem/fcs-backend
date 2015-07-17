@@ -36,10 +36,10 @@ class Producent
      */
     private $products;
 
-    public function __construct($name, $price)
+    public function __construct($name)
     {
         $this->name = $name;
-        $this->price = $price;
+        $this->products = new ArrayCollection();
     }
     /**
      * Get id

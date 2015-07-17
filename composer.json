@@ -21,7 +21,10 @@
         "friendsofsymfony/rest-bundle": "~1.5",
         "jms/serializer-bundle": "0.13.*",
         "nelmio/cors-bundle": "~1.4",
-        "friendsofsymfony/oauth-server-bundle": "dev-master"
+        "friendsofsymfony/oauth-server-bundle": "dev-master",
+        "doctrine/migrations": "1.0.*@dev",
+        "doctrine/doctrine-migrations-bundle": "1.0.*",
+        "doctrine/doctrine-fixtures-bundle": "2.2.*"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

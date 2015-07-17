@@ -31,7 +31,7 @@ class Product
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
@@ -50,10 +50,11 @@ class Product
      */
     private $producent;
 
-    public function __construct($name, $price)
+    public function __construct($name, $price, Producent $producent)
     {
         $this->name = $name;
         $this->price = $price;
+        $this->producent = $producent;
     }
     /**
      * Get id
