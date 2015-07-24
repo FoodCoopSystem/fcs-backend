@@ -27,7 +27,7 @@ class Basket
      *
      * @ORM\Column(name="quantity", type="integer")
      */
-    private $quantity;
+    private $quantity = 0;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="basket")
@@ -111,5 +111,10 @@ class Basket
     public function setProduct($product)
     {
         $this->product = $product;
+    }
+
+    public function incrementQuantity()
+    {
+        $this->quantity++;
     }
 }

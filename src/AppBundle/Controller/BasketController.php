@@ -112,9 +112,25 @@ class BasketController
      */
     public function createAction(Request $request)
     {
-        $basket = new Basket();
+        /** @var Basket $basket */
+        $basket = $this->basketRepository->findOneBy([
+            'owner' => $this->user,
+            'product' => $request->request->get('product'),
+        ]);
 
-        return $this->handleForm($request, $basket);
+        if ($basket) {
+            $basket->incrementQuantity();
+
+            $this->entityManager->persist($basket);
+            $this->entityManager->flush($basket);
+
+            return $basket;
+        } else {
+            $basket = new Basket();
+
+            return $this->handleForm($request, $basket);
+        }
+
     }
 
     /**
