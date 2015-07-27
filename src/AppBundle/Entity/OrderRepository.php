@@ -57,7 +57,7 @@ class OrderRepository extends EntityRepository
         return $this->findOneByCriteria($criteria);
     }
 
-    private function findOneByCriteria(Criteria $criteria)
+    public function findOneByCriteria(Criteria $criteria)
     {
         /** @var QueryBuilder $builder */
         $builder = $this->createQueryBuilder('t');

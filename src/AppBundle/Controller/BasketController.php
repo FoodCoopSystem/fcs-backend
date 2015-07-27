@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Basket;
 use AppBundle\Entity\BasketRepository;
 use AppBundle\Entity\OrderItem;
+use AppBundle\Entity\OrderItemRepository;
 use AppBundle\Entity\OrderRepository;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductRepository;
@@ -47,13 +48,19 @@ class BasketController
      */
     private $orderRepository;
 
-    public function __construct(BasketRepository $basketRepository, OrderRepository $orderRepository, FormFactoryInterface $formFactory, UserInterface $user, EntityManagerInterface $entityManager)
+    /**
+     * @var OrderItemRepository
+     */
+    private $orderItemRepository;
+
+    public function __construct(BasketRepository $basketRepository, OrderRepository $orderRepository, OrderItemRepository $orderItemRepository, FormFactoryInterface $formFactory, UserInterface $user, EntityManagerInterface $entityManager)
     {
         $this->basketRepository = $basketRepository;
         $this->formFactory = $formFactory;
         $this->user = $user;
         $this->entityManager = $entityManager;
         $this->orderRepository = $orderRepository;
+        $this->orderItemRepository = $orderItemRepository;
     }
 
     /**
@@ -176,7 +183,21 @@ class BasketController
         try {
             $orderItems = [];
             foreach ($items as $item) {
-                $orderItem = OrderItem::createFromBasket($item, $order);
+                /** @var Basket $item */
+                $order = $this->orderItemRepository->findOneByCriteria(new Criteria(
+                    [
+                        'owner' => $item->getOwner(),
+                        'product' => $item->getProduct()
+                    ]
+                ));
+                if ($order) {
+                    /** @var OrderItem $orderItem */
+                    $orderItem = $order;
+                    $orderItem->increaseQuantityBy($item->getQuantity());
+                } else {
+                    $orderItem = OrderItem::createFromBasket($item, $order);
+                }
+
                 $this->entityManager->persist($orderItem);
                 $this->entityManager->remove($item);
                 $orderItems[] = $orderItem;

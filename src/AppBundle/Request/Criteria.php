@@ -33,7 +33,7 @@ class Criteria
      * @param $page
      * @param $orderBy
      */
-    public function __construct($filters, $count, $page, $orderBy)
+    public function __construct($filters, $count = null, $page = null, $orderBy = null)
     {
         $this->filters = $filters;
         $this->count = $count;

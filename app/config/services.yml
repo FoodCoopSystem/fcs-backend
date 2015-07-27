@@ -24,6 +24,7 @@ services:
         arguments:
             - @repository.basket
             - @repository.order
+            - @repository.order_item
             - @form.factory
             - @=service('security.context').getToken().getUser()
             - @doctrine.orm.entity_manager

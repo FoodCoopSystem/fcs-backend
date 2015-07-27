@@ -68,5 +68,10 @@ class OrderItem
     {
         return $this->owner;
     }
+
+    public function increaseQuantityBy($quantity)
+    {
+        $this->quantity += (int)$quantity;
+    }
 }
 
