@@ -18,6 +18,7 @@ services:
         class: AppBundle\Controller\ProductController
         arguments:
             - @repository.product
+            - @doctrine.orm.default_entity_manager
 
     controller.basket:
         class: AppBundle\Controller\BasketController

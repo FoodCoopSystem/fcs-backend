@@ -31,3 +31,5 @@ security:
 
     access_control:
         - { path: ^/, roles: [ IS_AUTHENTICATED_FULLY ] }
+        - { path: ^/order, roles: [ ROLE_ADMIN ]}
+

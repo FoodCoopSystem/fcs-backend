@@ -27,6 +27,7 @@ class ProductRepository extends EntityRepository
         $builder->setMaxResults($criteria->getCount());
         $offset = ($criteria->getPage() - 1) * $criteria->getCount();
         $builder->setFirstResult($offset);
+        $builder->andWhere('t.deletedAt IS NULL');
 
         $query = $builder->getQuery();
 
@@ -37,6 +38,8 @@ class ProductRepository extends EntityRepository
     {
         $builder = $this->createQueryBuilder('t');
         $builder->select('count(t.id)');
+        $builder->andWhere('t.deletedAt IS NULL');
+
 
         $query = $builder->getQuery();
         return $query->getSingleScalarResult();

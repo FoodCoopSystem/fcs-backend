@@ -50,6 +50,12 @@ class Product
      */
     private $producent;
 
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
+
     public function __construct($name, $price, Producent $producent)
     {
         $this->name = $name;
@@ -133,5 +139,10 @@ class Product
     public function getPrice()
     {
         return $this->price;
+    }
+
+    public function inactivate()
+    {
+        $this->deletedAt = new \DateTime();
     }
 }
