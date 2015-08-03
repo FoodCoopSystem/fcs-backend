@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Util\Codes;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -56,6 +57,7 @@ class ProductController
     /**
      * @Route("/{id}", name="product_remove")
      * @Method({"DELETE"})
+     * @Secure(roles="ROLE_ADMIN")
      *
      * @param $id
      */
