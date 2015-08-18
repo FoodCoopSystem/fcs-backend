@@ -38,7 +38,7 @@ class Product
     /**
      * @var string
      *
-     * @ORM\Column(name="price", type="decimal")
+     * @ORM\Column(name="price", type="decimal", precision=10, scale=2)
      */
     private $price;
 
@@ -145,4 +145,22 @@ class Product
     {
         $this->deletedAt = new \DateTime();
     }
+
+    /**
+     * @return Producent
+     */
+    public function getProducent()
+    {
+        return $this->producent;
+    }
+
+    /**
+     * @param Producent $producent
+     */
+    public function setProducent($producent)
+    {
+        $this->producent = $producent;
+    }
+
+
 }

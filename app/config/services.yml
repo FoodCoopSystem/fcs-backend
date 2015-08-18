@@ -19,6 +19,14 @@ services:
         arguments:
             - @repository.product
             - @doctrine.orm.default_entity_manager
+            - @form.factory
+
+    controller.producent:
+        class: AppBundle\Controller\ProducentController
+        arguments:
+            - @repository.producent
+            - @doctrine.orm.default_entity_manager
+            - @form.factory
 
     controller.basket:
         class: AppBundle\Controller\BasketController
@@ -47,6 +55,13 @@ services:
         factory_method: getRepository
         arguments:
             - AppBundle\Entity\Product
+
+    repository.producent:
+            class: AppBundle\Entity\ProducentRepository
+            factory_service: doctrine.orm.default_entity_manager
+            factory_method: getRepository
+            arguments:
+                - AppBundle\Entity\Producent
 
     repository.basket:
         class: AppBundle\Entity\BasketRepository

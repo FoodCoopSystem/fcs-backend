@@ -1,6 +1,13 @@
 AppBundle\Entity\Producent:
     exclusion_policy: ALL
     properties:
+        id:
+            expose: true
+            type: integer
+            groups:
+                - producent_index
+                - product_view
+                - producent_view
         name:
             expose: true
             type: string
@@ -8,3 +15,5 @@ AppBundle\Entity\Producent:
                 - product_index
                 - basket_index
                 - order_list
+                - producent_index
+                - producent_view

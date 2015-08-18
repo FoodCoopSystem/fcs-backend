@@ -7,6 +7,8 @@ AppBundle\Entity\Product:
             groups:
                 - product_index
                 - basket_index
+                - product_create
+                - product_view
         name:
             expose: true
             type: string
@@ -14,6 +16,7 @@ AppBundle\Entity\Product:
                 - product_index
                 - basket_index
                 - order_list
+                - product_view
         price:
             expose: true
             type: float
@@ -21,12 +24,14 @@ AppBundle\Entity\Product:
                 - product_index
                 - basket_index
                 - order_list
+                - product_view
         description:
             expose: true
             type: string
             groups:
                 - product_index
                 - basket_index
+                - product_view
         producent:
             expose: true
             type: AppBundle\Entity\Producent
@@ -35,3 +40,4 @@ AppBundle\Entity\Product:
                 - product_index
                 - basket_index
                 - order_list
+                - product_view
