@@ -1,0 +1,13 @@
+AppBundle\Entity\Order:
+    exclusion_policy: ALL
+    properties:
+        executionAt:
+            expose: true
+            type: DateTime<'Y-m-d'>
+            groups:
+                - orders_index
+        active:
+            expose: true
+            type: boolean
+            groups:
+                - orders_index

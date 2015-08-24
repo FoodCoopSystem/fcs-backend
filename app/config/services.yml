@@ -44,10 +44,17 @@ services:
             - @=service('security.context').getToken().getUser()
 
     controller.order:
-            class: AppBundle\Controller\OrderController
-            arguments:
-                - @repository.order
-                - @repository.order_item
+        class: AppBundle\Controller\OrderController
+        arguments:
+            - @repository.order
+            - @repository.order_item
+
+    controller.orders:
+        class: AppBundle\Controller\OrdersController
+        arguments:
+            - @repository.order
+            - @doctrine.orm.entity_manager
+            - @form.factory
 
     repository.product:
         class: AppBundle\Entity\ProductRepository

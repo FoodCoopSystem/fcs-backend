@@ -83,5 +83,9 @@ class Producent
     public function inactivate()
     {
         $this->deletedAt = new \DateTime();
+        foreach ($this->products as $product) {
+            /** @var Product $product */
+            $product->inactivate();
+        }
     }
 }
