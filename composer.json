@@ -28,7 +28,10 @@
         "jms/security-extra-bundle": "dev-master"
     },
     "require-dev": {
-        "sensio/generator-bundle": "~2.3"
+        "sensio/generator-bundle": "~2.3",
+        "behat/behat": "~3.0.4",
+        "behat/symfony2-extension": "^2.0",
+        "codifico/web-api-extension": "dev-master"
     },
     "scripts": {
         "post-root-package-install": [
