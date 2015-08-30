@@ -184,15 +184,15 @@ class BasketController
             $orderItems = [];
             foreach ($items as $item) {
                 /** @var Basket $item */
-                $order = $this->orderItemRepository->findOneByCriteria(new Criteria(
+                $previousOrderItem = $this->orderItemRepository->findOneByCriteria(new Criteria(
                     [
                         'owner' => $item->getOwner(),
                         'product' => $item->getProduct()
                     ]
                 ));
-                if ($order) {
+                if ($previousOrderItem) {
                     /** @var OrderItem $orderItem */
-                    $orderItem = $order;
+                    $orderItem = $previousOrderItem;
                     $orderItem->increaseQuantityBy($item->getQuantity());
                 } else {
                     $orderItem = OrderItem::createFromBasket($item, $order);
