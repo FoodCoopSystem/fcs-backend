@@ -32,7 +32,8 @@
         "behat/behat": "~3.0.4",
         "behat/symfony2-extension": "^2.0",
         "codifico/web-api-extension": "dev-master",
-        "codifico/parameter-bag-extension": "dev-master"
+        "codifico/parameter-bag-extension": "dev-master",
+        "coduo/php-matcher": "^1.1"
     },
     "scripts": {
         "post-root-package-install": [

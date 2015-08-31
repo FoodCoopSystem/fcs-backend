@@ -4,6 +4,8 @@ namespace AppBundle\Behat\Context;
 use AppBundle\Entity\AccessToken;
 use AppBundle\Entity\User;
 use Behat\Behat\Context\Context;
+use Behat\Behat\Tester\Exception\PendingException;
+use Behat\Gherkin\Node\TableNode;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
 use Behat\Symfony2Extension\Context\KernelDictionary;
 use Codifico\ParameterBagExtension\Context\ParameterBagDictionary;
@@ -48,7 +50,12 @@ class FeatureContext implements Context, KernelAwareContext
             $user = new User($username, 'password');
         }
 
-        $roles = ['ROLE_USER', 'ROLE_API'];
+        $roles = $user->getRoles();
+        foreach (['ROLE_USER', 'ROLE_API'] as $role) {
+            if (!in_array($role, $roles)) {
+                $roles[] = $role;
+            }
+        }
         $user->setRoles($roles);
 
         $manager = $this->getDoctrine()->getManager();

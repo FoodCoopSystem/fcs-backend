@@ -14,5 +14,7 @@ default:
             contexts:
                 - AppBundle\Behat\Context\FeatureContext
                 - AppBundle\Behat\Context\WebApiContext
+                - AppBundle\Behat\Context\DatabaseContext
+                - AppBundle\Behat\Context\MatcherContext
 
 

@@ -17,6 +17,8 @@ class WebApiContext extends BaseWebApiContext
         $this->addHeader('Authorization', 'Bearer '.$token);
 
         parent::iSendARequest($method, $url);
+
+        $this->getParameterBag()->set('response', $this->response);
     }
 
     public function iSendARequestWithValues($method, $url, TableNode $post)
@@ -32,5 +34,24 @@ class WebApiContext extends BaseWebApiContext
     public function iSendARequestWithFormData($method, $url, PyStringNode $body)
     {
         parent::iSendARequestWithFormData($method, $url, $body);
+    }
+
+    /**
+     * Prints last response body.
+     *
+     * @Then print pretty response
+     */
+    public function printPrettyResponse()
+    {
+        $request = $this->request;
+        $response = $this->response;
+
+        echo sprintf(
+            "%s %s => %d:\n%s",
+            $request->getMethod(),
+            $request->getUrl(),
+            $response->getStatusCode(),
+            json_encode(json_decode($response->getBody()), JSON_PRETTY_PRINT)
+        );
     }
 }
