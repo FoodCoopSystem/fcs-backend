@@ -1,0 +1,17 @@
+default:
+    extensions:
+        Behat\Symfony2Extension: ~
+        Behat\WebApiExtension:
+            base_url: http://koperative.example.com/app_dev.php/
+
+    suites:
+        app_bundle:
+            type: symfony_bundle
+            bundle: AppBundle
+            paths:
+                - src/AppBundle/Features/
+            contexts:
+                - AppBundle\Behat\Context\FeatureContext
+                - Behat\WebApiExtension\Context\WebApiContext
+
+
