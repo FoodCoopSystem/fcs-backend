@@ -4,9 +4,11 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Order;
 use AppBundle\Entity\OrderRepository;
+use AppBundle\Form\OrderType;
 use AppBundle\Request\Criteria;
 use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Util\Codes;
+use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use JMS\SecurityExtraBundle\Annotation\Secure;
@@ -37,11 +39,17 @@ class OrdersController
      */
     private $formFactory;
 
-    public function __construct(OrderRepository $repository, EntityManager $entityManager, FormFactoryInterface $formFactory)
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    public function __construct(OrderRepository $repository, EntityManager $entityManager, FormFactoryInterface $formFactory, LoggerInterface $logger)
     {
         $this->repository = $repository;
         $this->entityManager = $entityManager;
         $this->formFactory = $formFactory;
+        $this->logger = $logger;
     }
 
     /**
@@ -139,6 +147,22 @@ class OrdersController
             throw new NotFoundHttpException(sprintf('Order %s does not exists', $id));
         }
 
+        if ($order->isActive()) {
+            throw new \LogicException('Order is active');
+        }
+
+        if ($order->hasItems()) {
+            throw new \LogicException('Order has items');
+        }
+
+        $message = 'Deleting order: '.$order->getExecutionAt()->format('Y-m-d').'.';
+        foreach ($order->getItems() as $item) {
+            $message .= ' Item: User.id='.$item->getOwner()->getId()
+                .' Product.id='.$item->getProduct()->getId().' quantity='.$item->getQuantity().'.';
+        }
+
+        $this->logger->info($message);
+
         $this->entityManager->remove($order);
         $this->entityManager->flush();
     }
@@ -162,5 +186,26 @@ class OrdersController
         }
 
         return $this->renderRestView($order, Codes::HTTP_OK, [], ['orders_view']);
+    }
+
+    /**
+     * @Route("/{id}/activate", name="orders_activate")
+     * @Method({"POST"})
+     * @Secure(roles="ROLE_ADMIN")
+     *
+     * @param $id
+     */
+    public function activateAction($id)
+    {
+        /** @var Order $order */
+        $order = $this->repository->find($id);
+
+        if (!$order) {
+            throw new NotFoundHttpException(sprintf('Order %s does not exists', $id));
+        }
+
+        $this->repository->activate($order);
+
+        return $this->renderRestView(null, Codes::HTTP_NO_CONTENT);
     }
 }

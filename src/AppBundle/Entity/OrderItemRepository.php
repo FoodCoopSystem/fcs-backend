@@ -11,6 +11,7 @@ class OrderItemRepository extends EntityRepository
     public function findByCriteria(Criteria $criteria)
     {
         $builder = $this->createQueryBuilder('t');
+        $this->applyFilters($builder, $criteria);
 
         $orderBy = $criteria->getOrderBy();
         if (null !== $orderBy) {
@@ -31,6 +32,7 @@ class OrderItemRepository extends EntityRepository
     public function countByCriteria(Criteria $criteria)
     {
         $builder = $this->createQueryBuilder('t');
+        $this->applyFilters($builder, $criteria);
         $builder->select('count(t.id)');
 
         $query = $builder->getQuery();

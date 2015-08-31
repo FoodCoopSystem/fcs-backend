@@ -55,6 +55,7 @@ services:
             - @repository.order
             - @doctrine.orm.entity_manager
             - @form.factory
+            - @logger
 
     repository.product:
         class: AppBundle\Entity\ProductRepository
@@ -64,11 +65,11 @@ services:
             - AppBundle\Entity\Product
 
     repository.producent:
-            class: AppBundle\Entity\ProducentRepository
-            factory_service: doctrine.orm.default_entity_manager
-            factory_method: getRepository
-            arguments:
-                - AppBundle\Entity\Producent
+        class: AppBundle\Entity\ProducentRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments:
+            - AppBundle\Entity\Producent
 
     repository.basket:
         class: AppBundle\Entity\BasketRepository

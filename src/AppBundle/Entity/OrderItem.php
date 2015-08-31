@@ -62,7 +62,7 @@ class OrderItem
     }
 
     /**
-     * @return mixed
+     * @return User
      */
     public function getOwner()
     {
@@ -72,6 +72,22 @@ class OrderItem
     public function increaseQuantityBy($quantity)
     {
         $this->quantity += (int)$quantity;
+    }
+
+    /**
+     * @return int
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @return Product
+     */
+    public function getProduct()
+    {
+        return $this->product;
     }
 }
 

@@ -70,4 +70,27 @@ class OrderRepository extends EntityRepository
             return $results[0];
         }
     }
+
+    public function activate($order)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $dql = 'UPDATE AppBundle:Order o SET o.active = 0';
+        $deactivate = $entityManager->createQuery($dql);
+
+        $dql = 'UPDATE AppBundle:Order o SET o.active = 1 WHERE o.id = :order';
+        $activate = $entityManager->createQuery($dql);
+        $activate->setParameter('order', $order);
+
+        $entityManager->getConnection()->beginTransaction();
+
+        try {
+            $deactivate->execute();
+            $activate->execute();
+            $entityManager->getConnection()->commit();
+        } catch (\Exception $e) {
+            $entityManager->getConnection()->rollBack();
+            throw $e;
+        }
+    }
 }

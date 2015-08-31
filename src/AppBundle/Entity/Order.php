@@ -25,7 +25,7 @@ class Order
      * @var bool
      * @ORM\Column(name="active", type="boolean")
      */
-    private $active;
+    private $active = false;
 
     /**
      * @var \DateTimeImmutable
@@ -34,10 +34,16 @@ class Order
     private $executionAt;
 
     /**
-     * @var Order[]|ArrayCollection
-     * @ORM\OneToMany(targetEntity="Order", mappedBy="order")
+     * @var OrderItem[]|ArrayCollection
+     * @ORM\OneToMany(targetEntity="OrderItem", mappedBy="order")
      */
     private $items;
+
+    public function __construct(\DateTime $executionAt)
+    {
+        $this->items = new ArrayCollection();
+        $this->setExecutionAt($executionAt);
+    }
 
     /**
      * @return int
@@ -64,22 +70,31 @@ class Order
     }
 
     /**
-     * @return \DateTimeImmutable
+     * @return \DateTime
      */
     public function getExecutionAt()
     {
-        if ($this->executionAt instanceof \DateTime) {
-            $this->executionAt = \DateTimeImmutable::createFromMutable($this->executionAt);
-        }
         return $this->executionAt;
     }
 
     /**
-     * @param \DateTimeImmutable $executionAt
+     * @param \DateTime $executionAt
      */
-    public function setExecutionAt(\DateTimeImmutable $executionAt)
+    public function setExecutionAt(\DateTime $executionAt)
     {
         $this->executionAt = $executionAt;
     }
 
+    /**
+     * @return OrderItem[]|ArrayCollection
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    public function hasItems()
+    {
+        return $this->items->count() > 0;
+    }
 }
