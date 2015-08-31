@@ -3,6 +3,7 @@ default:
         Behat\Symfony2Extension: ~
         Behat\WebApiExtension:
             base_url: http://koperative.example.com/app_dev.php/
+        Codifico\ParameterBagExtension\ServiceContainer\ParameterBagExtension: ~
 
     suites:
         app_bundle:
@@ -12,6 +13,6 @@ default:
                 - src/AppBundle/Features/
             contexts:
                 - AppBundle\Behat\Context\FeatureContext
-                - Behat\WebApiExtension\Context\WebApiContext
+                - AppBundle\Behat\Context\WebApiContext
 
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0835e3b8dbee6582d244f04b1b5f5cf3",
+    "hash": "f6dd6aeb713331f396ca7bfdaa00aae6",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -3164,6 +3164,56 @@
             "time": "2014-05-15 22:08:22"
         },
         {
+            "name": "codifico/parameter-bag-extension",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Codifico/ParameterBagExtension.git",
+                "reference": "8815495a7a873ec1ddcaef5eae19037df3263bd2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Codifico/ParameterBagExtension/zipball/8815495a7a873ec1ddcaef5eae19037df3263bd2",
+                "reference": "8815495a7a873ec1ddcaef5eae19037df3263bd2",
+                "shasum": ""
+            },
+            "require": {
+                "behat/behat": "~3.0,>=3.0.4",
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "~2.0",
+                "phpunit/phpunit": "~4.0.7",
+                "symfony/process": "~2.1"
+            },
+            "type": "behat-extension",
+            "autoload": {
+                "psr-4": {
+                    "Codifico\\ParameterBagExtension\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcin Dryka",
+                    "email": "marcin@codifico.pl"
+                }
+            ],
+            "description": "Parameter bag extension for Behat",
+            "homepage": "http://codifico.pl",
+            "keywords": [
+                "BDD",
+                "Behat",
+                "bag",
+                "codifico",
+                "parameter"
+            ],
+            "time": "2014-10-01 07:24:18"
+        },
+        {
             "name": "codifico/web-api-extension",
             "version": "dev-master",
             "source": {
@@ -4700,7 +4750,8 @@
         "friendsofsymfony/oauth-server-bundle": 20,
         "doctrine/migrations": 20,
         "jms/security-extra-bundle": 20,
-        "codifico/web-api-extension": 20
+        "codifico/web-api-extension": 20,
+        "codifico/parameter-bag-extension": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
