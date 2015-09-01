@@ -16,7 +16,7 @@ class DatabaseContext implements Context, KernelAwareContext
     use ParameterBagDictionary;
 
     /**
-     * @AfterScenario @database
+     * @BeforeScenario @database
      */
     public function cleanDatabase()
     {
