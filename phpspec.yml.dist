@@ -1,0 +1,9 @@
+suites:
+    app_bundle:
+        spec_path: src/AppBundle/
+
+extensions:
+    - Cjm\PhpSpec\Extension\TypeHintedMethodsExtension
+    - Codifico\PhpSpec\RestViewExtension\Extension
+
+formatter.name: pretty

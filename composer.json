@@ -6,6 +6,12 @@
     "autoload": {
         "psr-4": { "": "src/", "SymfonyStandard\\": "app/" }
     },
+    "repositories": {
+        "codifico-phpspec-rest-view-extension": {
+            "type": "vcs",
+            "url": "git@bitbucket.org:codifico/phpspec-rest-view-extension.git"
+        }
+    },
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "~2.7@beta",
@@ -29,11 +35,14 @@
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
+        "phpspec/phpspec": "~2.0",
         "behat/behat": "~3.0.4",
         "behat/symfony2-extension": "^2.0",
         "codifico/web-api-extension": "dev-master",
         "codifico/parameter-bag-extension": "dev-master",
-        "coduo/php-matcher": "^1.1"
+        "codifico/phpspec-rest-view-extension": "dev-master",
+        "coduo/php-matcher": "^1.1",
+        "ciaranmcnulty/phpspec-typehintedmethods": "~1.1"
     },
     "scripts": {
         "post-root-package-install": [
