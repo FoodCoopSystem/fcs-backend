@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e5396ae950e5a46732ad05c2cca5b46c",
+    "hash": "60238060b10d4a356b262513ab88030e",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -3262,7 +3262,7 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "git@bitbucket.org:codifico/phpspec-rest-view-extension.git",
+                "url": "https://github.com/Codifico/phpspec-rest-view-extension.git",
                 "reference": "9d484383dcbe80d126c1c9ad9dcf88288e803225"
             },
             "require": {
