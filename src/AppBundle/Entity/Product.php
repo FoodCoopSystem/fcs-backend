@@ -56,7 +56,7 @@ class Product
      */
     private $deletedAt;
 
-    public function __construct($name, $price, Producent $producent)
+    public function __construct($name, $price, Producent $producent = null)
     {
         $this->name = $name;
         $this->price = $price;

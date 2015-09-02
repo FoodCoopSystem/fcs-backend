@@ -1,0 +1,11 @@
+AppBundle\Entity\Product:
+    properties:
+        name:
+            - NotBlank: ~
+        producent:
+            - NotBlank: ~
+        price:
+            - Type:
+                type: "float"
+                message: "The value {{ value }} is not a valid {{ type }}."
+            - NotBlank: ~

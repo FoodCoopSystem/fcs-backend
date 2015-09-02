@@ -2,6 +2,7 @@
 
 namespace AppBundle\Behat\Context;
 
+use AppBundle\Entity\Producent;
 use AppBundle\Entity\User;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
@@ -28,7 +29,7 @@ class DatabaseContext implements Context, KernelAwareContext
     /**
      * @Given /^User "([^"]*)" exists with:$/
      */
-    public function existsWith($username, TableNode $table)
+    public function userExistsWith($username, TableNode $table)
     {
 
         $entity = new User($username, 'password');
@@ -68,5 +69,17 @@ class DatabaseContext implements Context, KernelAwareContext
     private function getEntityManager()
     {
         return $this->getDoctrine()->getManager();
+    }
+
+    /**
+     * @Given /^prducent "([^"]*)" exists$/
+     */
+    public function prducentExists($name)
+    {
+        $producent = new Producent($name);
+        $this->getEntityManager()->persist($producent);
+        $this->getEntityManager()->flush();
+
+        $this->getParameterBag()->set('producent', $producent);
     }
 }

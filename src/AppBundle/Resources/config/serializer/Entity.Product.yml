@@ -16,6 +16,7 @@ AppBundle\Entity\Product:
                 - product_index
                 - basket_index
                 - order_list
+                - product_create
                 - product_view
         price:
             expose: true
@@ -24,6 +25,7 @@ AppBundle\Entity\Product:
                 - product_index
                 - basket_index
                 - order_list
+                - product_create
                 - product_view
         description:
             expose: true
@@ -31,6 +33,7 @@ AppBundle\Entity\Product:
             groups:
                 - product_index
                 - basket_index
+                - product_create
                 - product_view
         producent:
             expose: true
@@ -41,3 +44,4 @@ AppBundle\Entity\Product:
                 - basket_index
                 - order_list
                 - product_view
+                - product_create
