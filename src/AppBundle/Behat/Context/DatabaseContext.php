@@ -5,6 +5,7 @@ namespace AppBundle\Behat\Context;
 use AppBundle\Entity\Producent;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\User;
+use AppBundle\Request\Criteria;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
@@ -104,5 +105,18 @@ class DatabaseContext implements Context, KernelAwareContext
 
         $this->getParameterBag()->set('product', $product);
 
+    }
+
+    /**
+     * @Then /^product should not exists$/
+     */
+    public function productShouldNotExists()
+    {
+        $product = $this->getParameterBag()->get('product');
+        $repository = $this->getEntityManager()->getRepository('AppBundle:Product');
+        $product = $repository->findByCriteria(new Criteria(['id' => $product->getId()]));
+        if ($product) {
+            throw new \Exception('Product exists');
+        }
     }
 }
