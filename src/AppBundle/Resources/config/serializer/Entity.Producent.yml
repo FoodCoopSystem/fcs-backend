@@ -8,6 +8,7 @@ AppBundle\Entity\Producent:
                 - producent_index
                 - product_view
                 - producent_view
+                - product_create
         name:
             expose: true
             type: string
@@ -17,3 +18,5 @@ AppBundle\Entity\Producent:
                 - order_list
                 - producent_index
                 - producent_view
+                - product_create
+                - product_view

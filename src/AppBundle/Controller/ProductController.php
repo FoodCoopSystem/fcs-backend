@@ -8,7 +8,7 @@ use AppBundle\Entity\ProductRepository;
 use AppBundle\Form\ProductType;
 use AppBundle\Request\Criteria;
 use Doctrine\DBAL\DBALException;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Util\Codes;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -31,12 +31,16 @@ class ProductController
     private $repository;
 
     /**
-     * @var EntityManager
+     * @var EntityManagerInterface
      */
     private $entityManager;
+
+    /**
+     * @var F
+     */
     private $formFactory;
 
-    public function __construct(ProductRepository $repository, EntityManager $entityManager, FormFactoryInterface $formFactory)
+    public function __construct(ProductRepository $repository, EntityManagerInterface $entityManager, FormFactoryInterface $formFactory)
     {
         $this->repository = $repository;
         $this->entityManager = $entityManager;
@@ -100,16 +104,19 @@ class ProductController
      */
     private function handleForm(Request $request, $product = null)
     {
-        $form = $this->formFactory->createNamed('', new ProductType(), $product);
+        $code = $product ? Codes::HTTP_OK : Codes::HTTP_CREATED;
+        $serializationGroup = $product ? 'product_update' : 'product_create';
+
+        $form = $this->formFactory->createNamed('', new ProductType($this->entityManager), $product);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $product = $form->getData();
 
             $this->entityManager->persist($product);
-            $this->entityManager->flush($product);
+            $this->entityManager->flush();
 
-            return $this->renderRestView($product, Codes::HTTP_CREATED, [], ['product_create']);
+            return $this->renderRestView($product, $code, [], [$serializationGroup]);
         }
 
         return $form;

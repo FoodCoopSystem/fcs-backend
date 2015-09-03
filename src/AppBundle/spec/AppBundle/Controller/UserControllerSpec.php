@@ -25,7 +25,7 @@ class UserControllerSpec extends ObjectBehavior
         $this->shouldHaveType('AppBundle\Controller\UserController');
     }
 
-    function it_generate_profile(UserInterface $user)
+    function it_generate_user_profile(UserInterface $user)
     {
         $this->getProfileAction()->shouldBeRestViewWith([
             'data' => $user,

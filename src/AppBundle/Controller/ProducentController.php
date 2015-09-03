@@ -7,7 +7,7 @@ use AppBundle\Entity\ProducentRepository;
 use AppBundle\Form\ProductentType;
 use AppBundle\Request\Criteria;
 use Doctrine\DBAL\DBALException;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Util\Codes;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -35,7 +35,7 @@ class ProducentController
     private $entityManager;
     private $formFactory;
 
-    public function __construct(ProducentRepository $repository, EntityManager $entityManager, FormFactoryInterface $formFactory)
+    public function __construct(ProducentRepository $repository, EntityManagerInterface $entityManager, FormFactoryInterface $formFactory)
     {
         $this->repository = $repository;
         $this->entityManager = $entityManager;

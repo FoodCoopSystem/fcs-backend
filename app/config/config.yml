@@ -17,7 +17,7 @@ framework:
         strict_requirements: ~
     form:            ~
     csrf_protection: ~
-    validation:      { enable_annotations: true }
+    validation:      { enabled: true, enable_annotations: false }
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
@@ -137,3 +137,8 @@ doctrine_migrations:
     namespace: Application\Migrations
     table_name: migration_versions
     name: Application Migrations
+
+#jms_serializer:
+#    property_naming:
+#        separator: ''
+#        lower_case: true
