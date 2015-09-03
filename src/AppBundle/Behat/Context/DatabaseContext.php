@@ -3,6 +3,7 @@
 namespace AppBundle\Behat\Context;
 
 use AppBundle\Entity\Producent;
+use AppBundle\Entity\Product;
 use AppBundle\Entity\User;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
@@ -72,14 +73,36 @@ class DatabaseContext implements Context, KernelAwareContext
     }
 
     /**
-     * @Given /^prducent "([^"]*)" exists$/
+     * @Given /^producent "([^"]*)" exists$/
      */
-    public function prducentExists($name)
+    public function producentExists($name)
     {
         $producent = new Producent($name);
         $this->getEntityManager()->persist($producent);
         $this->getEntityManager()->flush();
 
         $this->getParameterBag()->set('producent', $producent);
+
+        return $producent;
+    }
+
+    /**
+     * @Given /^producent "([^"]*)" exists with product:$/
+     */
+    public function producentExistsWithProduct($name, TableNode $table)
+    {
+        $data = $table->getRowsHash();
+        $producent = $this->producentExists($name);
+
+        $product = new Product($data['Name'], $data['Price'], $producent);
+        if (isset($data['Description'])) {
+            $product->setDescription($data['Description']);
+        }
+
+        $this->getEntityManager()->persist($product);
+        $this->getEntityManager()->flush();
+
+        $this->getParameterBag()->set('product', $product);
+
     }
 }

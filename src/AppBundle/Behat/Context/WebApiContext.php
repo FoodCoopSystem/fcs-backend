@@ -23,10 +23,12 @@ class WebApiContext extends BaseWebApiContext
         $token = $this->getParameterBag()->get('token');
         $this->addHeader('Authorization', 'Bearer '.$token);
 
+        $url = $this->parameterize($url);
         parent::iSendARequest($method, $url);
 
         $this->getParameterBag()->set('response', $this->response);
     }
+
 
     public function iSendARequestWithValues($method, $url, TableNode $post)
     {
@@ -89,5 +91,28 @@ class WebApiContext extends BaseWebApiContext
     public function theResponseShouldBeEmpty()
     {
         Assertions::assertSame('', (string)$this->response->getBody());
+    }
+
+    private function parameterize($string)
+    {
+        $name = md5($string);
+        $this->loader->setTemplate($name, $string);
+        $content = $this->twig->render($name, $this->getParameterBag()->getAll());
+
+        return $content;
+    }
+
+    /**
+     * @Given /^debug request$/
+     */
+    public function debugRequest()
+    {
+        $this->request;
+        echo "Headers:\n";
+        foreach ($this->request->getHeaders() as $name => $values) {
+            echo $name . ": " . implode(", ", $values) . "\n";
+        }
+
+        echo "Url: " . $this->request->getUrl() . "\n";
     }
 }

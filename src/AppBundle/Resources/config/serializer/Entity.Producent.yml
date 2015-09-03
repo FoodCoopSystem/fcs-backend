@@ -19,3 +19,4 @@ AppBundle\Entity\Producent:
                 - producent_index
                 - producent_view
                 - product_create
+                - product_view
