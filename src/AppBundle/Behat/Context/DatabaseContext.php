@@ -119,4 +119,17 @@ class DatabaseContext implements Context, KernelAwareContext
             throw new \Exception('Product exists');
         }
     }
+
+    /**
+     * @Given /^producent should not exists$/
+     */
+    public function producentShouldNotExists()
+    {
+        $producent = $this->getParameterBag()->get('producent');
+        $repository = $this->getEntityManager()->getRepository('AppBundle:Producent');
+        $producent = $repository->findByCriteria(new Criteria(['id' => $producent->getId()]));
+        if ($producent) {
+            throw new \Exception('Product exists');
+        }
+    }
 }
