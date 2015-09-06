@@ -116,6 +116,9 @@ class OrdersController
      */
     private function handleForm(Request $request, $order = null)
     {
+        $code = $order ? Codes::HTTP_OK : Codes::HTTP_CREATED;
+        $serializationGroup = $order ? 'orders_update' : 'orders_create';
+
         $form = $this->formFactory->createNamed('', new OrderType(), $order);
         $form->handleRequest($request);
 
@@ -125,7 +128,7 @@ class OrdersController
             $this->entityManager->persist($order);
             $this->entityManager->flush($order);
 
-            return $this->renderRestView($order, Codes::HTTP_CREATED, [], ['orders_create']);
+            return $this->renderRestView($order, $code, [], [$serializationGroup]);
         }
 
         return $form;

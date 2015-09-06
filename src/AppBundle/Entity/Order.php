@@ -39,7 +39,7 @@ class Order
      */
     private $items;
 
-    public function __construct(\DateTime $executionAt)
+    public function __construct(\DateTime $executionAt = null)
     {
         $this->items = new ArrayCollection();
         $this->setExecutionAt($executionAt);
@@ -80,7 +80,7 @@ class Order
     /**
      * @param \DateTime $executionAt
      */
-    public function setExecutionAt(\DateTime $executionAt)
+    public function setExecutionAt(\DateTime $executionAt = null)
     {
         $this->executionAt = $executionAt;
     }

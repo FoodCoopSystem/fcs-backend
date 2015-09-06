@@ -7,12 +7,14 @@ AppBundle\Entity\Order:
             groups:
                 - orders_index
                 - orders_view
+                - orders_create
         executionAt:
             expose: true
             type: DateTime<'Y-m-d'>
             groups:
                 - orders_index
                 - orders_view
+                - orders_create
         active:
             expose: true
             type: boolean

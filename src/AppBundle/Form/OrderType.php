@@ -14,6 +14,7 @@ class OrderType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('id', 'text', ['mapped' => false])
             ->add('executionAt', 'date', [
                 'widget' => 'single_text',
             ])
