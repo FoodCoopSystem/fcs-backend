@@ -14,7 +14,6 @@ Feature: User profile
     And I am authenticated as "admin"
     When I send a GET request to "/profile"
     Then the response code should be 200
-    And print pretty response
     And the JSON should match pattern:
     """
     {

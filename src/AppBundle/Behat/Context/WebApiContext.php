@@ -51,6 +51,7 @@ class WebApiContext extends BaseWebApiContext
         $body = $this->twig->render($name, $this->getParameterBag()->getAll());
         $string = new PyStringNode(explode("\n", $body), $string->getLine());
 
+        $url = $this->parameterize($url);
         parent::iSendARequestWithBody($method, $url, $string);
 
         $this->getParameterBag()->set('response', $this->response);

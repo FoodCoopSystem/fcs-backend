@@ -9,6 +9,7 @@ AppBundle\Entity\Product:
                 - basket_index
                 - product_create
                 - product_view
+                - product_update
         name:
             expose: true
             type: string
@@ -18,6 +19,7 @@ AppBundle\Entity\Product:
                 - order_list
                 - product_create
                 - product_view
+                - product_update
         price:
             expose: true
             type: float
@@ -27,6 +29,7 @@ AppBundle\Entity\Product:
                 - order_list
                 - product_create
                 - product_view
+                - product_update
         description:
             expose: true
             type: string
@@ -35,6 +38,7 @@ AppBundle\Entity\Product:
                 - basket_index
                 - product_create
                 - product_view
+                - product_update
         producent:
             expose: true
             type: AppBundle\Entity\Producent
@@ -45,3 +49,4 @@ AppBundle\Entity\Product:
                 - order_list
                 - product_view
                 - product_create
+                - product_update
