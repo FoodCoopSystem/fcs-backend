@@ -10,6 +10,9 @@ AppBundle\Entity\Producent:
                 - producent_view
                 - product_create
                 - product_update
+                - producent_create
+                - producent_update
+
         name:
             expose: true
             type: string
@@ -22,3 +25,5 @@ AppBundle\Entity\Producent:
                 - product_create
                 - product_view
                 - product_update
+                - producent_create
+                - producent_update

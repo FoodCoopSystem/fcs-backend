@@ -9,3 +9,8 @@ AppBundle\Entity\Product:
                 type: "float"
                 message: "The value {{ value }} is not a valid {{ type }}."
             - NotBlank: ~
+
+AppBundle\Entity\Producent:
+    properties:
+        name:
+            - NotBlank: ~
