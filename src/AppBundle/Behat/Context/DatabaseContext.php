@@ -2,6 +2,7 @@
 
 namespace AppBundle\Behat\Context;
 
+use AppBundle\Entity\Order;
 use AppBundle\Entity\Producent;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\User;
@@ -130,6 +131,48 @@ class DatabaseContext implements Context, KernelAwareContext
         $producent = $repository->findByCriteria(new Criteria(['id' => $producent->getId()]));
         if ($producent) {
             throw new \Exception('Product exists');
+        }
+    }
+
+    /**
+     * @Given /^order on "([^"]*)" exists$/
+     */
+    public function orderOnExists($date)
+    {
+        $order = new Order(new \DateTime($date));
+        $this->getEntityManager()->persist($order);
+        $this->getEntityManager()->flush();
+
+        $this->getParameterBag()->set('order', $order);
+
+        return $order;
+    }
+
+    /**
+     * @Given /^order should not exists$/
+     */
+    public function orderShouldNotExists()
+    {
+        $order = $this->getParameterBag()->get('order');
+        $repository = $this->getEntityManager()->getRepository('AppBundle:Order');
+        $order = $repository->findByCriteria(new Criteria(['id' => $order->getId()]));
+
+        if ($order) {
+            throw new \Exception('Order exists');
+        }
+    }
+
+    /**
+     * @Given /^order should be active$/
+     */
+    public function orderShouldBeActive()
+    {
+        $order = $this->getParameterBag()->get('order');
+        $this->getEntityManager()->refresh($order);
+
+        /** @var Order $order */
+        if (!$order->isActive()) {
+            throw new \Exception('Order is not active');
         }
     }
 }

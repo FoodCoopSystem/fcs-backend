@@ -58,75 +58,52 @@ Feature: Orders
     }
     """
 
-  @wip
   Scenario: Successfully shows the order
     Given User "admin" exists with:
       | Property  | Value           |
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
-    And producent "Coffee supplier" exists with product:
-      | Property    | Value            |
-      | Name        | Coffee           |
-      | Description | Delicious coffee |
-      | Price       | 1.23             |
+    And order on "2015-09-01" exists
     When I set header "Content-Type" with value "application/json"
-    And I send a GET request to "/product/{{ product.id }}"
+    And I send a GET request to "/orders/{{ order.id }}"
     Then the response code should be 200
     And the JSON should match pattern:
     """
     {
       "id": @integer@,
-      "name": "Coffee",
-      "description": "Delicious coffee",
-      "price": 1.23,
-      "producent": {
-        "id": @integer@,
-        "name": "Coffee supplier"
-      }
+      "execution_at": "2015-09-01"
     }
     """
 
-  @wip
   Scenario: Not found exception on view
     Given User "admin" exists with:
       | Property  | Value           |
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
     When I set header "Content-Type" with value "application/json"
-    And I send a GET request to "/product/ABC"
+    And I send a GET request to "/orders/ABC"
     Then the response code should be 404
     And the JSON should match pattern:
     """
     {
       "code": 404,
-      "message": "Product ABC does not exists",
+      "message": "Order ABC does not exists",
       "errors": @null@
     }
     """
 
-  @wip
-  Scenario: Update product
+  Scenario: Update order
     Given User "admin" exists with:
       | Property  | Value           |
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
-    And producent "Coffee supplier" exists with product:
-      | Property    | Value            |
-      | Name        | Coffee           |
-      | Description | Delicious coffee |
-      | Price       | 1.23             |
+    And order on "2015-09-01" exists
     When I set header "Content-Type" with value "application/json"
-    And I send a POST request to "/product/{{ product.id }}" with body:
+    And I send a POST request to "/orders/{{ order.id }}" with body:
     """
     {
       "id": "any",
-      "name": "Better coffee",
-      "description": "A really good one!",
-      "price": 2.34,
-      "producent": {
-        "id": {{ producent.id }},
-        "name": "Coffee supplier"
-      }
+      "executionAt": "2015-10-01"
     }
     """
     Then the response code should be 200
@@ -134,54 +111,39 @@ Feature: Orders
     """
     {
       "id": @integer@,
-      "name": "Better coffee",
-      "description": "A really good one!",
-      "price": 2.34,
-      "producent": {
-        "id": @integer@,
-        "name": "Coffee supplier"
-      }
+      "execution_at": "2015-10-01"
     }
     """
 
-  @wip
   Scenario: Not found exception on update
     Given User "admin" exists with:
       | Property  | Value           |
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
     When I set header "Content-Type" with value "application/json"
-    And I send a POST request to "/product/ABC"
+    And I send a POST request to "/orders/ABC"
     Then the response code should be 404
     And the JSON should match pattern:
     """
     {
       "code": 404,
-      "message": "Product ABC does not exists",
+      "message": "Order ABC does not exists",
       "errors": @null@
     }
     """
 
-  @wip
-  Scenario: Ineffective product update
+  Scenario: Ineffective order update
     Given User "admin" exists with:
       | Property  | Value           |
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
-    And producent "Coffee supplier" exists with product:
-      | Property    | Value            |
-      | Name        | Coffee           |
-      | Description | Delicious coffee |
-      | Price       | 1.23             |
+    And order on "2015-09-01" exists
     When I set header "Content-Type" with value "application/json"
-    And I send a POST request to "/product/{{ product.id }}" with body:
+    And I send a POST request to "/orders/{{ order.id }}" with body:
     """
     {
       "id": null,
-      "name": null,
-      "description": null,
-      "price": null,
-      "producent": null
+      "executionAt": null
     }
     """
     Then the response code should be 400
@@ -193,18 +155,7 @@ Feature: Orders
       "errors": {
         "children": {
           "id": [],
-          "name": {
-            "errors": [
-              "This value should not be blank."
-            ]
-          },
-          "description": [],
-          "price": {
-            "errors": [
-              "This value should not be blank."
-            ]
-          },
-          "producent": {
+          "executionAt": {
             "errors": [
               "This value should not be blank."
             ]
@@ -214,53 +165,42 @@ Feature: Orders
     }
     """
 
-  @wip
-  Scenario: successfully delete product
+  Scenario: successfully delete order
     Given User "admin" exists with:
       | Property  | Value           |
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
-    And producent "Coffee supplier" exists with product:
-      | Property    | Value             |
-      | Name        | Coffee            |
-      | Description | Delicious coffees |
-      | Price       | 1.23              |
+    And order on "2015-09-01" exists
     When I set header "Content-Type" with value "application/json"
-    And I send a DELETE request to "/product/{{ product.id }}"
+    And I send a DELETE request to "/orders/{{ order.id }}"
     Then the response code should be 204
-    And product should not exists
+    And order should not exists
 
-  @wip
   Scenario: Not found exception on delete
     Given User "admin" exists with:
       | Property  | Value           |
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
     When I set header "Content-Type" with value "application/json"
-    And I send a DELETE request to "/product/ABC"
+    And I send a DELETE request to "/orders/ABC"
     Then the response code should be 404
     And the JSON should match pattern:
     """
     {
       "code": 404,
-      "message": "Product ABC does not exists",
+      "message": "Order ABC does not exists",
       "errors": @null@
     }
     """
 
-  @wip
-  Scenario: list products
+  Scenario: list orders
     Given User "admin" exists with:
       | Property  | Value           |
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
-    And producent "Coffee supplier" exists with product:
-      | Property    | Value             |
-      | Name        | Coffee            |
-      | Description | Delicious coffees |
-      | Price       | 1.23              |
+    And order on "2015-09-01" exists
     When I set header "Content-Type" with value "application/json"
-    And I send a GET request to "/product"
+    And I send a GET request to "/orders"
     Then the response code should be 200
     And the JSON should match pattern:
     """
@@ -269,13 +209,39 @@ Feature: Orders
       "result": [
         {
           "id": @integer@,
-          "name": "Coffee",
-          "description": "Delicious coffees",
-          "price": 1.23,
-          "producent": {
-              "name": "Coffee supplier"
-          }
+          "execution_at": "2015-09-01",
+          "active": "@boolean@"
         }
       ]
+    }
+    """
+
+  Scenario: successfully delete order
+    Given User "admin" exists with:
+      | Property  | Value           |
+      | Roles     | ROLE_ADMIN      |
+    And I am authenticated as "admin"
+    And order on "2015-09-01" exists
+    When I set header "Content-Type" with value "application/json"
+    And I send a POST request to "/orders/{{ order.id }}/activate"
+    Then the response code should be 204
+    And order should be active
+
+
+  Scenario: not found order on activate
+    Given User "admin" exists with:
+      | Property  | Value           |
+      | Roles     | ROLE_ADMIN      |
+    And I am authenticated as "admin"
+    And order on "2015-09-01" exists
+    When I set header "Content-Type" with value "application/json"
+    And I send a POST request to "/orders/ABC/activate"
+    Then the response code should be 404
+    And the JSON should match pattern:
+    """
+    {
+      "code": 404,
+      "message": "Order ABC does not exists",
+      "errors": @null@
     }
     """
