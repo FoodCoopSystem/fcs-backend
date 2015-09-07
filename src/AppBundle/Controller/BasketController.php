@@ -126,12 +126,14 @@ class BasketController
         ]);
 
         if ($basket) {
-            $basket->incrementQuantity();
+            for ($i = 0; $i < (int)$request->get('quantity'); $i++) {
+                $basket->incrementQuantity();
+            }
 
             $this->entityManager->persist($basket);
             $this->entityManager->flush($basket);
 
-            return $basket;
+            return $this->renderRestView($basket, Codes::HTTP_OK, [], ['basket_create']);
         } else {
             $basket = new Basket();
 
@@ -218,7 +220,7 @@ class BasketController
      */
     private function handleForm(Request $request, Basket $basket)
     {
-        $form = $this->formFactory->createNamed('', new BasketType(), $basket);
+        $form = $this->formFactory->createNamed('', new BasketType($this->entityManager), $basket);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -226,7 +228,7 @@ class BasketController
             $this->entityManager->persist($basket);
             $this->entityManager->flush($basket);
 
-            return $basket;
+            return $this->renderRestView($basket, Codes::HTTP_CREATED, [], ['basket_create']);
         }
 
         return $form;
