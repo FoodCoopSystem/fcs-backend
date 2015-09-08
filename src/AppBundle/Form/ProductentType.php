@@ -13,6 +13,7 @@ class ProductentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('id', 'text', ['mapped' => false])
             ->add('name')
         ;
     }

@@ -105,6 +105,9 @@ class ProducentController
      */
     private function handleForm(Request $request, $producent = null)
     {
+        $code = $producent ? Codes::HTTP_OK : Codes::HTTP_CREATED;
+        $serializationGroup = $producent ? 'producent_update' : 'producent_create';
+
         $form = $this->formFactory->createNamed('', new ProductentType(), $producent);
         $form->handleRequest($request);
 
@@ -114,7 +117,7 @@ class ProducentController
             $this->entityManager->persist($producent);
             $this->entityManager->flush($producent);
 
-            return $this->renderRestView($producent, Codes::HTTP_CREATED, [], ['producent_create']);
+            return $this->renderRestView($producent, $code, [], [$serializationGroup]);
         }
 
         return $form;

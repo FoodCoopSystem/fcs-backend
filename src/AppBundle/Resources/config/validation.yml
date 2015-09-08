@@ -14,3 +14,8 @@ AppBundle\Entity\Order:
     properties:
         executionAt:
             - NotBlank: ~
+
+AppBundle\Entity\Producent:
+    properties:
+        name:
+            - NotBlank: ~
