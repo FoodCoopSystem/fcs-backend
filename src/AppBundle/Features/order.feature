@@ -17,4 +17,25 @@ Feature: Nearest order
     When I set header "Content-Type" with value "application/json"
     And I send a GET request to "/order/current"
     Then the response code should be 200
-    And print pretty response
+    And the JSON should match pattern:
+    """
+    {
+        "total": "1",
+        "result": [
+            {
+                "quantity": 3,
+                "owner": {
+                    "first_name": @null@,
+                    "last_name": @null@
+                },
+                "product": {
+                    "name": "My product",
+                    "price": 12.22,
+                    "producent": {
+                        "name": "Supplier"
+                    }
+                }
+            }
+        ]
+    }
+    """
