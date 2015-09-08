@@ -2,7 +2,9 @@
 
 namespace AppBundle\Behat\Context;
 
+use AppBundle\Entity\Basket;
 use AppBundle\Entity\Order;
+use AppBundle\Entity\OrderItem;
 use AppBundle\Entity\Producent;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\User;
@@ -137,9 +139,10 @@ class DatabaseContext implements Context, KernelAwareContext
     /**
      * @Given /^order on "([^"]*)" exists$/
      */
-    public function orderOnExists($date)
+    public function orderOnExists($date, $active = false)
     {
         $order = new Order(new \DateTime($date));
+        $order->setActive($active);
         $this->getEntityManager()->persist($order);
         $this->getEntityManager()->flush();
 
@@ -174,5 +177,31 @@ class DatabaseContext implements Context, KernelAwareContext
         if (!$order->isActive()) {
             throw new \Exception('Order is not active');
         }
+    }
+
+    /**
+     * @Given /^active order on "([^"]*)" exists$/
+     */
+    public function activeOrderOnExists($date)
+    {
+        $this->orderOnExists($date, $active = true);
+    }
+
+    /**
+     * @Given /^in order there is item with (\d+) products$/
+     */
+    public function inOrderThereIsItemWithProducts($quantity)
+    {
+        $order = $this->getParameterBag()->get('order');
+        $product = $this->getParameterBag()->get('product');
+        $owner = $this->getParameterBag()->get('user');
+        $basket = new Basket();
+        $basket->setProduct($product);
+        $basket->setOwner($owner);
+        $basket->setQuantity($quantity);
+
+        $orderItem = OrderItem::createFromBasket($basket, $order);
+        $this->getEntityManager()->persist($orderItem);
+        $this->getEntityManager()->flush();
     }
 }
