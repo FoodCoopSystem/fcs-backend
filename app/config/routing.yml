@@ -7,3 +7,27 @@ fos_oauth_server_token:
 
 fos_oauth_server_authorize:
     resource: "@FOSOAuthServerBundle/Resources/config/routing/authorize.xml"
+
+basket:
+    resource: "@AppBundle/Resources/config/routing/basket.yml"
+    prefix: /basket
+
+order:
+    resource: "@AppBundle/Resources/config/routing/order.yml"
+    prefix: /order
+
+orders:
+    resource: "@AppBundle/Resources/config/routing/orders.yml"
+    prefix: /orders
+
+supplier:
+    resource: "@AppBundle/Resources/config/routing/supplier.yml"
+    prefix: /producent
+
+product:
+    resource: "@AppBundle/Resources/config/routing/product.yml"
+    prefix: /product
+
+user:
+    resource: "@AppBundle/Resources/config/routing/user.yml"
+    prefix: /

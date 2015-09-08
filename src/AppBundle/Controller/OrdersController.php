@@ -17,9 +17,6 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/**
- * @Route("/orders", service="controller.orders")
- */
 class OrdersController
 {
     use RestTrait;
@@ -53,8 +50,6 @@ class OrdersController
     }
 
     /**
-     * @Route("", name="orders_list")
-     * @Method({"GET"})
      * @ParamConverter("queryCriteria", converter="query_criteria_converter")
      * @Secure(roles="ROLE_ADMIN")
      * @param Criteria $criteria
@@ -73,8 +68,6 @@ class OrdersController
     }
 
     /**
-     * @Route("", name="orders_create")
-     * @Method({"POST"})
      * @Secure(roles="ROLE_ADMIN")
      *
      * @param Request $request
@@ -87,8 +80,6 @@ class OrdersController
     }
 
     /**
-     * @Route("/{id}", name="orders_edit")
-     * @Method({"POST"})
      * @Secure(roles="ROLE_ADMIN")
      *
      * @param Request $request
@@ -135,8 +126,6 @@ class OrdersController
     }
 
     /**
-     * @Route("/{id}", name="orders_remove")
-     * @Method({"DELETE"})
      * @Secure(roles="ROLE_ADMIN")
      *
      * @param $id
@@ -171,8 +160,6 @@ class OrdersController
     }
 
     /**
-     * @Route("/{id}", name="orders_view")
-     * @Method({"GET"})
      * @Secure(roles="ROLE_ADMIN")
      *
      * @param $id
@@ -192,11 +179,10 @@ class OrdersController
     }
 
     /**
-     * @Route("/{id}/activate", name="orders_activate")
-     * @Method({"POST"})
      * @Secure(roles="ROLE_ADMIN")
      *
      * @param $id
+     * @return \FOS\RestBundle\View\View
      */
     public function activateAction($id)
     {

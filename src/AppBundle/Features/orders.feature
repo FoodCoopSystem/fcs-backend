@@ -10,7 +10,7 @@ Feature: Orders
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
     When I set header "Content-Type" with value "application/json"
-    And I send a POST request to "/orders" with body:
+    And I send a POST request to "/orders/" with body:
     """
     {
       "id": "any",
@@ -32,7 +32,7 @@ Feature: Orders
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
     When I set header "Content-Type" with value "application/json"
-    And I send a POST request to "/orders" with body:
+    And I send a POST request to "/orders/" with body:
     """
     {
       "id": null,
@@ -200,7 +200,7 @@ Feature: Orders
     And I am authenticated as "admin"
     And order on "2015-09-01" exists
     When I set header "Content-Type" with value "application/json"
-    And I send a GET request to "/orders"
+    And I send a GET request to "/orders/"
     Then the response code should be 200
     And the JSON should match pattern:
     """

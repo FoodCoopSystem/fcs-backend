@@ -18,9 +18,6 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/**
- * @Route("/product", service="controller.product")
- */
 class ProductController
 {
     use RestTrait;
@@ -48,8 +45,6 @@ class ProductController
     }
 
     /**
-     * @Route("", name="product_create")
-     * @Method({"POST"})
      * @Secure(roles="ROLE_ADMIN")
      *
      * @param Request $request
@@ -62,8 +57,6 @@ class ProductController
     }
 
     /**
-     * @Route("/{id}", name="product_edit")
-     * @Method({"POST"})
      * @Secure(roles="ROLE_ADMIN")
      */
     public function editAction(Request $request, $id)
@@ -80,7 +73,6 @@ class ProductController
 
 
     /**
-     * @Route("", name="product_list")
      * @ParamConverter("queryCriteria", converter="query_criteria_converter")
      * @param Criteria $criteria
      *
@@ -123,8 +115,6 @@ class ProductController
     }
 
     /**
-     * @Route("/{id}", name="product_remove")
-     * @Method({"DELETE"})
      * @Secure(roles="ROLE_ADMIN")
      *
      * @param $id
@@ -145,8 +135,6 @@ class ProductController
     }
 
     /**
-     * @Route("/{id}", name="product_view")
-     * @Method({"GET"})
      * @Secure(roles="ROLE_ADMIN")
      *
      * @param $id

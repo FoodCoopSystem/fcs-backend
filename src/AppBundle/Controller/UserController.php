@@ -6,9 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-/**
- * @Route("/profile", service="controller.profile")
- */
+
 class UserController
 {
     use RestTrait;
@@ -24,8 +22,6 @@ class UserController
     }
 
     /**
-     * @Route("", name="user_profile")
-     * @Method("GET")
      * @return UserInterface
      */
     public function getProfileAction()

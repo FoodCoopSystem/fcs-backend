@@ -1,0 +1,24 @@
+producent_list:
+  path: /
+  defaults: { _controller: controller.producent:indexAction }
+  methods: [GET]
+
+producent_create:
+  path: /
+  defaults: { _controller: controller.producent:createAction }
+  methods: [POST]
+
+producent_edit:
+  path: /{id}
+  defaults: { _controller: controller.producent:editAction }
+  methods: [POST]
+
+producent_remove:
+  path: /{id}
+  defaults: { _controller: controller.producent:removeAction }
+  methods: [DELETE]
+
+producent_view:
+  path: /{id}
+  defaults: { _controller: controller.producent:viewAction }
+  methods: [GET]

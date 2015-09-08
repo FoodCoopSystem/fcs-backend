@@ -1,0 +1,24 @@
+product_create:
+  path: /
+  defaults: { _controller: controller.product:createAction }
+  methods: [POST]
+
+product_edit:
+  path: /{id}
+  defaults: { _controller: controller.product:editAction }
+  methods: [POST]
+
+product_list:
+  path: /
+  defaults: { _controller: controller.product:indexAction }
+  methods: [GET]
+
+product_remove:
+  path: /{id}
+  defaults: { _controller: controller.product:removeAction }
+  methods: [DELETE]
+
+product_view:
+  path: /{id}
+  defaults: { _controller: controller.product:viewAction }
+  methods: [GET]

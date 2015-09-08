@@ -1,0 +1,5 @@
+user_profile:
+  path: /profile
+  defaults: { _controller: controller.profile:getProfileAction }
+  methods: [GET]
+

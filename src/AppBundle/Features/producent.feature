@@ -11,7 +11,7 @@ Feature: Producent
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
     When I set header "Content-Type" with value "application/json"
-    And I send a POST request to "/producent" with body:
+    And I send a POST request to "/producent/" with body:
     """
     {
       "id": "any",
@@ -33,7 +33,7 @@ Feature: Producent
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
     When I set header "Content-Type" with value "application/json"
-    And I send a POST request to "/producent" with body:
+    And I send a POST request to "/producent/" with body:
     """
     {
       "id": null,
@@ -201,7 +201,7 @@ Feature: Producent
     And I am authenticated as "admin"
     And producent "Coffee supplier" exists
     When I set header "Content-Type" with value "application/json"
-    And I send a GET request to "/producent"
+    And I send a GET request to "/producent/"
     Then the response code should be 200
     And the JSON should match pattern:
     """

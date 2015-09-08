@@ -1,0 +1,3 @@
+order_current:
+  path: /current
+  defaults: { _controller: controller.order:indexAction }

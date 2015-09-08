@@ -15,7 +15,7 @@ Feature: Basket
       | Description | Delicious coffees |
       | Price       | 1.23              |
     When I set header "Content-Type" with value "application/json"
-    And I send a POST request to "/basket" with body:
+    And I send a POST request to "/basket/" with body:
     """
     {
       "id": "any",
@@ -50,7 +50,7 @@ Feature: Basket
       | Price       | 1.23              |
     And basket item with "8" products exists
     When I set header "Content-Type" with value "application/json"
-    And I send a POST request to "/basket" with body:
+    And I send a POST request to "/basket/" with body:
     """
     {
       "id": "any",
@@ -119,7 +119,7 @@ Feature: Basket
       | Price       | 1.23              |
     And basket item with "2" products exists
     When I set header "Content-Type" with value "application/json"
-    And I send a GET request to "/basket"
+    And I send a GET request to "/basket/"
     Then the response code should be 200
     And the JSON should match pattern:
     """
