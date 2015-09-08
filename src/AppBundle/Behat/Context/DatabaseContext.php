@@ -54,6 +54,7 @@ class DatabaseContext implements Context, KernelAwareContext
             $entity->{$setter}($value);
         }
 
+        $this->getParameterBag()->set('user', $entity);
         $em = $this->getEntityManager();
         $em->persist($entity);
         $em->flush();
@@ -203,5 +204,34 @@ class DatabaseContext implements Context, KernelAwareContext
         $orderItem = OrderItem::createFromBasket($basket, $order);
         $this->getEntityManager()->persist($orderItem);
         $this->getEntityManager()->flush();
+    }
+
+    /**
+     * @Given /^basket item with "([^"]*)" products exists$/
+     */
+    public function basketItemWithProductsExists($quantity)
+    {
+        $product = $this->getParameterBag()->get('product');
+        $user = $this->getParameterBag()->get('user');
+        $basketItem = new Basket();
+        $basketItem->setProduct($product);
+        $basketItem->setQuantity($quantity);
+        $basketItem->setOwner($user);
+        $this->getEntityManager()->persist($basketItem);
+        $this->getEntityManager()->flush();
+        $this->getParameterBag()->set('basket', $basketItem);
+    }
+
+    /**
+     * @Given /^basket should not exists$/
+     */
+    public function basketShouldNotExists()
+    {
+        $basket = $this->getParameterBag()->get('basket');
+        $repository = $this->getEntityManager()->getRepository('AppBundle:Basket');
+        $basket = $repository->findByCriteria(new Criteria(['id' => $basket->getId()]));
+        if ($basket) {
+            throw new \Exception('Basket exists');
+        }
     }
 }

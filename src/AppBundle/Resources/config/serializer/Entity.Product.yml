@@ -10,6 +10,7 @@ AppBundle\Entity\Product:
                 - product_create
                 - product_view
                 - product_update
+                - basket_create
         name:
             expose: true
             type: string
@@ -20,6 +21,7 @@ AppBundle\Entity\Product:
                 - product_create
                 - product_view
                 - product_update
+                - basket_create
         price:
             expose: true
             type: float
