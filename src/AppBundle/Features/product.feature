@@ -268,17 +268,14 @@ Feature: Product
     """
 
   Scenario: list products
-    Given User "admin" exists with:
-      | Property  | Value           |
-      | Roles     | ROLE_ADMIN      |
-    And I am authenticated as "admin"
+    And I am authenticated as "regular-user"
     And producent "Coffee supplier" exists with product:
       | Property    | Value             |
       | Name        | Coffee            |
       | Description | Delicious coffees |
       | Price       | 1.23              |
     When I set header "Content-Type" with value "application/json"
-    And I send a GET request to "/product"
+    And I send a GET request to "/product/"
     Then the response code should be 200
     And the JSON should match pattern:
     """

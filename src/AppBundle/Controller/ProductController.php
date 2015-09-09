@@ -50,7 +50,6 @@ class ProductController
     /**
      * @Route("", name="product_create")
      * @Method({"POST"})
-     * @Secure(roles="ROLE_ADMIN")
      *
      * @param Request $request
      *
@@ -64,7 +63,6 @@ class ProductController
     /**
      * @Route("/{id}", name="product_edit")
      * @Method({"POST"})
-     * @Secure(roles="ROLE_ADMIN")
      */
     public function editAction(Request $request, $id)
     {
@@ -125,7 +123,6 @@ class ProductController
     /**
      * @Route("/{id}", name="product_remove")
      * @Method({"DELETE"})
-     * @Secure(roles="ROLE_ADMIN")
      *
      * @param $id
      */
@@ -147,7 +144,6 @@ class ProductController
     /**
      * @Route("/{id}", name="product_view")
      * @Method({"GET"})
-     * @Secure(roles="ROLE_ADMIN")
      *
      * @param $id
      *

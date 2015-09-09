@@ -46,7 +46,6 @@ class ProducentController
      * @Route("", name="producent_list")
      * @Method({"GET"})
      * @ParamConverter("queryCriteria", converter="query_criteria_converter")
-     * @Secure(roles="ROLE_ADMIN")
      * @param Criteria $criteria
      *
      *
@@ -65,7 +64,6 @@ class ProducentController
     /**
      * @Route("", name="producent_create")
      * @Method({"POST"})
-     * @Secure(roles="ROLE_ADMIN")
      *
      * @param Request $request
      *
@@ -79,7 +77,6 @@ class ProducentController
     /**
      * @Route("/{id}", name="producent_edit")
      * @Method({"POST"})
-     * @Secure(roles="ROLE_ADMIN")
      *
      * @param Request $request
      * @param $id
@@ -126,7 +123,6 @@ class ProducentController
     /**
      * @Route("/{id}", name="producent_remove")
      * @Method({"DELETE"})
-     * @Secure(roles="ROLE_ADMIN")
      *
      * @param $id
      */
@@ -148,7 +144,6 @@ class ProducentController
     /**
      * @Route("/{id}", name="producent_view")
      * @Method({"GET"})
-     * @Secure(roles="ROLE_ADMIN")
      *
      * @param $id
      *
