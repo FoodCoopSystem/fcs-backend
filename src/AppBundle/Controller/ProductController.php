@@ -2,12 +2,14 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Producent;
+use AppBundle\Actions\ProductCreateAction;
+use AppBundle\Actions\ProductRemoveAction;
+use AppBundle\Actions\ProductUpdateAction;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\ProductRepository;
 use AppBundle\Form\ProductType;
 use AppBundle\Request\Criteria;
-use Doctrine\DBAL\DBALException;
+use Codifico\Component\Actions\Action\IndexAction;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Util\Codes;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -15,6 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -40,11 +43,14 @@ class ProductController
      */
     private $formFactory;
 
-    public function __construct(ProductRepository $repository, EntityManagerInterface $entityManager, FormFactoryInterface $formFactory)
+    private $create;
+
+    public function __construct(ProductCreateAction $create, ProductRepository $repository, EntityManagerInterface $entityManager, FormFactoryInterface $formFactory)
     {
         $this->repository = $repository;
         $this->entityManager = $entityManager;
         $this->formFactory = $formFactory;
+        $this->create = $create;
     }
 
     /**
@@ -58,7 +64,12 @@ class ProductController
      */
     public function createAction(Request $request)
     {
-        return $this->handleForm($request);
+        $action = $this->create;
+        $result = $action();
+
+        $this->entityManager->flush();
+
+        return $this->renderRestView($result, Codes::HTTP_CREATED, [], ['product_create']);
     }
 
     /**
@@ -66,60 +77,32 @@ class ProductController
      * @Method({"POST"})
      * @Secure(roles="ROLE_ADMIN")
      */
-    public function editAction(Request $request, $id)
+    public function editAction(Request $request, Product $product)
     {
-        /** @var Product $product */
-        $product = $this->repository->find($id);
+        $action = new ProductUpdateAction($this->formFactory, new ProductType($this->entityManager));
+        $action->setRequest($request);
+        $action->setObject($product);
 
-        if (!$product) {
-            throw new NotFoundHttpException(sprintf('Product %s does not exists', $id));
-        }
+        $result = $action();
 
-        return $this->handleForm($request, $product);
+        $this->entityManager->flush();
+
+        return $this->renderRestView($result, Codes::HTTP_OK, [], ['product_update']);
+
     }
-
 
     /**
      * @Route("", name="product_list")
-     * @ParamConverter("queryCriteria", converter="query_criteria_converter")
      * @param Criteria $criteria
      *
      * @return \FOS\RestBundle\View\View
      */
     public function indexAction(Criteria $criteria)
     {
-        $data = [
-            'total' => $this->repository->countByCriteria($criteria),
-            'result' => $this->repository->findByCriteria($criteria),
-        ];
+        $action = new IndexAction($this->repository);
+        $action->setCriteria($criteria);
 
-        return $this->renderRestView($data, Codes::HTTP_OK, [], ['product_index']);
-    }
-
-    /**
-     * @param Request $request
-     * @param null $product
-     * @return \Symfony\Component\Form\FormInterface
-     * @internal param $product
-     */
-    private function handleForm(Request $request, $product = null)
-    {
-        $code = $product ? Codes::HTTP_OK : Codes::HTTP_CREATED;
-        $serializationGroup = $product ? 'product_update' : 'product_create';
-
-        $form = $this->formFactory->createNamed('', new ProductType($this->entityManager), $product);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $product = $form->getData();
-
-            $this->entityManager->persist($product);
-            $this->entityManager->flush();
-
-            return $this->renderRestView($product, $code, [], [$serializationGroup]);
-        }
-
-        return $form;
+        return $this->renderRestView($action(), Codes::HTTP_OK, [], ['product_index']);
     }
 
     /**
@@ -138,9 +121,10 @@ class ProductController
             throw new NotFoundHttpException(sprintf('Product %s does not exists', $id));
         }
 
-        $product->inactivate();
+        $action = new ProductRemoveAction();
+        $action->setProduct($product);
+        $action();
 
-        $this->entityManager->persist($product);
         $this->entityManager->flush();
     }
 

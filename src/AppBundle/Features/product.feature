@@ -123,7 +123,7 @@ Feature: Product
     """
     {
       "code": 404,
-      "message": "Product ABC does not exists",
+      "message": "Product does not exists",
       "errors": @null@
     }
     """
@@ -179,7 +179,7 @@ Feature: Product
     """
     {
       "code": 404,
-      "message": "Product ABC does not exists",
+      "message": "Product does not exists",
       "errors": @null@
     }
     """
@@ -262,7 +262,7 @@ Feature: Product
     """
     {
       "code": 404,
-      "message": "Product ABC does not exists",
+      "message": "Product does not exists",
       "errors": @null@
     }
     """

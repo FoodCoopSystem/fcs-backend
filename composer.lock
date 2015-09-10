@@ -4,8 +4,46 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "60238060b10d4a356b262513ab88030e",
+    "hash": "fe6d156002bcd5cf844fbce3da84896d",
     "packages": [
+        {
+            "name": "codifico/actions",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git@bitbucket.org:codifico/action.git",
+                "reference": "74957a4d020347fecc99c27770766b95983642ea"
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "~2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Codifico\\Component\\Actions\\": ""
+                }
+            },
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Marcin Dryka",
+                    "email": "marcin@dryka.pl",
+                    "homepage": "http://marcin.dryka.pl"
+                }
+            ],
+            "description": "Action component",
+            "homepage": "http://codifico.pl/",
+            "keywords": [
+                "actions",
+                "codifico"
+            ],
+            "time": "2015-05-22 06:06:54"
+        },
         {
             "name": "doctrine/annotations",
             "version": "v1.2.4",
@@ -3217,7 +3255,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codifico/ParameterBagExtension/zipball/8815495a7a873ec1ddcaef5eae19037df3263bd2",
+                "url": "https://api.github.com/repos/Codifico/ParameterBagExtension/zipball/8855f7c20df353f21f8cd73e57fce08fb6701348",
                 "reference": "8815495a7a873ec1ddcaef5eae19037df3263bd2",
                 "shasum": ""
             },
@@ -5110,6 +5148,7 @@
         "friendsofsymfony/oauth-server-bundle": 20,
         "doctrine/migrations": 20,
         "jms/security-extra-bundle": 20,
+        "codifico/actions": 20,
         "codifico/web-api-extension": 20,
         "codifico/parameter-bag-extension": 20,
         "codifico/phpspec-rest-view-extension": 20

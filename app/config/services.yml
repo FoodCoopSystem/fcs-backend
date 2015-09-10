@@ -17,6 +17,7 @@ services:
     controller.product:
         class: AppBundle\Controller\ProductController
         arguments:
+            - @action.product.create
             - @repository.product
             - @doctrine.orm.default_entity_manager
             - @form.factory
@@ -56,6 +57,20 @@ services:
             - @doctrine.orm.entity_manager
             - @form.factory
             - @logger
+
+    action.product.create:
+        class: AppBundle\Actions\ProductCreateAction
+        arguments:
+            - @repository.product
+            - @form.factory
+            - @form.type.product
+        calls:
+            - [ setRequestStack, [@request_stack]]
+
+    form.type.product:
+        class: AppBundle\Form\ProductType
+        arguments:
+            - @doctrine.orm.entity_manager
 
     repository.product:
         class: AppBundle\Entity\ProductRepository
@@ -98,3 +113,10 @@ services:
             - @serializer
         tags:
             - { name: request.param_converter, converter: query_criteria_converter }
+
+    param_converter.product:
+        class: AppBundle\Request\ParamConverter\ProductParamConverter
+        arguments:
+            - @doctrine
+        tags:
+            - { name: request.param_converter, converter: product_converter, priority: 1 }
