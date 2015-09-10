@@ -45,7 +45,6 @@ class ProducentController
     /**
      * @Route("", name="producent_list")
      * @Method({"GET"})
-     * @ParamConverter("queryCriteria", converter="query_criteria_converter")
      * @Secure(roles="ROLE_ADMIN")
      * @param Criteria $criteria
      *

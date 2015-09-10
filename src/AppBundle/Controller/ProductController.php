@@ -29,28 +29,22 @@ class ProductController
     use RestTrait;
 
     /**
-     * @var ProductRepository
-     */
-    private $repository;
-
-    /**
      * @var EntityManagerInterface
      */
     private $entityManager;
 
-    /**
-     * @var F
-     */
-    private $formFactory;
-
     private $create;
+    private $update;
+    private $index;
+    private $remove;
 
-    public function __construct(ProductCreateAction $create, ProductRepository $repository, EntityManagerInterface $entityManager, FormFactoryInterface $formFactory)
+    public function __construct(ProductCreateAction $create, ProductUpdateAction $update, IndexAction $index, ProductRemoveAction $remove, EntityManagerInterface $entityManager)
     {
-        $this->repository = $repository;
         $this->entityManager = $entityManager;
-        $this->formFactory = $formFactory;
         $this->create = $create;
+        $this->update = $update;
+        $this->index = $index;
+        $this->remove = $remove;
     }
 
     /**
@@ -58,11 +52,9 @@ class ProductController
      * @Method({"POST"})
      * @Secure(roles="ROLE_ADMIN")
      *
-     * @param Request $request
-     *
      * @return \Symfony\Component\Form\FormInterface
      */
-    public function createAction(Request $request)
+    public function createAction()
     {
         $action = $this->create;
         $result = $action();
@@ -76,13 +68,12 @@ class ProductController
      * @Route("/{id}", name="product_edit")
      * @Method({"POST"})
      * @Secure(roles="ROLE_ADMIN")
+     * @param Product $product
+     * @return \FOS\RestBundle\View\View|null
      */
-    public function editAction(Request $request, Product $product)
+    public function editAction(Product $product)
     {
-        $action = new ProductUpdateAction($this->formFactory, new ProductType($this->entityManager));
-        $action->setRequest($request);
-        $action->setObject($product);
-
+        $action = $this->update->setProduct($product);
         $result = $action();
 
         $this->entityManager->flush();
@@ -99,8 +90,7 @@ class ProductController
      */
     public function indexAction(Criteria $criteria)
     {
-        $action = new IndexAction($this->repository);
-        $action->setCriteria($criteria);
+        $action = $this->index->setCriteria($criteria);
 
         return $this->renderRestView($action(), Codes::HTTP_OK, [], ['product_index']);
     }
@@ -109,20 +99,11 @@ class ProductController
      * @Route("/{id}", name="product_remove")
      * @Method({"DELETE"})
      * @Secure(roles="ROLE_ADMIN")
-     *
-     * @param $id
+     * @param Product $product
      */
-    public function removeAction($id)
+    public function removeAction(Product $product)
     {
-        /** @var Product $product */
-        $product = $this->repository->find($id);
-
-        if (!$product) {
-            throw new NotFoundHttpException(sprintf('Product %s does not exists', $id));
-        }
-
-        $action = new ProductRemoveAction();
-        $action->setProduct($product);
+        $action = $this->remove->setProduct($product);
         $action();
 
         $this->entityManager->flush();
@@ -133,19 +114,12 @@ class ProductController
      * @Method({"GET"})
      * @Secure(roles="ROLE_ADMIN")
      *
-     * @param $id
      *
+     * @param Product $product
      * @return \FOS\RestBundle\View\View
      */
-    public function viewAction($id)
+    public function viewAction(Product $product)
     {
-        /** @var Product $product */
-        $product = $this->repository->find($id);
-
-        if (!$product) {
-            throw new NotFoundHttpException(sprintf('Product %s does not exists', $id));
-        }
-
         return $this->renderRestView($product, Codes::HTTP_OK, [], ['product_view']);
     }
 }

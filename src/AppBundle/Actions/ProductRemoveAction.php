@@ -19,9 +19,15 @@ class ProductRemoveAction extends RemoveAction
     {
     }
 
+    /**
+     * @param Product $product
+     * @return ProductRemoveAction
+     */
     public function setProduct(Product $product)
     {
         parent::setObject($product);
+
+        return $this;
     }
 
     /**

@@ -35,7 +35,6 @@ class OrderController
 
     /**
      * @Route("/current", name="order_current")
-     * @ParamConverter("queryCriteria", converter="query_criteria_converter")
      * @param Criteria $criteria
      *
      * @return \FOS\RestBundle\View\View

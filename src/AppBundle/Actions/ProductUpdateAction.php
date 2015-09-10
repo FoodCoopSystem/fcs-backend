@@ -15,9 +15,15 @@ class ProductUpdateAction extends UpdateAction
     {
     }
 
+    /**
+     * @param Product $product
+     * @return ProductUpdateAction
+     */
     public function setProduct(Product $product)
     {
         parent::setObject($product);
+
+        return $this;
     }
 
     public function setObject($entity)

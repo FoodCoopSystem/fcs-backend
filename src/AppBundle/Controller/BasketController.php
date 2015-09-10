@@ -66,7 +66,6 @@ class BasketController
     /**
      * @Route("", name="basket_list")
      * @Method("GET")
-     * @ParamConverter("queryCriteria", converter="query_criteria_converter")
      * @param Criteria $criteria
      * @return array
      */

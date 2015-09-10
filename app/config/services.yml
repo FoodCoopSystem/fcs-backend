@@ -18,9 +18,10 @@ services:
         class: AppBundle\Controller\ProductController
         arguments:
             - @action.product.create
-            - @repository.product
+            - @action.product.update
+            - @action.product.index
+            - @action.product.remove
             - @doctrine.orm.default_entity_manager
-            - @form.factory
 
     controller.producent:
         class: AppBundle\Controller\ProducentController
@@ -66,6 +67,21 @@ services:
             - @form.type.product
         calls:
             - [ setRequestStack, [@request_stack]]
+    action.product.update:
+        class: AppBundle\Actions\ProductUpdateAction
+        arguments:
+            - @form.factory
+            - @form.type.product
+        calls:
+            - [ setRequestStack, [@request_stack]]
+
+    action.product.index:
+        class: AppBundle\Actions\ProductIndexAction
+        arguments:
+            - @repository.product
+
+    action.product.remove:
+        class: AppBundle\Actions\ProductRemoveAction
 
     form.type.product:
         class: AppBundle\Form\ProductType
