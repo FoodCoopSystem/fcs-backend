@@ -4,19 +4,30 @@ namespace AppBundle\Actions;
 
 use AppBundle\Entity\Product;
 use Codifico\Component\Actions\Action\RemoveAction;
+use Codifico\Component\Actions\Event\EntityRemoveEvent;
+use Codifico\Component\Actions\Repository\ActionRepositoryInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ProductRemoveAction extends RemoveAction
 {
-    public function __construct()
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $dispatcher;
+
+    public function __construct(EventDispatcherInterface $dispatcher, ActionRepositoryInterface $repository)
     {
+        $this->dispatcher = $dispatcher;
+        parent::__construct($repository);
     }
 
     /**
      * @param $object
      * @return void
      */
-    public function dispatchEvent($object)
+    public function postRemove($object)
     {
+        $this->dispatcher->dispatch('action.remove', new EntityRemoveEvent($object));
     }
 
     /**
@@ -38,5 +49,7 @@ class ProductRemoveAction extends RemoveAction
     public function __invoke()
     {
         $this->object->inactivate();
+
+        $this->postRemove($this->object);
     }
 }

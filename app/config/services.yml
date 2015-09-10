@@ -6,14 +6,6 @@ services:
             - AppBundle:User
             - username
 
-    codifico_user.password.listener:
-        class: AppBundle\EventListener\PasswordListener
-        arguments:
-            - @security.password_encoder
-        tags:
-            - { name: doctrine.event_listener, event: prePersist }
-            - { name: doctrine.event_listener, event: preUpdate }
-
     controller.product:
         class: AppBundle\Controller\ProductController
         arguments:
@@ -62,14 +54,17 @@ services:
     action.product.create:
         class: AppBundle\Actions\ProductCreateAction
         arguments:
+            - @event_dispatcher
             - @repository.product
             - @form.factory
             - @form.type.product
         calls:
             - [ setRequestStack, [@request_stack]]
+
     action.product.update:
         class: AppBundle\Actions\ProductUpdateAction
         arguments:
+            - @event_dispatcher
             - @form.factory
             - @form.type.product
         calls:
@@ -82,6 +77,26 @@ services:
 
     action.product.remove:
         class: AppBundle\Actions\ProductRemoveAction
+        arguments:
+            - @event_dispatcher
+            - @repository.product
+
+    listener.action.create:
+        class: AppBundle\EventListener\DoctrineListener
+        arguments:
+            - @doctrine.orm.default_entity_manager
+        tags:
+            - { name: kernel.event_listener, event: action.create, method: onEntityCreate }
+            - { name: kernel.event_listener, event: action.update, method: onEntityUpdate }
+            - { name: kernel.event_listener, event: action.remove, method: onEntityRemove }
+
+    listener.password:
+        class: AppBundle\EventListener\PasswordListener
+        arguments:
+            - @security.password_encoder
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
 
     form.type.product:
         class: AppBundle\Form\ProductType

@@ -4,17 +4,19 @@ namespace AppBundle\Actions;
 
 use AppBundle\Entity\Product;
 use Codifico\Component\Actions\Action\UpdateAction;
+use Codifico\Component\Actions\Event\EntityUpdatedEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Form\FormFactoryInterface;
 
 class ProductUpdateAction extends UpdateAction
 {
-    /**
-     * @param $object
-     * @return void
-     */
-    public function dispatchEvent($object)
-    {
-    }
+    private $dispatcher;
 
+    public function __construct(EventDispatcherInterface $dispatcher, FormFactoryInterface $formFactory, $type)
+    {
+        $this->dispatcher = $dispatcher;
+        parent::__construct($formFactory, $type);
+    }
     /**
      * @param Product $product
      * @return ProductUpdateAction
@@ -26,8 +28,12 @@ class ProductUpdateAction extends UpdateAction
         return $this;
     }
 
-    public function setObject($entity)
+    /**
+     * @param $object
+     * @return void
+     */
+    public function postUpdate($object)
     {
-        $this->setProduct($entity);
+        $this->dispatcher->dispatch('action.update', new EntityUpdatedEvent($object));
     }
 }

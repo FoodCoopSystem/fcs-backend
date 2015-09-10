@@ -57,11 +57,8 @@ class ProductController
     public function createAction()
     {
         $action = $this->create;
-        $result = $action();
 
-        $this->entityManager->flush();
-
-        return $this->renderRestView($result, Codes::HTTP_CREATED, [], ['product_create']);
+        return $this->renderRestView($action(), Codes::HTTP_CREATED, [], ['product_create']);
     }
 
     /**
@@ -74,11 +71,8 @@ class ProductController
     public function editAction(Product $product)
     {
         $action = $this->update->setProduct($product);
-        $result = $action();
 
-        $this->entityManager->flush();
-
-        return $this->renderRestView($result, Codes::HTTP_OK, [], ['product_update']);
+        return $this->renderRestView($action(), Codes::HTTP_OK, [], ['product_update']);
 
     }
 
@@ -105,8 +99,6 @@ class ProductController
     {
         $action = $this->remove->setProduct($product);
         $action();
-
-        $this->entityManager->flush();
     }
 
     /**
