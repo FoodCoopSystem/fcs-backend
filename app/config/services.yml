@@ -13,7 +13,6 @@ services:
             - @action.product.update
             - @action.product.index
             - @action.product.remove
-            - @doctrine.orm.default_entity_manager
 
     controller.producent:
         class: AppBundle\Controller\ProducentController

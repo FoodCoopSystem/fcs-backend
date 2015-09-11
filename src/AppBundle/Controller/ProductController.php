@@ -28,19 +28,13 @@ class ProductController
 {
     use RestTrait;
 
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-
     private $create;
     private $update;
     private $index;
     private $remove;
 
-    public function __construct(ProductCreateAction $create, ProductUpdateAction $update, IndexAction $index, ProductRemoveAction $remove, EntityManagerInterface $entityManager)
+    public function __construct(ProductCreateAction $create, ProductUpdateAction $update, IndexAction $index, ProductRemoveAction $remove)
     {
-        $this->entityManager = $entityManager;
         $this->create = $create;
         $this->update = $update;
         $this->index = $index;
