@@ -31,7 +31,12 @@ class ProductController
     }
 
     /**
+<<<<<<< HEAD
      * @Secure(roles="ROLE_ADMIN")
+=======
+     * @Route("", name="product_create")
+     * @Method({"POST"})
+>>>>>>> 920e676dd142e4e5b49e639e86b943f06552a844
      *
      * @return \Symfony\Component\Form\FormInterface
      */
@@ -46,9 +51,14 @@ class ProductController
     }
 
     /**
+<<<<<<< HEAD
      * @Secure(roles="ROLE_ADMIN")
      * @param Product $product
      * @return \FOS\RestBundle\View\View|null
+=======
+     * @Route("/{id}", name="product_edit")
+     * @Method({"POST"})
+>>>>>>> 920e676dd142e4e5b49e639e86b943f06552a844
      */
     public function editAction(Product $product)
     {
@@ -76,8 +86,15 @@ class ProductController
     }
 
     /**
+<<<<<<< HEAD
      * @Secure(roles="ROLE_ADMIN")
      * @param Product $product
+=======
+     * @Route("/{id}", name="product_remove")
+     * @Method({"DELETE"})
+     *
+     * @param $id
+>>>>>>> 920e676dd142e4e5b49e639e86b943f06552a844
      */
     public function removeAction(Product $product)
     {
@@ -85,7 +102,12 @@ class ProductController
     }
 
     /**
+<<<<<<< HEAD
      * @Secure(roles="ROLE_ADMIN")
+=======
+     * @Route("/{id}", name="product_view")
+     * @Method({"GET"})
+>>>>>>> 920e676dd142e4e5b49e639e86b943f06552a844
      *
      *
      * @param Product $product

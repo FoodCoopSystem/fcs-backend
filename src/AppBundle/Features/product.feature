@@ -268,10 +268,7 @@ Feature: Product
     """
 
   Scenario: list products
-    Given User "admin" exists with:
-      | Property  | Value           |
-      | Roles     | ROLE_ADMIN      |
-    And I am authenticated as "admin"
+    And I am authenticated as "regular-user"
     And producent "Coffee supplier" exists with product:
       | Property    | Value             |
       | Name        | Coffee            |

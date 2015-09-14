@@ -6,13 +6,8 @@ use AppBundle\Entity\Producent;
 use AppBundle\Entity\ProducentRepository;
 use AppBundle\Form\ProductentType;
 use AppBundle\Request\Criteria;
-use Doctrine\DBAL\DBALException;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Util\Codes;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use JMS\SecurityExtraBundle\Annotation\Secure;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -40,9 +35,7 @@ class ProducentController
     }
 
     /**
-     * @Secure(roles="ROLE_ADMIN")
      * @param Criteria $criteria
-     *
      *
      * @return \FOS\RestBundle\View\View
      */
@@ -57,8 +50,6 @@ class ProducentController
     }
 
     /**
-     * @Secure(roles="ROLE_ADMIN")
-     *
      * @param Request $request
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -69,8 +60,6 @@ class ProducentController
     }
 
     /**
-     * @Secure(roles="ROLE_ADMIN")
-     *
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\Form\FormInterface
@@ -114,8 +103,6 @@ class ProducentController
     }
 
     /**
-     * @Secure(roles="ROLE_ADMIN")
-     *
      * @param $id
      */
     public function removeAction($id)
@@ -134,8 +121,6 @@ class ProducentController
     }
 
     /**
-     * @Secure(roles="ROLE_ADMIN")
-     *
      * @param $id
      *
      * @return \FOS\RestBundle\View\View

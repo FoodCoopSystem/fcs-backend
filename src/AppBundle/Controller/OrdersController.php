@@ -9,10 +9,6 @@ use AppBundle\Request\Criteria;
 use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Util\Codes;
 use Psr\Log\LoggerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use JMS\SecurityExtraBundle\Annotation\Secure;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -50,9 +46,7 @@ class OrdersController
     }
 
     /**
-     * @Secure(roles="ROLE_ADMIN")
      * @param Criteria $criteria
-     *
      *
      * @return \FOS\RestBundle\View\View
      */
@@ -67,7 +61,6 @@ class OrdersController
     }
 
     /**
-     * @Secure(roles="ROLE_ADMIN")
      *
      * @param Request $request
      *
@@ -79,7 +72,6 @@ class OrdersController
     }
 
     /**
-     * @Secure(roles="ROLE_ADMIN")
      *
      * @param Request $request
      * @param $id
@@ -125,7 +117,6 @@ class OrdersController
     }
 
     /**
-     * @Secure(roles="ROLE_ADMIN")
      *
      * @param $id
      */
@@ -159,8 +150,6 @@ class OrdersController
     }
 
     /**
-     * @Secure(roles="ROLE_ADMIN")
-     *
      * @param $id
      *
      * @return \FOS\RestBundle\View\View
@@ -178,8 +167,6 @@ class OrdersController
     }
 
     /**
-     * @Secure(roles="ROLE_ADMIN")
-     *
      * @param $id
      * @return \FOS\RestBundle\View\View
      */
