@@ -9,7 +9,6 @@ use AppBundle\Actions\ProductUpdateAction;
 use AppBundle\Controller\ProductController;
 use AppBundle\Entity\Product;
 use AppBundle\Request\Criteria;
-use Codifico\Component\Actions\Action\IndexAction;
 use FOS\RestBundle\Util\Codes;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -19,7 +18,7 @@ use Prophecy\Argument;
  */
 class ProductControllerSpec extends ObjectBehavior
 {
-    function let(ProductCreateAction $create, ProductUpdateAction $update, IndexAction $index, ProductRemoveAction $remove)
+    function let(ProductCreateAction $create, ProductUpdateAction $update, ProductIndexAction $index, ProductRemoveAction $remove)
     {
         $this->beConstructedWith($create, $update, $index, $remove);
     }

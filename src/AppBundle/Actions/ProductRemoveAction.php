@@ -4,7 +4,7 @@ namespace AppBundle\Actions;
 
 use AppBundle\Entity\Product;
 use Codifico\Component\Actions\Action\RemoveAction;
-use Codifico\Component\Actions\Event\EntityRemoveEvent;
+use AppBundle\Event\EntityRemoveEvent;
 use Codifico\Component\Actions\Repository\ActionRepositoryInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 

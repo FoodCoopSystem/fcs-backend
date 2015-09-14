@@ -3,9 +3,9 @@
 namespace AppBundle\EventListener;
 
 
-use Codifico\Component\Actions\Event\EntityCreatedEvent;
-use Codifico\Component\Actions\Event\EntityRemoveEvent;
-use Codifico\Component\Actions\Event\EntityUpdatedEvent;
+use AppBundle\Event\EntityCreatedEvent;
+use AppBundle\Event\EntityRemoveEvent;
+use AppBundle\Event\EntityUpdatedEvent;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class DoctrineListener

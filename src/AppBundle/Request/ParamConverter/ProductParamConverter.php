@@ -2,7 +2,6 @@
 
 namespace AppBundle\Request\ParamConverter;
 
-use AppBundle\Request\Criteria;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\DoctrineParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,5 +23,4 @@ class ProductParamConverter extends DoctrineParamConverter
             throw new NotFoundHttpException('Product does not exists');
         }
     }
-
 }

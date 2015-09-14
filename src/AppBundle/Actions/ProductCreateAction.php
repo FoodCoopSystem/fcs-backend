@@ -3,7 +3,7 @@
 namespace AppBundle\Actions;
 
 use Codifico\Component\Actions\Action\CreateAction;
-use Codifico\Component\Actions\Event\EntityCreatedEvent;
+use AppBundle\Event\EntityCreatedEvent;
 use Codifico\Component\Actions\Repository\ActionRepositoryInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -26,7 +26,7 @@ class ProductCreateAction extends CreateAction
      * @param $object
      * @return void
      */
-    protected function postCreate($object)
+    public function postCreate($object)
     {
         $this->dispatcher->dispatch('action.create', new EntityCreatedEvent($object));
     }

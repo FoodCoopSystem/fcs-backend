@@ -12,7 +12,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:codifico/action.git",
-                "reference": "3568b00157e791bfb538eb21c13bf22001e7b7db"
+                "reference": "166cc93b8b5c3d1bd52d95cd64bc259efdcdf41e"
             },
             "require": {
                 "php": ">=5.4"
@@ -42,7 +42,7 @@
                 "actions",
                 "codifico"
             ],
-            "time": "2015-09-14 05:52:12"
+            "time": "2015-09-14 06:49:04"
         },
         {
             "name": "doctrine/annotations",
