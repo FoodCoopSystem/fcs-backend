@@ -80,7 +80,7 @@ services:
             - @event_dispatcher
             - @repository.product
 
-    listener.action.create:
+    listener.action:
         class: AppBundle\EventListener\DoctrineListener
         arguments:
             - @doctrine.orm.default_entity_manager
