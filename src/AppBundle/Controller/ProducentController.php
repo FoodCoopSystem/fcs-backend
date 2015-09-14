@@ -17,9 +17,6 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/**
- * @Route("/producent", service="controller.producent")
- */
 class ProducentController
 {
     use RestTrait;
@@ -43,8 +40,6 @@ class ProducentController
     }
 
     /**
-     * @Route("", name="producent_list")
-     * @Method({"GET"})
      * @Secure(roles="ROLE_ADMIN")
      * @param Criteria $criteria
      *
@@ -62,8 +57,6 @@ class ProducentController
     }
 
     /**
-     * @Route("", name="producent_create")
-     * @Method({"POST"})
      * @Secure(roles="ROLE_ADMIN")
      *
      * @param Request $request
@@ -76,8 +69,6 @@ class ProducentController
     }
 
     /**
-     * @Route("/{id}", name="producent_edit")
-     * @Method({"POST"})
      * @Secure(roles="ROLE_ADMIN")
      *
      * @param Request $request
@@ -123,8 +114,6 @@ class ProducentController
     }
 
     /**
-     * @Route("/{id}", name="producent_remove")
-     * @Method({"DELETE"})
      * @Secure(roles="ROLE_ADMIN")
      *
      * @param $id
@@ -145,8 +134,6 @@ class ProducentController
     }
 
     /**
-     * @Route("/{id}", name="producent_view")
-     * @Method({"GET"})
      * @Secure(roles="ROLE_ADMIN")
      *
      * @param $id

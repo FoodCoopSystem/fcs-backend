@@ -1,0 +1,28 @@
+basket_list:
+  path: /
+  defaults: { _controller: controller.basket:indexAction }
+  methods: [GET]
+
+basket_update:
+  path: /{id}
+  defaults: { _controller: controller.basket:updateAction }
+  methods: [POST]
+  requirements:
+    id: "\d+"
+
+basket_create:
+  path: /
+  defaults: { _controller: controller.basket:createAction }
+  methods: [POST]
+
+basket_remove:
+  path: /{id}
+  defaults: { _controller: controller.basket:removeAction }
+  methods: [DELETE]
+  requirements:
+    id: "\d+"
+
+basket_order:
+  path: /order
+  defaults: { _controller: controller.basket:orderAction }
+  methods: [POST]

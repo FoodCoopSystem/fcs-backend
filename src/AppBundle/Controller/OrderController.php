@@ -10,9 +10,6 @@ use FOS\RestBundle\Util\Codes;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
-/**
- * @Route("/order", service="controller.order")
- */
 class OrderController
 {
     use RestTrait;
@@ -34,7 +31,6 @@ class OrderController
     }
 
     /**
-     * @Route("/current", name="order_current")
      * @param Criteria $criteria
      *
      * @return \FOS\RestBundle\View\View

@@ -22,9 +22,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
-/**
- * @Route("/basket", service="controller.basket")
- */
 class BasketController
 {
     use RestTrait;
@@ -64,10 +61,9 @@ class BasketController
     }
 
     /**
-     * @Route("", name="basket_list")
-     * @Method("GET")
      * @param Criteria $criteria
-     * @return array
+     *
+     * @return \FOS\RestBundle\View\View
      */
     public function indexAction(Criteria $criteria)
     {
@@ -89,8 +85,6 @@ class BasketController
     }
 
     /**
-     * @Route("/{id}", name="basket_update", requirements={"id" = "\d+"})
-     * @Method("POST")
      * @param $id
      * @param Request $request
      * @return \Symfony\Component\Form\FormInterface
@@ -111,8 +105,6 @@ class BasketController
     }
 
     /**
-     * @Route("", name="basket_create")
-     * @Method("POST")
      * @param Request $request
      * @return \Symfony\Component\Form\FormInterface
      */
@@ -142,8 +134,6 @@ class BasketController
     }
 
     /**
-     * @Route("/{id}", name="basket_remove", requirements={"id" = "\d+"})
-     * @Method("DELETE")
      * @param $id
      */
     public function removeAction($id)
@@ -161,14 +151,8 @@ class BasketController
         $this->entityManager->flush($basket);
     }
 
-
-    /**
-     * @Route("/order", name="basket_order")
-     * @Method("POST")
-     */
     public function orderAction()
     {
-
         $criteria = new Criteria(
             ['owner' => $this->user],
             null,

@@ -11,7 +11,7 @@ Feature: Product
     And I am authenticated as "admin"
     And producent "Coffee supplier" exists
     When I set header "Content-Type" with value "application/json"
-    And I send a POST request to "/product" with body:
+    And I send a POST request to "/product/" with body:
     """
     {
       "id": "any",
@@ -44,7 +44,7 @@ Feature: Product
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
     When I set header "Content-Type" with value "application/json"
-    And I send a POST request to "/product" with body:
+    And I send a POST request to "/product/" with body:
     """
     {
       "id": null,
@@ -278,7 +278,7 @@ Feature: Product
       | Description | Delicious coffees |
       | Price       | 1.23              |
     When I set header "Content-Type" with value "application/json"
-    And I send a GET request to "/product"
+    And I send a GET request to "/product/"
     Then the response code should be 200
     And the JSON should match pattern:
     """
