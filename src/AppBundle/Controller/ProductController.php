@@ -3,29 +3,44 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Actions\ProductCreateAction;
+use AppBundle\Actions\ProductIndexAction;
 use AppBundle\Actions\ProductRemoveAction;
 use AppBundle\Actions\ProductUpdateAction;
 use AppBundle\Entity\Product;
 use AppBundle\Request\Criteria;
-use Codifico\Component\Actions\Action\IndexAction;
 use FOS\RestBundle\Util\Codes;
 
 class ProductController
 {
     use RestTrait;
 
+    /**
+     * @var ProductCreateAction
+     */
     private $create;
+
+    /**
+     * @var ProductUpdateAction
+     */
     private $update;
+
+    /**
+     * @var ProductIndexAction
+     */
     private $index;
+
+    /**
+     * @var ProductRemoveAction
+     */
     private $remove;
 
     /**
      * @param ProductCreateAction $create
      * @param ProductUpdateAction $update
-     * @param IndexAction $index
+     * @param ProductIndexAction $index
      * @param ProductRemoveAction $remove
      */
-    public function __construct(ProductCreateAction $create, ProductUpdateAction $update, IndexAction $index, ProductRemoveAction $remove)
+    public function __construct(ProductCreateAction $create, ProductUpdateAction $update, ProductIndexAction $index, ProductRemoveAction $remove)
     {
         $this->create = $create;
         $this->update = $update;
@@ -88,6 +103,11 @@ class ProductController
      */
     public function viewAction(Product $product)
     {
-        return $this->renderRestView($product, Codes::HTTP_OK, [], ['product_view']);
+        return $this->renderRestView(
+            $product,
+            Codes::HTTP_OK,
+            [],
+            ['product_view']
+        );
     }
 }
