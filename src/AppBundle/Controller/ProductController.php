@@ -6,20 +6,12 @@ use AppBundle\Actions\ProductCreateAction;
 use AppBundle\Actions\ProductRemoveAction;
 use AppBundle\Actions\ProductUpdateAction;
 use AppBundle\Entity\Product;
-use AppBundle\Entity\ProductRepository;
-use AppBundle\Form\ProductType;
 use AppBundle\Request\Criteria;
 use Codifico\Component\Actions\Action\IndexAction;
-use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Util\Codes;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use JMS\SecurityExtraBundle\Annotation\Secure;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @Route("/product", service="controller.product")
@@ -50,9 +42,12 @@ class ProductController
      */
     public function createAction()
     {
-        $action = $this->create;
-
-        return $this->renderRestView($action(), Codes::HTTP_CREATED, [], ['product_create']);
+        return $this->renderRestView(
+            $this->create->execute(),
+            Codes::HTTP_CREATED,
+            [],
+            ['product_create']
+        );
     }
 
     /**
@@ -64,10 +59,12 @@ class ProductController
      */
     public function editAction(Product $product)
     {
-        $action = $this->update->setProduct($product);
-
-        return $this->renderRestView($action(), Codes::HTTP_OK, [], ['product_update']);
-
+        return $this->renderRestView(
+            $this->update->setProduct($product)->execute(),
+            Codes::HTTP_OK,
+            [],
+            ['product_update']
+        );
     }
 
     /**
@@ -78,9 +75,12 @@ class ProductController
      */
     public function indexAction(Criteria $criteria)
     {
-        $action = $this->index->setCriteria($criteria);
-
-        return $this->renderRestView($action(), Codes::HTTP_OK, [], ['product_index']);
+        return $this->renderRestView(
+            $this->index->setCriteria($criteria)->execute(),
+            Codes::HTTP_OK,
+            [],
+            ['product_index']
+        );
     }
 
     /**
@@ -91,8 +91,7 @@ class ProductController
      */
     public function removeAction(Product $product)
     {
-        $action = $this->remove->setProduct($product);
-        $action();
+        $this->remove->setProduct($product)->execute();
     }
 
     /**

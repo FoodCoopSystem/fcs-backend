@@ -46,7 +46,7 @@ class ProductRemoveAction extends RemoveAction
      *
      * @return mixed
      */
-    public function __invoke()
+    public function execute()
     {
         $this->object->inactivate();
 
