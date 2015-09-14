@@ -12,7 +12,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:codifico/action.git",
-                "reference": "74957a4d020347fecc99c27770766b95983642ea"
+                "reference": "3568b00157e791bfb538eb21c13bf22001e7b7db"
             },
             "require": {
                 "php": ">=5.4"
@@ -42,7 +42,7 @@
                 "actions",
                 "codifico"
             ],
-            "time": "2015-05-22 06:06:54"
+            "time": "2015-09-14 05:52:12"
         },
         {
             "name": "doctrine/annotations",
@@ -853,7 +853,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/migrations/zipball/4e85ba638acf62e1afe735f94b0c51aa971f8773",
+                "url": "https://api.github.com/repos/doctrine/migrations/zipball/a97d1f4140c6c96e6e706b248e4105d242d16ac9",
                 "reference": "78954cce4962a4655ff47c0751eb78021fbaf2cc",
                 "shasum": ""
             },
