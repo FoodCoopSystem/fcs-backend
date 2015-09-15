@@ -45,10 +45,11 @@ services:
     controller.orders:
         class: AppBundle\Controller\OrdersController
         arguments:
-            - @repository.order
-            - @doctrine.orm.entity_manager
-            - @form.factory
-            - @logger
+            - @action.order.create
+            - @action.order.update
+            - @action.order.index
+            - @action.order.remove
+            - @action.order.activate
 
     action.product.create:
         class: AppBundle\Actions\ProductCreateAction
@@ -80,6 +81,42 @@ services:
             - @event_dispatcher
             - @repository.product
 
+    action.order.create:
+        class: AppBundle\Actions\OrderCreateAction
+        arguments:
+            - @event_dispatcher
+            - @repository.product
+            - @form.factory
+            - @form.type.order
+        calls:
+            - [ setRequestStack, [@request_stack]]
+
+    action.order.update:
+        class: AppBundle\Actions\OrderUpdateAction
+        arguments:
+            - @event_dispatcher
+            - @form.factory
+            - @form.type.order
+        calls:
+            - [ setRequestStack, [@request_stack]]
+
+    action.order.index:
+        class: AppBundle\Actions\OrderIndexAction
+        arguments:
+            - @repository.order
+
+    action.order.remove:
+        class: AppBundle\Actions\OrderRemoveAction
+        arguments:
+            - @event_dispatcher
+            - @repository.order
+            - @logger
+
+    action.order.activate:
+        class: AppBundle\Actions\OrderActivateAction
+        arguments:
+            - @repository.order
+
     listener.action:
         class: AppBundle\EventListener\DoctrineListener
         arguments:
@@ -99,6 +136,11 @@ services:
 
     form.type.product:
         class: AppBundle\Form\ProductType
+        arguments:
+            - @doctrine.orm.entity_manager
+
+    form.type.order:
+        class: AppBundle\Form\OrderType
         arguments:
             - @doctrine.orm.entity_manager
 
@@ -150,3 +192,10 @@ services:
             - @doctrine
         tags:
             - { name: request.param_converter, converter: product_converter, priority: 1 }
+
+    param_converter.order:
+        class: AppBundle\Request\ParamConverter\OrderParamConverter
+        arguments:
+            - @doctrine
+        tags:
+            - { name: request.param_converter, converter: order_converter, priority: 1 }

@@ -81,13 +81,13 @@ Feature: Orders
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
     When I set header "Content-Type" with value "application/json"
-    And I send a GET request to "/orders/ABC"
+    And I send a GET request to "/orders/0"
     Then the response code should be 404
     And the JSON should match pattern:
     """
     {
       "code": 404,
-      "message": "Order ABC does not exists",
+      "message": "Order does not exists",
       "errors": @null@
     }
     """
@@ -121,13 +121,13 @@ Feature: Orders
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
     When I set header "Content-Type" with value "application/json"
-    And I send a POST request to "/orders/ABC"
+    And I send a POST request to "/orders/0"
     Then the response code should be 404
     And the JSON should match pattern:
     """
     {
       "code": 404,
-      "message": "Order ABC does not exists",
+      "message": "Order does not exists",
       "errors": @null@
     }
     """
@@ -146,6 +146,7 @@ Feature: Orders
       "executionAt": null
     }
     """
+    And print pretty response
     Then the response code should be 400
     And the JSON should match pattern:
     """
@@ -182,13 +183,13 @@ Feature: Orders
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
     When I set header "Content-Type" with value "application/json"
-    And I send a DELETE request to "/orders/ABC"
+    And I send a DELETE request to "/orders/0"
     Then the response code should be 404
     And the JSON should match pattern:
     """
     {
       "code": 404,
-      "message": "Order ABC does not exists",
+      "message": "Order does not exists",
       "errors": @null@
     }
     """
@@ -235,13 +236,13 @@ Feature: Orders
     And I am authenticated as "admin"
     And order on "2015-09-01" exists
     When I set header "Content-Type" with value "application/json"
-    And I send a POST request to "/orders/ABC/activate"
+    And I send a POST request to "/orders/0/activate"
     Then the response code should be 404
     And the JSON should match pattern:
     """
     {
       "code": 404,
-      "message": "Order ABC does not exists",
+      "message": "Order does not exists",
       "errors": @null@
     }
     """

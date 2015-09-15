@@ -2,13 +2,13 @@
 
 namespace AppBundle\Request\ParamConverter;
 
-use AppBundle\Entity\Product;
+use AppBundle\Entity\Order;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\DoctrineParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class ProductParamConverter extends DoctrineParamConverter
+class OrderParamConverter extends DoctrineParamConverter
 {
     /**
      * {@inheritdoc}
@@ -21,12 +21,12 @@ class ProductParamConverter extends DoctrineParamConverter
         try {
             return parent::apply($request, $configuration);
         } catch (NotFoundHttpException $e) {
-            throw new NotFoundHttpException('Product does not exists');
+            throw new NotFoundHttpException('Order does not exists');
         }
     }
 
     public function supports(ParamConverter $configuration)
     {
-        return $configuration->getClass() === Product::class && parent::supports($configuration);
+        return $configuration->getClass() === Order::class && parent::supports($configuration);
     }
 }

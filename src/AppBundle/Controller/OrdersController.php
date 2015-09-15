@@ -2,47 +2,51 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Actions\OrderActivateAction;
+use AppBundle\Actions\OrderCreateAction;
+use AppBundle\Actions\OrderIndexAction;
+use AppBundle\Actions\OrderRemoveAction;
+use AppBundle\Actions\OrderUpdateAction;
 use AppBundle\Entity\Order;
-use AppBundle\Entity\OrderRepository;
-use AppBundle\Form\OrderType;
 use AppBundle\Request\Criteria;
-use Doctrine\ORM\EntityManager;
 use FOS\RestBundle\Util\Codes;
-use Psr\Log\LoggerInterface;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class OrdersController
 {
     use RestTrait;
 
     /**
-     * @var OrderRepository
+     * @var OrderCreateAction
      */
-    private $repository;
+    private $create;
 
     /**
-     * @var EntityManager
+     * @var OrderUpdateAction
      */
-    private $entityManager;
+    private $update;
 
     /**
-     * @var FormFactoryInterface
+     * @var OrderIndexAction
      */
-    private $formFactory;
+    private $index;
 
     /**
-     * @var LoggerInterface
+     * @var OrderRemoveAction
      */
-    private $logger;
+    private $remove;
 
-    public function __construct(OrderRepository $repository, EntityManager $entityManager, FormFactoryInterface $formFactory, LoggerInterface $logger)
+    /**
+     * @var OrderActivateAction
+     */
+    private $activate;
+
+    public function __construct(OrderCreateAction $create, OrderUpdateAction $update, OrderIndexAction $index, OrderRemoveAction $remove, OrderActivateAction $activate)
     {
-        $this->repository = $repository;
-        $this->entityManager = $entityManager;
-        $this->formFactory = $formFactory;
-        $this->logger = $logger;
+        $this->create = $create;
+        $this->update = $update;
+        $this->index = $index;
+        $this->remove = $remove;
+        $this->activate = $activate;
     }
 
     /**
@@ -52,135 +56,65 @@ class OrdersController
      */
     public function indexAction(Criteria $criteria)
     {
-        $data = [
-            'total' => $this->repository->countByCriteria($criteria),
-            'result' => $this->repository->findByCriteria($criteria),
-        ];
+        return $this->renderRestView(
+            $this->index->setCriteria($criteria)->execute(),
+            Codes::HTTP_OK,
+            [],
+            ['orders_index']
+        );
+    }
 
-        return $this->renderRestView($data, Codes::HTTP_OK, [], ['orders_index']);
+    /**
+     * @return \FOS\RestBundle\View\View
+     */
+    public function createAction()
+    {
+        return $this->renderRestView(
+            $this->create->execute(),
+            Codes::HTTP_CREATED,
+            [],
+            ['orders_create']
+        );
     }
 
     /**
      *
-     * @param Request $request
-     *
-     * @return \Symfony\Component\Form\FormInterface
+     * @param Order $order
      */
-    public function createAction(Request $request)
+    public function editAction(Order $order)
     {
-        return $this->handleForm($request);
+        $this->renderRestView(
+            $this->update->setOrder($order)->execute(),
+            Codes::HTTP_OK,
+            [],
+            ['orders_update']
+        );
     }
 
     /**
-     *
-     * @param Request $request
-     * @param $id
-     * @return \Symfony\Component\Form\FormInterface
-     * @throws NotFoundHttpException
+     * @param Order $order
      */
-    public function editAction(Request $request, $id)
+    public function removeAction(Order $order)
     {
-        /** @var Order $order */
-        $order = $this->repository->find($id);
-
-        if (!$order) {
-            throw new NotFoundHttpException(sprintf('Order %s does not exists', $id));
-        }
-
-        return $this->handleForm($request, $order);
+        $this->remove->setOrder($order)->execute();
     }
 
     /**
-     * @param Request $request
-     * @param null $order
-     * @return \Symfony\Component\Form\FormInterface
-     * @internal param $producent
-     */
-    private function handleForm(Request $request, $order = null)
-    {
-        $code = $order ? Codes::HTTP_OK : Codes::HTTP_CREATED;
-        $serializationGroup = $order ? 'orders_update' : 'orders_create';
-
-        $form = $this->formFactory->createNamed('', new OrderType(), $order);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $order = $form->getData();
-
-            $this->entityManager->persist($order);
-            $this->entityManager->flush($order);
-
-            return $this->renderRestView($order, $code, [], [$serializationGroup]);
-        }
-
-        return $form;
-    }
-
-    /**
-     *
-     * @param $id
-     */
-    public function removeAction($id)
-    {
-        /** @var Order $order */
-        $order = $this->repository->find($id);
-
-        if (!$order) {
-            throw new NotFoundHttpException(sprintf('Order %s does not exists', $id));
-        }
-
-        if ($order->isActive()) {
-            throw new \LogicException('Order is active');
-        }
-
-        if ($order->hasItems()) {
-            throw new \LogicException('Order has items');
-        }
-
-        $message = 'Deleting order: '.$order->getExecutionAt()->format('Y-m-d').'.';
-        foreach ($order->getItems() as $item) {
-            $message .= ' Item: User.id='.$item->getOwner()->getId()
-                .' Product.id='.$item->getProduct()->getId().' quantity='.$item->getQuantity().'.';
-        }
-
-        $this->logger->info($message);
-
-        $this->entityManager->remove($order);
-        $this->entityManager->flush();
-    }
-
-    /**
-     * @param $id
+     * @param Order $order
      *
      * @return \FOS\RestBundle\View\View
      */
-    public function viewAction($id)
+    public function viewAction(Order $order)
     {
-        /** @var Order $order */
-        $order = $this->repository->find($id);
-
-        if (!$order) {
-            throw new NotFoundHttpException(sprintf('Order %s does not exists', $id));
-        }
-
         return $this->renderRestView($order, Codes::HTTP_OK, [], ['orders_view']);
     }
 
     /**
-     * @param $id
+     * @param Order $order
      * @return \FOS\RestBundle\View\View
      */
-    public function activateAction($id)
+    public function activateAction(Order $order)
     {
-        /** @var Order $order */
-        $order = $this->repository->find($id);
-
-        if (!$order) {
-            throw new NotFoundHttpException(sprintf('Order %s does not exists', $id));
-        }
-
-        $this->repository->activate($order);
-
-        return $this->renderRestView(null, Codes::HTTP_NO_CONTENT);
+        $this->activate->setOrder($order)->execute();
     }
 }

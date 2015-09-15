@@ -2,11 +2,12 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Request\Criteria;
+use Codifico\Component\Actions\Repository\ActionRepositoryInterface;
+use Codifico\Component\Actions\Request\Criteria;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class OrderRepository extends EntityRepository
+class OrderRepository extends EntityRepository implements ActionRepositoryInterface
 {
     public function findByCriteria(Criteria $criteria)
     {
@@ -92,5 +93,26 @@ class OrderRepository extends EntityRepository
             $entityManager->getConnection()->rollBack();
             throw $e;
         }
+    }
+
+    /**
+     * Creates new instance of object
+     *
+     * @return mixed
+     */
+    public function create()
+    {
+        throw new \InvalidArgumentException("You should not call Repository::create");
+    }
+
+    /**
+     * Removes entity from the repository
+     *
+     * @param $entity
+     * @return void
+     */
+    public function remove($entity)
+    {
+        $this->getEntityManager()->remove($entity);
     }
 }
