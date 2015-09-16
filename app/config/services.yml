@@ -40,17 +40,12 @@ services:
     controller.order:
         class: AppBundle\Controller\OrderController
         arguments:
-            - @repository.order
-            - @repository.order_item
-
-    controller.orders:
-        class: AppBundle\Controller\OrdersController
-        arguments:
             - @action.order.create
             - @action.order.update
             - @action.order.index
             - @action.order.remove
             - @action.order.activate
+            - @action.order.current
 
     action.product.create:
         class: AppBundle\Actions\ProductCreateAction
@@ -117,6 +112,12 @@ services:
         class: AppBundle\Actions\OrderActivateAction
         arguments:
             - @repository.order
+
+    action.order.current:
+        class: AppBundle\Actions\OrderIndexCurrentAction
+        arguments:
+            - @repository.order
+            - @repository.order_item
 
     action.supplier.create:
         class: AppBundle\Actions\SupplierCreateAction

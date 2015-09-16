@@ -10,7 +10,7 @@ Feature: Orders
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
     When I set header "Content-Type" with value "application/json"
-    And I send a POST request to "/orders/" with body:
+    And I send a POST request to "/order/" with body:
     """
     {
       "id": "any",
@@ -32,7 +32,7 @@ Feature: Orders
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
     When I set header "Content-Type" with value "application/json"
-    And I send a POST request to "/orders/" with body:
+    And I send a POST request to "/order/" with body:
     """
     {
       "id": null,
@@ -65,7 +65,7 @@ Feature: Orders
     And I am authenticated as "admin"
     And order on "2015-09-01" exists
     When I set header "Content-Type" with value "application/json"
-    And I send a GET request to "/orders/{{ order.id }}"
+    And I send a GET request to "/order/{{ order.id }}"
     Then the response code should be 200
     And the JSON should match pattern:
     """
@@ -81,7 +81,7 @@ Feature: Orders
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
     When I set header "Content-Type" with value "application/json"
-    And I send a GET request to "/orders/0"
+    And I send a GET request to "/order/0"
     Then the response code should be 404
     And the JSON should match pattern:
     """
@@ -99,7 +99,7 @@ Feature: Orders
     And I am authenticated as "admin"
     And order on "2015-09-01" exists
     When I set header "Content-Type" with value "application/json"
-    And I send a POST request to "/orders/{{ order.id }}" with body:
+    And I send a POST request to "/order/{{ order.id }}" with body:
     """
     {
       "id": "any",
@@ -122,7 +122,7 @@ Feature: Orders
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
     When I set header "Content-Type" with value "application/json"
-    And I send a POST request to "/orders/0"
+    And I send a POST request to "/order/0"
     Then the response code should be 404
     And the JSON should match pattern:
     """
@@ -140,7 +140,7 @@ Feature: Orders
     And I am authenticated as "admin"
     And order on "2015-09-01" exists
     When I set header "Content-Type" with value "application/json"
-    And I send a POST request to "/orders/{{ order.id }}" with body:
+    And I send a POST request to "/order/{{ order.id }}" with body:
     """
     {
       "id": null,
@@ -174,7 +174,7 @@ Feature: Orders
     And I am authenticated as "admin"
     And order on "2015-09-01" exists
     When I set header "Content-Type" with value "application/json"
-    And I send a DELETE request to "/orders/{{ order.id }}"
+    And I send a DELETE request to "/order/{{ order.id }}"
     Then the response code should be 204
     And order should not exists
 
@@ -184,7 +184,7 @@ Feature: Orders
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
     When I set header "Content-Type" with value "application/json"
-    And I send a DELETE request to "/orders/0"
+    And I send a DELETE request to "/order/0"
     Then the response code should be 404
     And the JSON should match pattern:
     """
@@ -202,7 +202,7 @@ Feature: Orders
     And I am authenticated as "admin"
     And order on "2015-09-01" exists
     When I set header "Content-Type" with value "application/json"
-    And I send a GET request to "/orders/"
+    And I send a GET request to "/order/"
     Then the response code should be 200
     And the JSON should match pattern:
     """
@@ -225,7 +225,7 @@ Feature: Orders
     And I am authenticated as "admin"
     And order on "2015-09-01" exists
     When I set header "Content-Type" with value "application/json"
-    And I send a POST request to "/orders/{{ order.id }}/activate"
+    And I send a POST request to "/order/{{ order.id }}/activate"
     Then the response code should be 204
     And order should be active
 
@@ -237,7 +237,7 @@ Feature: Orders
     And I am authenticated as "admin"
     And order on "2015-09-01" exists
     When I set header "Content-Type" with value "application/json"
-    And I send a POST request to "/orders/0/activate"
+    And I send a POST request to "/order/0/activate"
     Then the response code should be 404
     And the JSON should match pattern:
     """

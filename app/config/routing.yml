@@ -16,10 +16,6 @@ order:
     resource: "@AppBundle/Resources/config/routing/order.yml"
     prefix: /order
 
-orders:
-    resource: "@AppBundle/Resources/config/routing/orders.yml"
-    prefix: /orders
-
 supplier:
     resource: "@AppBundle/Resources/config/routing/supplier.yml"
     prefix: /supplier
