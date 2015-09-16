@@ -22,7 +22,7 @@ orders:
 
 supplier:
     resource: "@AppBundle/Resources/config/routing/supplier.yml"
-    prefix: /producent
+    prefix: /supplier
 
 product:
     resource: "@AppBundle/Resources/config/routing/product.yml"

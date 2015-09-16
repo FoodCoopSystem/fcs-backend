@@ -1,24 +1,30 @@
 product_create:
-  path: /
-  defaults: { _controller: controller.product:createAction }
-  methods: [POST]
+    path: /
+    defaults: { _controller: controller.product:createAction }
+    methods: [POST]
 
 product_edit:
-  path: /{id}
-  defaults: { _controller: controller.product:editAction }
-  methods: [POST]
+    path: /{id}
+    defaults: { _controller: controller.product:editAction }
+    methods: [POST]
+    requirements:
+        id: "\d+"
 
 product_list:
-  path: /
-  defaults: { _controller: controller.product:indexAction }
-  methods: [GET]
+    path: /
+    defaults: { _controller: controller.product:indexAction }
+    methods: [GET]
 
 product_remove:
-  path: /{id}
-  defaults: { _controller: controller.product:removeAction }
-  methods: [DELETE]
+    path: /{id}
+    defaults: { _controller: controller.product:removeAction }
+    methods: [DELETE]
+    requirements:
+        id: "\d+"
 
 product_view:
-  path: /{id}
-  defaults: { _controller: controller.product:viewAction }
-  methods: [GET]
+    path: /{id}
+    defaults: { _controller: controller.product:viewAction }
+    methods: [GET]
+    requirements:
+        id: "\d+"

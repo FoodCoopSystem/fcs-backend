@@ -14,12 +14,13 @@ services:
             - @action.product.index
             - @action.product.remove
 
-    controller.producent:
-        class: AppBundle\Controller\ProducentController
+    controller.supplier:
+        class: AppBundle\Controller\SupplierController
         arguments:
-            - @repository.producent
-            - @doctrine.orm.default_entity_manager
-            - @form.factory
+            - @action.supplier.create
+            - @action.supplier.update
+            - @action.supplier.index
+            - @action.supplier.remove
 
     controller.basket:
         class: AppBundle\Controller\BasketController
@@ -117,6 +118,36 @@ services:
         arguments:
             - @repository.order
 
+    action.supplier.create:
+        class: AppBundle\Actions\SupplierCreateAction
+        arguments:
+            - @event_dispatcher
+            - @repository.supplier
+            - @form.factory
+            - @form.type.supplier
+        calls:
+            - [ setRequestStack, [@request_stack]]
+
+    action.supplier.update:
+        class: AppBundle\Actions\SupplierUpdateAction
+        arguments:
+            - @event_dispatcher
+            - @form.factory
+            - @form.type.supplier
+        calls:
+            - [ setRequestStack, [@request_stack]]
+
+    action.supplier.index:
+        class: AppBundle\Actions\SupplierIndexAction
+        arguments:
+            - @repository.supplier
+
+    action.supplier.remove:
+        class: AppBundle\Actions\SupplierRemoveAction
+        arguments:
+            - @event_dispatcher
+            - @repository.supplier
+
     listener.action:
         class: AppBundle\EventListener\DoctrineListener
         arguments:
@@ -144,6 +175,11 @@ services:
         arguments:
             - @doctrine.orm.entity_manager
 
+    form.type.supplier:
+        class: AppBundle\Form\SupplierType
+        arguments:
+            - @doctrine.orm.entity_manager
+
     repository.product:
         class: AppBundle\Entity\ProductRepository
         factory_service: doctrine.orm.default_entity_manager
@@ -151,12 +187,12 @@ services:
         arguments:
             - AppBundle\Entity\Product
 
-    repository.producent:
-        class: AppBundle\Entity\ProducentRepository
+    repository.supplier:
+        class: AppBundle\Entity\SupplierRepository
         factory_service: doctrine.orm.default_entity_manager
         factory_method: getRepository
         arguments:
-            - AppBundle\Entity\Producent
+            - AppBundle\Entity\Supplier
 
     repository.basket:
         class: AppBundle\Entity\BasketRepository
@@ -199,3 +235,11 @@ services:
             - @doctrine
         tags:
             - { name: request.param_converter, converter: order_converter, priority: 1 }
+
+    param_converter.supplier:
+        class: AppBundle\Request\ParamConverter\SupplierParamConverter
+        arguments:
+            - @doctrine
+        tags:
+            - { name: request.param_converter, converter: supplier_converter, priority: 1 }
+

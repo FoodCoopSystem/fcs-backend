@@ -32,5 +32,5 @@ security:
         - { path: ^/product, roles: [ ROLE_ADMIN ]}
         - { path: ^/order, roles: [ ROLE_ADMIN ]}
         - { path: ^/orders, roles: [ ROLE_ADMIN ]}
-        - { path: ^/producent, roles: [ ROLE_ADMIN ]}
+        - { path: ^/supplier, roles: [ ROLE_ADMIN ]}
         - { path: ^/, roles: [ IS_AUTHENTICATED_FULLY ] }

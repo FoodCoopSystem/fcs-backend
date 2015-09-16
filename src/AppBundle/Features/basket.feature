@@ -9,7 +9,7 @@ Feature: Basket
       | Property  | Value           |
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
-    And producent "Coffee supplier" exists with product:
+    And supplier "Coffee supplier" exists with product:
       | Property    | Value             |
       | Name        | Coffee            |
       | Description | Delicious coffees |
@@ -43,7 +43,7 @@ Feature: Basket
       | Property  | Value           |
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
-    And producent "Coffee supplier" exists with product:
+    And supplier "Coffee supplier" exists with product:
       | Property    | Value             |
       | Name        | Coffee            |
       | Description | Delicious coffees |
@@ -79,7 +79,7 @@ Feature: Basket
       | Property  | Value           |
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
-    And producent "Coffee supplier" exists with product:
+    And supplier "Coffee supplier" exists with product:
       | Property    | Value             |
       | Name        | Coffee            |
       | Description | Delicious coffees |
@@ -112,7 +112,7 @@ Feature: Basket
       | Property  | Value           |
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
-    And producent "Coffee supplier" exists with product:
+    And supplier "Coffee supplier" exists with product:
       | Property    | Value             |
       | Name        | Coffee            |
       | Description | Delicious coffees |
@@ -135,7 +135,7 @@ Feature: Basket
             "name":"Coffee",
             "description": "@string@",
             "price": @double@,
-            "producent": {
+            "supplier": {
               "name": "@string@"
             }
           }

@@ -2,10 +2,11 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Request\Criteria;
 use Doctrine\ORM\EntityRepository;
+use Codifico\Component\Actions\Repository\ActionRepositoryInterface;
+use Codifico\Component\Actions\Request\Criteria;
 
-class ProducentRepository extends EntityRepository
+class SupplierRepository extends EntityRepository implements ActionRepositoryInterface
 {
     public function findByCriteria(Criteria $criteria)
     {
@@ -41,5 +42,26 @@ class ProducentRepository extends EntityRepository
     public function add($entity)
     {
         $this->getEntityManager()->persist($entity);
+    }
+
+    /**
+     * Creates new instance of object
+     *
+     * @return mixed
+     */
+    public function create()
+    {
+        throw new \InvalidArgumentException("You should not call Repository::create");
+    }
+
+    /**
+     * Removes entity from the repository
+     *
+     * @param $entity
+     * @return void
+     */
+    public function remove($entity)
+    {
+        $this->getEntityManager()->remove($entity);
     }
 }

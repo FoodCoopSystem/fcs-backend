@@ -5,7 +5,7 @@ namespace AppBundle\Behat\Context;
 use AppBundle\Entity\Basket;
 use AppBundle\Entity\Order;
 use AppBundle\Entity\OrderItem;
-use AppBundle\Entity\Producent;
+use AppBundle\Entity\Supplier;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\User;
 use AppBundle\Request\Criteria;
@@ -78,28 +78,28 @@ class DatabaseContext implements Context, KernelAwareContext
     }
 
     /**
-     * @Given /^producent "([^"]*)" exists$/
+     * @Given /^supplier "([^"]*)" exists$/
      */
-    public function producentExists($name)
+    public function supplierExists($name)
     {
-        $producent = new Producent($name);
-        $this->getEntityManager()->persist($producent);
+        $supplier = new Supplier($name);
+        $this->getEntityManager()->persist($supplier);
         $this->getEntityManager()->flush();
 
-        $this->getParameterBag()->set('producent', $producent);
+        $this->getParameterBag()->set('supplier', $supplier);
 
-        return $producent;
+        return $supplier;
     }
 
     /**
-     * @Given /^producent "([^"]*)" exists with product:$/
+     * @Given /^supplier "([^"]*)" exists with product:$/
      */
-    public function producentExistsWithProduct($name, TableNode $table)
+    public function supplierExistsWithProduct($name, TableNode $table)
     {
         $data = $table->getRowsHash();
-        $producent = $this->producentExists($name);
+        $supplier = $this->supplierExists($name);
 
-        $product = new Product($data['Name'], $data['Price'], $producent);
+        $product = new Product($data['Name'], $data['Price'], $supplier);
         if (isset($data['Description'])) {
             $product->setDescription($data['Description']);
         }
@@ -125,15 +125,15 @@ class DatabaseContext implements Context, KernelAwareContext
     }
 
     /**
-     * @Given /^producent should not exists$/
+     * @Given /^supplier should not exists$/
      */
-    public function producentShouldNotExists()
+    public function supplierShouldNotExists()
     {
-        $producent = $this->getParameterBag()->get('producent');
-        $repository = $this->getEntityManager()->getRepository('AppBundle:Producent');
-        $producent = $repository->findByCriteria(new Criteria(['id' => $producent->getId()]));
-        if ($producent) {
-            throw new \Exception('Product exists');
+        $supplier = $this->getParameterBag()->get('supplier');
+        $repository = $this->getEntityManager()->getRepository('AppBundle:Supplier');
+        $supplier = $repository->findByCriteria(new Criteria(['id' => $supplier->getId()]));
+        if ($supplier) {
+            throw new \Exception('Supplier exists');
         }
     }
 

@@ -161,7 +161,7 @@ class BasketController
         );
 
         $items = $this->basketRepository->findByCriteria($criteria);
-        $order = $this->orderRepository->findNearest();
+        $order = $this->orderRepository->findActive();
 
         $connection = $this->entityManager->getConnection();
         $connection->beginTransaction();

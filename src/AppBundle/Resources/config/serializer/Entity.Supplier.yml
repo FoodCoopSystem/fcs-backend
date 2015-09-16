@@ -1,17 +1,17 @@
-AppBundle\Entity\Producent:
+AppBundle\Entity\Supplier:
     exclusion_policy: ALL
     properties:
         id:
             expose: true
             type: integer
             groups:
-                - producent_index
+                - supplier_index
                 - product_view
-                - producent_view
+                - supplier_view
                 - product_create
                 - product_update
-                - producent_create
-                - producent_update
+                - supplier_create
+                - supplier_update
 
         name:
             expose: true
@@ -20,10 +20,10 @@ AppBundle\Entity\Producent:
                 - product_index
                 - basket_index
                 - order_list
-                - producent_index
-                - producent_view
+                - supplier_index
+                - supplier_view
                 - product_create
                 - product_view
                 - product_update
-                - producent_create
-                - producent_update
+                - supplier_create
+                - supplier_update

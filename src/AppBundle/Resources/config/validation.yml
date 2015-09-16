@@ -2,7 +2,7 @@ AppBundle\Entity\Product:
     properties:
         name:
             - NotBlank: ~
-        producent:
+        supplier:
             - NotBlank: ~
         price:
             - Type:
@@ -15,7 +15,7 @@ AppBundle\Entity\Order:
         executionAt:
             - NotBlank: ~
 
-AppBundle\Entity\Producent:
+AppBundle\Entity\Supplier:
     properties:
         name:
             - NotBlank: ~

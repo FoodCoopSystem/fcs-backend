@@ -41,9 +41,9 @@ AppBundle\Entity\Product:
                 - product_create
                 - product_view
                 - product_update
-        producent:
+        supplier:
             expose: true
-            type: AppBundle\Entity\Producent
+            type: AppBundle\Entity\Supplier
             max_depth: 1
             groups:
                 - product_index

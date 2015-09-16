@@ -10,7 +10,7 @@ Feature: Nearest order
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
     And active order on "2015-09-01" exists
-    And producent "Supplier" exists with product:
+    And supplier "Supplier" exists with product:
       | Name  | My product |
       | Price | 12.22      |
     And in order there is item with 3 products
@@ -31,7 +31,7 @@ Feature: Nearest order
                 "product": {
                     "name": "My product",
                     "price": 12.22,
-                    "producent": {
+                    "supplier": {
                         "name": "Supplier"
                     }
                 }

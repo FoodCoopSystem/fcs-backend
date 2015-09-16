@@ -2,17 +2,18 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\Producent;
+use AppBundle\Entity\Supplier;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ProducentType extends AbstractType
+class SupplierType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('id', 'text', ['mapped' => false])
             ->add('name')
         ;
     }
@@ -23,9 +24,9 @@ class ProducentType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-           'data_class' => 'AppBundle\Entity\Producent',
+            'data_class' => Supplier::class,
             'empty_data' => function (FormInterface $form) {
-                return new Producent(
+                return new Supplier(
                     $form->get('name')->getData()
                 );
             }
@@ -34,6 +35,6 @@ class ProducentType extends AbstractType
 
     public function getName()
     {
-        return 'producent';
+        return 'supplier';
     }
 }

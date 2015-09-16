@@ -37,7 +37,7 @@ class OrderController
      */
     public function indexAction(Criteria $criteria)
     {
-        $order = $this->orderRepository->findNearest();
+        $order = $this->orderRepository->findActive();
         $filters = $criteria->getFilters();
         $filters['order'] = $order;
         $criteria = new Criteria($filters, $criteria->getCount(), $criteria->getPage(), $criteria->getOrderBy());

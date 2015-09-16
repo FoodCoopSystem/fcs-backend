@@ -1,17 +1,17 @@
 @database
-Feature: Producent
+Feature: Supplier
   In order to categorize product for regular users and
   organize product suppling
   as a admin
   I need to be able to CRUD suppliers
 
-  Scenario: Successfully create producent
+  Scenario: Successfully create supplier
     Given User "admin" exists with:
       | Property  | Value           |
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
     When I set header "Content-Type" with value "application/json"
-    And I send a POST request to "/producent/" with body:
+    And I send a POST request to "/supplier/" with body:
     """
     {
       "id": "any",
@@ -27,13 +27,13 @@ Feature: Producent
     }
     """
 
-  Scenario: Ineffective producent creation
+  Scenario: Ineffective supplier creation
     Given User "admin" exists with:
       | Property  | Value           |
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
     When I set header "Content-Type" with value "application/json"
-    And I send a POST request to "/producent/" with body:
+    And I send a POST request to "/supplier/" with body:
     """
     {
       "id": null,
@@ -59,14 +59,14 @@ Feature: Producent
     }
     """
 
-  Scenario: Successfully shows the producent
+  Scenario: Successfully shows the supplier
     Given User "admin" exists with:
       | Property  | Value           |
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
-    And producent "Coffee supplier" exists
+    And supplier "Coffee supplier" exists
     When I set header "Content-Type" with value "application/json"
-    And I send a GET request to "/producent/{{ producent.id }}"
+    And I send a GET request to "/supplier/{{ supplier.id }}"
     Then the response code should be 200
     And the JSON should match pattern:
     """
@@ -82,25 +82,25 @@ Feature: Producent
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
     When I set header "Content-Type" with value "application/json"
-    And I send a GET request to "/producent/ABC"
+    And I send a GET request to "/supplier/0"
     Then the response code should be 404
     And the JSON should match pattern:
     """
     {
       "code": 404,
-      "message": "Producent ABC does not exists",
+      "message": "Supplier does not exists",
       "errors": @null@
     }
     """
 
-  Scenario: Update producent
+  Scenario: Update supplier
     Given User "admin" exists with:
       | Property  | Value           |
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
-    And producent "Coffee supplier" exists
+    And supplier "Coffee supplier" exists
     When I set header "Content-Type" with value "application/json"
-    And I send a POST request to "/producent/{{ producent.id }}" with body:
+    And I send a POST request to "/supplier/{{ supplier.id }}" with body:
     """
     {
       "id": "any",
@@ -122,25 +122,25 @@ Feature: Producent
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
     When I set header "Content-Type" with value "application/json"
-    And I send a POST request to "/producent/ABC"
+    And I send a POST request to "/supplier/0"
     Then the response code should be 404
     And the JSON should match pattern:
     """
     {
       "code": 404,
-      "message": "Producent ABC does not exists",
+      "message": "Supplier does not exists",
       "errors": @null@
     }
     """
 
-  Scenario: Ineffective producent update
+  Scenario: Ineffective supplier update
     Given User "admin" exists with:
       | Property  | Value           |
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
-    And producent "Coffee supplier" exists
+    And supplier "Coffee supplier" exists
     When I set header "Content-Type" with value "application/json"
-    And I send a POST request to "/producent/{{ producent.id }}" with body:
+    And I send a POST request to "/supplier/{{ supplier.id }}" with body:
     """
     {
       "id": null,
@@ -166,16 +166,16 @@ Feature: Producent
     }
     """
 
-  Scenario: successfully delete producent
+  Scenario: successfully delete supplier
     Given User "admin" exists with:
       | Property  | Value           |
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
-    And producent "Coffee supplier" exists
+    And supplier "Coffee supplier" exists
     When I set header "Content-Type" with value "application/json"
-    And I send a DELETE request to "/producent/{{ producent.id }}"
+    And I send a DELETE request to "/supplier/{{ supplier.id }}"
     Then the response code should be 204
-    And producent should not exists
+    And supplier should not exists
 
   Scenario: Not found exception on delete
     Given User "admin" exists with:
@@ -183,13 +183,13 @@ Feature: Producent
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
     When I set header "Content-Type" with value "application/json"
-    And I send a DELETE request to "/producent/ABC"
+    And I send a DELETE request to "/supplier/0"
     Then the response code should be 404
     And the JSON should match pattern:
     """
     {
       "code": 404,
-      "message": "Producent ABC does not exists",
+      "message": "Supplier does not exists",
       "errors": @null@
     }
     """
@@ -199,9 +199,9 @@ Feature: Producent
       | Property  | Value           |
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
-    And producent "Coffee supplier" exists
+    And supplier "Coffee supplier" exists
     When I set header "Content-Type" with value "application/json"
-    And I send a GET request to "/producent/"
+    And I send a GET request to "/supplier/"
     Then the response code should be 200
     And the JSON should match pattern:
     """

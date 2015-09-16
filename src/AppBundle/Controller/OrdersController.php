@@ -78,12 +78,12 @@ class OrdersController
     }
 
     /**
-     *
      * @param Order $order
+     * @return \FOS\RestBundle\View\View|null
      */
     public function editAction(Order $order)
     {
-        $this->renderRestView(
+        return $this->renderRestView(
             $this->update->setOrder($order)->execute(),
             Codes::HTTP_OK,
             [],

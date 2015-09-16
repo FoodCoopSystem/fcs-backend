@@ -51,7 +51,7 @@ class OrderRepository extends EntityRepository implements ActionRepositoryInterf
         }
     }
 
-    public function findNearest()
+    public function findActive()
     {
         $criteria = new Criteria(['active' => true], null, null, null);
 

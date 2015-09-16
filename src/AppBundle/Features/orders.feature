@@ -106,6 +106,7 @@ Feature: Orders
       "executionAt": "2015-10-01"
     }
     """
+    And print pretty response
     Then the response code should be 200
     And the JSON should match pattern:
     """

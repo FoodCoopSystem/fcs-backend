@@ -6,12 +6,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Producent
+ * Supplier
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="AppBundle\Entity\ProducentRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\SupplierRepository")
  */
-class Producent
+class Supplier
 {
     /**
      * @var integer
@@ -32,7 +32,7 @@ class Producent
     /**
      * @var ArrayCollection||Product[]
      *
-     * @ORM\OneToMany(targetEntity="Product", mappedBy="producent")
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="supplier")
      */
     private $products;
 
