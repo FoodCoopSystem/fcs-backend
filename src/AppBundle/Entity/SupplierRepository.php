@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityRepository;
 use Codifico\Component\Actions\Repository\ActionRepositoryInterface;
 use Codifico\Component\Actions\Request\Criteria;
 
-class SupplierRepository extends EntityRepository implements ActionRepositoryInterface
+class SupplierRepository extends CriteriaAwareRepository implements ActionRepositoryInterface
 {
     public function findByCriteria(Criteria $criteria)
     {
@@ -37,31 +37,5 @@ class SupplierRepository extends EntityRepository implements ActionRepositoryInt
 
         $query = $builder->getQuery();
         return $query->getSingleScalarResult();
-    }
-
-    public function add($entity)
-    {
-        $this->getEntityManager()->persist($entity);
-    }
-
-    /**
-     * Creates new instance of object
-     *
-     * @return mixed
-     */
-    public function create()
-    {
-        throw new \InvalidArgumentException("You should not call Repository::create");
-    }
-
-    /**
-     * Removes entity from the repository
-     *
-     * @param $entity
-     * @return void
-     */
-    public function remove($entity)
-    {
-        $this->getEntityManager()->remove($entity);
     }
 }
