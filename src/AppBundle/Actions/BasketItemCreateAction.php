@@ -78,8 +78,7 @@ class BasketItemCreateAction extends CreateAction
     {
         $item = new Basket();
         $item->setOwner($this->user);
-
-        $form = $this->formFactory->createNamed('', $this->type);
+        $form = $this->formFactory->createNamed('', $this->type, $item);
         $form->handleRequest($this->stack->getCurrentRequest());
 
         if ($form->isValid()) {

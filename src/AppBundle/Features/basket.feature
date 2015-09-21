@@ -62,7 +62,7 @@ Feature: Basket
     }
     """
     And print pretty response
-    Then the response code should be 200
+    Then the response code should be 201
     And the JSON should match pattern:
     """
     {
@@ -103,7 +103,7 @@ Feature: Basket
     """
     {
       "code": 404,
-      "message": "Basket item 0 does not exists",
+      "message": "Basket item does not exists",
       "errors": @null@
     }
     """

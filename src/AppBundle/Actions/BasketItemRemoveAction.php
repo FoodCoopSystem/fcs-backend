@@ -42,18 +42,6 @@ class BasketItemRemoveAction extends RemoveAction
     }
 
     /**
-     * Creates new entity
-     *
-     * @return mixed
-     */
-    public function execute()
-    {
-        $this->object->inactivate();
-
-        $this->postRemove($this->object);
-    }
-
-    /**
      * @param Basket $basket
      * @return BasketItemUpdateAction
      */

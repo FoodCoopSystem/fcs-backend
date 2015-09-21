@@ -291,3 +291,9 @@ services:
         tags:
             - { name: request.param_converter, converter: supplier_converter, priority: 1 }
 
+    param_converter.basket_item:
+        class: AppBundle\Request\ParamConverter\BasketItemParamConverter
+        arguments:
+            - @doctrine
+        tags:
+            - { name: request.param_converter, converter: basket_item_converter, priority: 1 }
