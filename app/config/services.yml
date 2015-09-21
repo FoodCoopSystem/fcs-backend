@@ -25,12 +25,11 @@ services:
     controller.basket:
         class: AppBundle\Controller\BasketController
         arguments:
-            - @repository.basket
-            - @repository.order
-            - @repository.order_item
-            - @form.factory
-            - @=service('security.context').getToken().getUser()
-            - @doctrine.orm.entity_manager
+            - @action.basket.create
+            - @action.basket.update
+            - @action.basket.index
+            - @action.basket.remove
+            - @action.basket.order
 
     controller.profile:
         class: AppBundle\Controller\UserController
@@ -149,6 +148,49 @@ services:
             - @event_dispatcher
             - @repository.supplier
 
+    action.basket.create:
+        class: AppBundle\Actions\BasketItemCreateAction
+        arguments:
+            - @event_dispatcher
+            - @repository.basket
+            - @form.factory
+            - @form.type.basket
+            - @=service('security.context').getToken().getUser()
+        calls:
+            - [ setRequestStack, [@request_stack]]
+
+    action.basket.update:
+        class: AppBundle\Actions\BasketItemUpdateAction
+        arguments:
+            - @event_dispatcher
+            - @form.factory
+            - @form.type.basket
+            - @=service('security.context').getToken().getUser()
+        calls:
+            - [ setRequestStack, [@request_stack]]
+
+    action.basket.index:
+        class: AppBundle\Actions\BasketItemIndexAction
+        arguments:
+            - @repository.basket
+            - @=service('security.context').getToken().getUser()
+
+    action.basket.remove:
+        class: AppBundle\Actions\BasketItemRemoveAction
+        arguments:
+            - @event_dispatcher
+            - @repository.basket
+            - @=service('security.context').getToken().getUser()
+
+    action.basket.order:
+        class: AppBundle\Actions\BasketItemOrderAction
+        arguments:
+            - @repository.basket
+            - @repository.order
+            - @repository.order_item
+            - @doctrine.orm.entity_manager
+            - @=service('security.context').getToken().getUser()
+
     listener.action:
         class: AppBundle\EventListener\DoctrineListener
         arguments:
@@ -178,6 +220,11 @@ services:
 
     form.type.supplier:
         class: AppBundle\Form\SupplierType
+        arguments:
+            - @doctrine.orm.entity_manager
+
+    form.type.basket:
+        class: AppBundle\Form\BasketType
         arguments:
             - @doctrine.orm.entity_manager
 

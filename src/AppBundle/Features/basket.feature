@@ -25,6 +25,7 @@ Feature: Basket
       }
     }
     """
+    And print pretty response
     Then the response code should be 201
     And the JSON should match pattern:
     """

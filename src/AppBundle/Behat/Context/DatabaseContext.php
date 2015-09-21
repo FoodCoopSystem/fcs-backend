@@ -99,11 +99,11 @@ class DatabaseContext implements Context, KernelAwareContext
         $data = $table->getRowsHash();
         $supplier = $this->supplierExists($name);
 
-        $product = new Product($data['Name'], $data['Price'], $supplier);
+        $product = new Product($data['Name'], (float)$data['Price'], $supplier);
         if (isset($data['Description'])) {
             $product->setDescription($data['Description']);
         }
-
+var_dump($product->getPrice());
         $this->getEntityManager()->persist($product);
         $this->getEntityManager()->flush();
 

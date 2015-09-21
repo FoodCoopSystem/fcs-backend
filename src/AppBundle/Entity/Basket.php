@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Basket
@@ -113,8 +114,13 @@ class Basket
         $this->product = $product;
     }
 
-    public function incrementQuantity()
+    public function increaseQuantityBy($quantity)
     {
-        $this->quantity++;
+        $this->quantity += (int)$quantity;
+    }
+
+    public function isOwnedBy(UserInterface $user)
+    {
+        return $this->owner->equals($user);
     }
 }

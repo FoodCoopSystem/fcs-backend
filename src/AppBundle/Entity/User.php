@@ -237,4 +237,9 @@ class User implements UserInterface
     {
         $this->roles = $roles;
     }
+
+    public function equals(UserInterface $user)
+    {
+        return $user->getUsername() === $this->username;
+    }
 }
