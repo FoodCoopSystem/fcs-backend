@@ -3,12 +3,12 @@
 namespace AppBundle\Entity;
 
 
-use Codifico\Component\Actions\Repository\ActionRepositoryInterface;
+use Codifico\Component\Actions\Repository\ActionRepository;
 use Codifico\Component\Actions\Request\Criteria;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class OrderItemRepository extends CriteriaAwareRepository implements ActionRepositoryInterface
+class OrderItemRepository extends CriteriaAwareRepository implements ActionRepository
 {
     public function findNearest()
     {

@@ -3,7 +3,7 @@
 namespace AppBundle\Actions;
 
 
-use Codifico\Component\Actions\Action\IndexAction;
+use Codifico\Component\Actions\Action\Basic\IndexAction;
 
 class SupplierIndexAction extends IndexAction
 {

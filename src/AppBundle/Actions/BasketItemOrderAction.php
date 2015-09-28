@@ -8,11 +8,11 @@ use AppBundle\Entity\OrderItem;
 use AppBundle\Entity\OrderItemRepository;
 use AppBundle\Entity\OrderRepository;
 use AppBundle\Request\Criteria;
-use Codifico\Component\Actions\Action\ActionInterface;
+use Codifico\Component\Actions\Action\Action;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class BasketItemOrderAction implements ActionInterface
+class BasketItemOrderAction implements Action
 {
     /**
      * @var BasketRepository
@@ -45,8 +45,7 @@ class BasketItemOrderAction implements ActionInterface
         OrderItemRepository $orderItemRepository,
         EntityManagerInterface $entityManager,
         UserInterface $user
-    )
-    {
+    ) {
 
         $this->basketRepository = $basketRepository;
         $this->orderRepository = $orderRepository;
@@ -54,6 +53,7 @@ class BasketItemOrderAction implements ActionInterface
         $this->orderItemRepository = $orderItemRepository;
         $this->user = $user;
     }
+
     public function execute()
     {
         $criteria = new Criteria(

@@ -6,12 +6,6 @@
     "autoload": {
         "psr-4": { "": "src/", "SymfonyStandard\\": "app/" }
     },
-    "repositories": {
-        "codifico-actions": {
-            "type": "git",
-            "url": "git@bitbucket.org:codifico/action.git"
-        }
-    },
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "~2.7@beta",

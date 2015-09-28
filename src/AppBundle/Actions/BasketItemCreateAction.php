@@ -3,9 +3,9 @@
 namespace AppBundle\Actions;
 
 use AppBundle\Entity\Basket;
-use Codifico\Component\Actions\Action\CreateAction;
+use Codifico\Component\Actions\Action\Basic\CreateAction;
 use AppBundle\Event\EntityCreatedEvent;
-use Codifico\Component\Actions\Repository\ActionRepositoryInterface;
+use Codifico\Component\Actions\Repository\ActionRepository;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -21,7 +21,7 @@ class BasketItemCreateAction extends CreateAction
 
     public function __construct(
         EventDispatcherInterface $dispatcher,
-        ActionRepositoryInterface  $repository,
+        ActionRepository  $repository,
         FormFactoryInterface  $formFactory,
         $type,
         UserInterface $user
@@ -48,7 +48,7 @@ class BasketItemCreateAction extends CreateAction
     public function execute()
     {
         /** @var Basket $item */
-        $item = $this->getBasketItemByProduct($this->stack->getCurrentRequest()->get('product'));
+        $item = $this->getBasketItemByProduct($this->stack->getCurrentRequest()->get('product')['id']);
 
         if ($item) {
             $item->increaseQuantityBy($this->stack->getCurrentRequest()->get('quantity'));

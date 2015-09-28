@@ -4,18 +4,26 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fe6d156002bcd5cf844fbce3da84896d",
+    "hash": "a4cb368d543718b4d3de6cffe6cef994",
     "packages": [
         {
             "name": "codifico/actions",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "git@bitbucket.org:codifico/action.git",
-                "reference": "166cc93b8b5c3d1bd52d95cd64bc259efdcdf41e"
+                "url": "https://github.com/Codifico/Actions.git",
+                "reference": "83ca8ad2c4e04bbdd22ff1e055ebf6efe9d89760"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Codifico/Actions/zipball/83ca8ad2c4e04bbdd22ff1e055ebf6efe9d89760",
+                "reference": "83ca8ad2c4e04bbdd22ff1e055ebf6efe9d89760",
+                "shasum": ""
             },
             "require": {
-                "php": ">=5.4"
+                "php": ">=5.4",
+                "symfony/form": "*",
+                "symfony/http-foundation": "*"
             },
             "require-dev": {
                 "phpspec/phpspec": "~2.0"
@@ -26,6 +34,7 @@
                     "Codifico\\Component\\Actions\\": ""
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "proprietary"
             ],
@@ -42,7 +51,7 @@
                 "actions",
                 "codifico"
             ],
-            "time": "2015-09-14 06:49:04"
+            "time": "2015-09-28 06:13:51"
         },
         {
             "name": "doctrine/annotations",
@@ -853,7 +862,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/migrations/zipball/a97d1f4140c6c96e6e706b248e4105d242d16ac9",
+                "url": "https://api.github.com/repos/doctrine/migrations/zipball/6c527d8ccbccec5257bb2c92bca973653b1e3976",
                 "reference": "78954cce4962a4655ff47c0751eb78021fbaf2cc",
                 "shasum": ""
             },
@@ -2295,12 +2304,12 @@
             "version": "v2.6.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/AsseticBundle.git",
+                "url": "https://github.com/symfony/assetic-bundle.git",
                 "reference": "422b0add2110f0cf9bc7a873a386ea053f4a89f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/AsseticBundle/zipball/422b0add2110f0cf9bc7a873a386ea053f4a89f0",
+                "url": "https://api.github.com/repos/symfony/assetic-bundle/zipball/422b0add2110f0cf9bc7a873a386ea053f4a89f0",
                 "reference": "422b0add2110f0cf9bc7a873a386ea053f4a89f0",
                 "shasum": ""
             },
@@ -2360,12 +2369,12 @@
             "version": "v2.7.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/MonologBundle.git",
+                "url": "https://github.com/symfony/monolog-bundle.git",
                 "reference": "9320b6863404c70ebe111e9040dab96f251de7ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/MonologBundle/zipball/9320b6863404c70ebe111e9040dab96f251de7ac",
+                "url": "https://api.github.com/repos/symfony/monolog-bundle/zipball/9320b6863404c70ebe111e9040dab96f251de7ac",
                 "reference": "9320b6863404c70ebe111e9040dab96f251de7ac",
                 "shasum": ""
             },
@@ -2419,12 +2428,12 @@
             "version": "v2.3.8",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/SwiftmailerBundle.git",
+                "url": "https://github.com/symfony/swiftmailer-bundle.git",
                 "reference": "970b13d01871207e81d17b17ddda025e7e21e797"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/SwiftmailerBundle/zipball/970b13d01871207e81d17b17ddda025e7e21e797",
+                "url": "https://api.github.com/repos/symfony/swiftmailer-bundle/zipball/970b13d01871207e81d17b17ddda025e7e21e797",
                 "reference": "970b13d01871207e81d17b17ddda025e7e21e797",
                 "shasum": ""
             },

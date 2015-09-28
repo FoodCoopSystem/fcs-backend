@@ -3,10 +3,10 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use Codifico\Component\Actions\Repository\ActionRepositoryInterface;
+use Codifico\Component\Actions\Repository\ActionRepository;
 use Codifico\Component\Actions\Request\Criteria;
 
-class SupplierRepository extends CriteriaAwareRepository implements ActionRepositoryInterface
+class SupplierRepository extends CriteriaAwareRepository implements ActionRepository
 {
     public function findByCriteria(Criteria $criteria)
     {

@@ -2,9 +2,9 @@
 
 namespace AppBundle\Actions;
 
-use Codifico\Component\Actions\Action\CreateAction;
+use Codifico\Component\Actions\Action\Basic\CreateAction;
 use AppBundle\Event\EntityCreatedEvent;
-use Codifico\Component\Actions\Repository\ActionRepositoryInterface;
+use Codifico\Component\Actions\Repository\ActionRepository;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 
@@ -14,7 +14,7 @@ class ProductCreateAction extends CreateAction
 
     public function __construct(
         EventDispatcherInterface $dispatcher,
-        ActionRepositoryInterface  $repository,
+        ActionRepository  $repository,
         FormFactoryInterface  $formFactory,
         $type)
     {

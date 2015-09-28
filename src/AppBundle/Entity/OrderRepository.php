@@ -2,12 +2,12 @@
 
 namespace AppBundle\Entity;
 
-use Codifico\Component\Actions\Repository\ActionRepositoryInterface;
+use Codifico\Component\Actions\Repository\ActionRepository;
 use Codifico\Component\Actions\Request\Criteria;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class OrderRepository extends EntityRepository implements ActionRepositoryInterface
+class OrderRepository extends EntityRepository implements ActionRepository
 {
     public function findByCriteria(Criteria $criteria)
     {

@@ -4,9 +4,9 @@ namespace AppBundle\Actions;
 
 use AppBundle\Entity\Order;
 use AppBundle\Entity\OrderRepository;
-use Codifico\Component\Actions\Action\ActionInterface;
+use Codifico\Component\Actions\Action\Action;
 
-class OrderActivateAction implements ActionInterface
+class OrderActivateAction implements Action
 {
     /**
      * @var OrderRepository

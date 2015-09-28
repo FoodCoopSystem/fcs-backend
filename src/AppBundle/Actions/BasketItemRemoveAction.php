@@ -3,9 +3,9 @@
 namespace AppBundle\Actions;
 
 use AppBundle\Entity\Basket;
-use Codifico\Component\Actions\Action\RemoveAction;
+use Codifico\Component\Actions\Action\Basic\RemoveAction;
 use AppBundle\Event\EntityRemoveEvent;
-use Codifico\Component\Actions\Repository\ActionRepositoryInterface;
+use Codifico\Component\Actions\Repository\ActionRepository;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -23,7 +23,7 @@ class BasketItemRemoveAction extends RemoveAction
 
     public function __construct(
         EventDispatcherInterface $dispatcher,
-        ActionRepositoryInterface $repository,
+        ActionRepository $repository,
         UserInterface $user
     )
     {

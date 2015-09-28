@@ -3,8 +3,8 @@
 namespace AppBundle\Actions;
 
 
-use Codifico\Component\Actions\Action\IndexAction;
-use Codifico\Component\Actions\Repository\ActionRepositoryInterface;
+use Codifico\Component\Actions\Action\Basic\IndexAction;
+use Codifico\Component\Actions\Repository\ActionRepository;
 use Codifico\Component\Actions\Request\Criteria;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -16,9 +16,9 @@ class BasketItemIndexAction extends IndexAction
     private $user;
 
     /**
-     * @param ActionRepositoryInterface $repository
+     * @param ActionRepository $repository
      */
-    public function __construct(ActionRepositoryInterface $repository, UserInterface $user)
+    public function __construct(ActionRepository $repository, UserInterface $user)
     {
         parent::__construct($repository);
         $this->user = $user;

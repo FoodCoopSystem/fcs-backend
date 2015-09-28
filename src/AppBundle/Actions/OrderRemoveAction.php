@@ -3,9 +3,9 @@
 namespace AppBundle\Actions;
 
 use AppBundle\Entity\Order;
-use Codifico\Component\Actions\Action\RemoveAction;
+use Codifico\Component\Actions\Action\Basic\RemoveAction;
 use AppBundle\Event\EntityRemoveEvent;
-use Codifico\Component\Actions\Repository\ActionRepositoryInterface;
+use Codifico\Component\Actions\Repository\ActionRepository;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -20,7 +20,7 @@ class OrderRemoveAction extends RemoveAction
      */
     private $logger;
 
-    public function __construct(EventDispatcherInterface $dispatcher, ActionRepositoryInterface $repository, LoggerInterface $logger)
+    public function __construct(EventDispatcherInterface $dispatcher, ActionRepository $repository, LoggerInterface $logger)
     {
         $this->dispatcher = $dispatcher;
         $this->logger = $logger;

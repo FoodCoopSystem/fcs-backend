@@ -5,7 +5,7 @@ namespace AppBundle\Actions;
 
 use AppBundle\Entity\OrderItemRepository;
 use AppBundle\Entity\OrderRepository;
-use Codifico\Component\Actions\Action\IndexAction;
+use Codifico\Component\Actions\Action\Basic\IndexAction;
 use Codifico\Component\Actions\Request\Criteria;
 
 class OrderIndexCurrentAction extends IndexAction

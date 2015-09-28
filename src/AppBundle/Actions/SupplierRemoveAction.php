@@ -3,9 +3,9 @@
 namespace AppBundle\Actions;
 
 use AppBundle\Entity\Supplier;
-use Codifico\Component\Actions\Action\RemoveAction;
+use Codifico\Component\Actions\Action\Basic\RemoveAction;
 use AppBundle\Event\EntityRemoveEvent;
-use Codifico\Component\Actions\Repository\ActionRepositoryInterface;
+use Codifico\Component\Actions\Repository\ActionRepository;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class SupplierRemoveAction extends RemoveAction
@@ -15,7 +15,7 @@ class SupplierRemoveAction extends RemoveAction
      */
     private $dispatcher;
 
-    public function __construct(EventDispatcherInterface $dispatcher, ActionRepositoryInterface $repository)
+    public function __construct(EventDispatcherInterface $dispatcher, ActionRepository $repository)
     {
         $this->dispatcher = $dispatcher;
         parent::__construct($repository);

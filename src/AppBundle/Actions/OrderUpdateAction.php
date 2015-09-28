@@ -3,7 +3,7 @@
 namespace AppBundle\Actions;
 
 use AppBundle\Entity\Order;
-use Codifico\Component\Actions\Action\UpdateAction;
+use Codifico\Component\Actions\Action\Basic\UpdateAction;
 use AppBundle\Event\EntityUpdatedEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
