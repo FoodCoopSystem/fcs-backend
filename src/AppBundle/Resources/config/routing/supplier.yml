@@ -1,0 +1,30 @@
+supplier_create:
+    path: /
+    defaults: { _controller: controller.supplier:createAction }
+    methods: [POST]
+
+supplier_edit:
+    path: /{id}
+    defaults: { _controller: controller.supplier:editAction }
+    methods: [POST]
+    requirements:
+        id: "\d+"
+
+supplier_list:
+    path: /
+    defaults: { _controller: controller.supplier:indexAction }
+    methods: [GET]
+
+supplier_remove:
+    path: /{id}
+    defaults: { _controller: controller.supplier:removeAction }
+    methods: [DELETE]
+    requirements:
+        id: "\d+"
+
+supplier_view:
+    path: /{id}
+    defaults: { _controller: controller.supplier:viewAction }
+    methods: [GET]
+    requirements:
+        id: "\d+"

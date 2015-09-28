@@ -2,10 +2,11 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Request\Criteria;
 use Doctrine\ORM\EntityRepository;
+use Codifico\Component\Actions\Repository\ActionRepository;
+use Codifico\Component\Actions\Request\Criteria;
 
-class ProducentRepository extends EntityRepository
+class SupplierRepository extends CriteriaAwareRepository implements ActionRepository
 {
     public function findByCriteria(Criteria $criteria)
     {
@@ -36,10 +37,5 @@ class ProducentRepository extends EntityRepository
 
         $query = $builder->getQuery();
         return $query->getSingleScalarResult();
-    }
-
-    public function add($entity)
-    {
-        $this->getEntityManager()->persist($entity);
     }
 }

@@ -3,8 +3,8 @@
 namespace AppBundle\Request\ParamConverter;
 
 use AppBundle\Request\Criteria;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 
 class CriteriaParamConverter implements ParamConverterInterface
@@ -17,7 +17,7 @@ class CriteriaParamConverter implements ParamConverterInterface
      *
      * @return bool    True if the object has been successfully set, else false
      */
-    public function apply(Request $request,  ParamConverter $configuration)
+    public function apply(Request $request, ParamConverter $configuration)
     {
         $queryCriteria = new Criteria(
             $request->get('filter'),
@@ -38,6 +38,6 @@ class CriteriaParamConverter implements ParamConverterInterface
      */
     public function supports(ParamConverter $configuration)
     {
-        return true;
+        return $configuration->getClass() === Criteria::class;
     }
 }

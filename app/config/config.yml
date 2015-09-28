@@ -138,7 +138,10 @@ doctrine_migrations:
     table_name: migration_versions
     name: Application Migrations
 
-#jms_serializer:
-#    property_naming:
-#        separator: ''
-#        lower_case: true
+sensio_framework_extra:
+    router:      { annotations: true }
+    request:     { converters: true, auto_convert: true }
+    view:        { annotations: false }
+    cache:       { annotations: false }
+    security:    { annotations: false }
+    psr_message: { enabled: false }

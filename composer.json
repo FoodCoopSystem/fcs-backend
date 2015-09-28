@@ -25,7 +25,8 @@
         "doctrine/migrations": "1.0.*@dev",
         "doctrine/doctrine-migrations-bundle": "1.0.*",
         "doctrine/doctrine-fixtures-bundle": "2.2.*",
-        "jms/security-extra-bundle": "dev-master"
+        "jms/security-extra-bundle": "dev-master",
+        "codifico/actions": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",

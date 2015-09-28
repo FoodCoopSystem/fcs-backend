@@ -43,12 +43,12 @@ class Product
     private $price;
 
     /**
-     * @var Producent
+     * @var Supplier
      *
-     * @ORM\ManyToOne(targetEntity="Producent", inversedBy="products")
+     * @ORM\ManyToOne(targetEntity="Supplier", inversedBy="products")
      * @ORM\JoinColumn(name="producent_id", referencedColumnName="id")
      */
-    private $producent;
+    private $supplier;
 
     /**
      * @var \DateTime
@@ -56,11 +56,11 @@ class Product
      */
     private $deletedAt;
 
-    public function __construct($name, $price, Producent $producent = null)
+    public function __construct($name, $price, Supplier $supplier = null)
     {
         $this->name = $name;
         $this->price = $price;
-        $this->producent = $producent;
+        $this->supplier = $supplier;
     }
     /**
      * Get id
@@ -147,19 +147,19 @@ class Product
     }
 
     /**
-     * @return Producent
+     * @return Supplier
      */
-    public function getProducent()
+    public function getSupplier()
     {
-        return $this->producent;
+        return $this->supplier;
     }
 
     /**
-     * @param Producent $producent
+     * @param Supplier $supplier
      */
-    public function setProducent($producent)
+    public function setSupplier($supplier)
     {
-        $this->producent = $producent;
+        $this->supplier = $supplier;
     }
 
 

@@ -2,8 +2,7 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Controller\ProducentController__JMSInjector;
-use AppBundle\Entity\Producent;
+use AppBundle\Entity\Supplier;
 use AppBundle\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Form\Transformer\EntityToIdObjectTransformer;
@@ -23,14 +22,14 @@ class ProductType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $transformer = new EntityToIdObjectTransformer($this->entityManager, Producent::class);
+        $transformer = new EntityToIdObjectTransformer($this->entityManager, Supplier::class);
 
         $builder
             ->add('id', 'text', ['mapped' => false])
             ->add('name')
             ->add('description')
             ->add('price', 'number', ['scale' => 2])
-            ->add($builder->create('producent', 'text')->addModelTransformer($transformer))
+            ->add($builder->create('supplier', 'text')->addModelTransformer($transformer))
         ;
     }
 
@@ -45,7 +44,7 @@ class ProductType extends AbstractType
                 return new Product(
                     $form->get('name')->getData(),
                     $form->get('price')->getData(),
-                    $form->get('producent')->getData()
+                    $form->get('supplier')->getData()
                 );
             }
         ]);

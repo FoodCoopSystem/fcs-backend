@@ -2,56 +2,148 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\OrderItemRepository;
-use AppBundle\Entity\OrderRepository;
-use AppBundle\Entity\ProductRepository;
+use AppBundle\Actions\OrderActivateAction;
+use AppBundle\Actions\OrderCreateAction;
+use AppBundle\Actions\OrderIndexAction;
+use AppBundle\Actions\OrderIndexCurrentAction;
+use AppBundle\Actions\OrderRemoveAction;
+use AppBundle\Actions\OrderUpdateAction;
+use AppBundle\Entity\Order;
 use AppBundle\Request\Criteria;
 use FOS\RestBundle\Util\Codes;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
-/**
- * @Route("/order", service="controller.order")
- */
 class OrderController
 {
     use RestTrait;
 
     /**
-     * @var OrderRepository
+     * @var OrderCreateAction
      */
-    private $orderRepository;
+    private $create;
 
     /**
-     * @var OrderItemRepository
+     * @var OrderUpdateAction
      */
-    private $orderItemRepository;
+    private $update;
 
-    public function __construct(OrderRepository $orderRepository, OrderItemRepository $orderItemRepository)
+    /**
+     * @var OrderIndexAction
+     */
+    private $index;
+
+    /**
+     * @var OrderRemoveAction
+     */
+    private $remove;
+
+    /**
+     * @var OrderActivateAction
+     */
+    private $activate;
+
+    /**
+     * @var OrderIndexCurrentAction
+     */
+    private $current;
+
+    public function __construct(
+        OrderCreateAction $create,
+        OrderUpdateAction $update,
+        OrderIndexAction $index,
+        OrderRemoveAction $remove,
+        OrderActivateAction $activate,
+        OrderIndexCurrentAction $current
+    )
     {
-        $this->orderRepository = $orderRepository;
-        $this->orderItemRepository = $orderItemRepository;
+        $this->create = $create;
+        $this->update = $update;
+        $this->index = $index;
+        $this->remove = $remove;
+        $this->activate = $activate;
+        $this->current = $current;
     }
 
     /**
-     * @Route("/current", name="order_current")
-     * @ParamConverter("queryCriteria", converter="query_criteria_converter")
      * @param Criteria $criteria
      *
      * @return \FOS\RestBundle\View\View
      */
     public function indexAction(Criteria $criteria)
     {
-        $order = $this->orderRepository->findNearest();
-        $filters = $criteria->getFilters();
-        $filters['order'] = $order;
-        $criteria = new Criteria($filters, $criteria->getCount(), $criteria->getPage(), $criteria->getOrderBy());
+        return $this->renderRestView(
+            $this->index->setCriteria($criteria)->execute(),
+            Codes::HTTP_OK,
+            [],
+            ['orders_index']
+        );
+    }
 
-        $data = [
-            'total' => $this->orderItemRepository->countByCriteria($criteria),
-            'result' => $this->orderItemRepository->findByCriteria($criteria),
-        ];
+    /**
+     * @return \FOS\RestBundle\View\View
+     */
+    public function createAction()
+    {
+        return $this->renderRestView(
+            $this->create->execute(),
+            Codes::HTTP_CREATED,
+            [],
+            ['orders_create']
+        );
+    }
 
-        return $this->renderRestView($data, Codes::HTTP_OK, [], ['order_list']);
+    /**
+     * @param Order $order
+     * @return \FOS\RestBundle\View\View|null
+     */
+    public function editAction(Order $order)
+    {
+        return $this->renderRestView(
+            $this->update->setOrder($order)->execute(),
+            Codes::HTTP_OK,
+            [],
+            ['orders_update']
+        );
+    }
+
+    /**
+     * @param Order $order
+     */
+    public function removeAction(Order $order)
+    {
+        $this->remove->setOrder($order)->execute();
+    }
+
+    /**
+     * @param Order $order
+     *
+     * @return \FOS\RestBundle\View\View
+     */
+    public function viewAction(Order $order)
+    {
+        return $this->renderRestView($order, Codes::HTTP_OK, [], ['orders_view']);
+    }
+
+    /**
+     * @param Order $order
+     * @return \FOS\RestBundle\View\View
+     */
+    public function activateAction(Order $order)
+    {
+        $this->activate->setOrder($order)->execute();
+    }
+
+    /**
+     * @param Criteria $criteria
+     *
+     * @return \FOS\RestBundle\View\View
+     */
+    public function currentAction(Criteria $criteria)
+    {
+        return $this->renderRestView(
+            $this->current->setCriteria($criteria)->execute(),
+            Codes::HTTP_OK,
+            [],
+            ['order_list']
+        );
     }
 }

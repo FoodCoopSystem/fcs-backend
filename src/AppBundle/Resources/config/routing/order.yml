@@ -1,0 +1,33 @@
+order_current:
+  path: /current
+  defaults: { _controller: controller.order:currentAction }
+
+order_list:
+  path: /
+  defaults: { _controller: controller.order:indexAction }
+  methods: [GET]
+
+order_create:
+  path: /
+  defaults: { _controller: controller.order:createAction }
+  methods: [POST]
+
+order_edit:
+  path: /{id}
+  defaults: { _controller: controller.order:editAction }
+  methods: [POST]
+
+order_remove:
+  path: /{id}
+  defaults: { _controller: controller.order:removeAction }
+  methods: [DELETE]
+
+order_view:
+  path: /{id}
+  defaults: { _controller: controller.order:viewAction }
+  methods: [GET]
+
+order_activate:
+  path: /{id}/activate
+  defaults: { _controller: controller.order:activateAction }
+  methods: [POST]

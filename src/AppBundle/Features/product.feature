@@ -9,20 +9,21 @@ Feature: Product
       | Property  | Value           |
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
-    And producent "Coffee supplier" exists
+    And supplier "Coffee supplier" exists
     When I set header "Content-Type" with value "application/json"
-    And I send a POST request to "/product" with body:
+    And I send a POST request to "/product/" with body:
     """
     {
       "id": "any",
       "name": "Coffee",
       "description": "Wonderful coffee",
       "price": 22.33,
-      "producent": {
-        "id": {{ producent.id }}
+      "supplier": {
+        "id": {{ supplier.id }}
       }
     }
     """
+    And print pretty response
     Then the response code should be 201
     And the JSON should match pattern:
     """
@@ -31,7 +32,7 @@ Feature: Product
       "name": "@string@",
       "description": "@string@",
       "price": @double@,
-      "producent": {
+      "supplier": {
         "id": @integer@,
         "name": "@string@"
       }
@@ -44,14 +45,14 @@ Feature: Product
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
     When I set header "Content-Type" with value "application/json"
-    And I send a POST request to "/product" with body:
+    And I send a POST request to "/product/" with body:
     """
     {
       "id": null,
       "name": null,
       "description": null,
       "price": null,
-      "producent": null
+      "supplier": null
     }
     """
     Then the response code should be 400
@@ -74,7 +75,7 @@ Feature: Product
               "This value should not be blank."
             ]
           },
-          "producent": {
+          "supplier": {
             "errors": [
               "This value should not be blank."
             ]
@@ -89,7 +90,7 @@ Feature: Product
       | Property  | Value           |
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
-    And producent "Coffee supplier" exists with product:
+    And supplier "Coffee supplier" exists with product:
       | Property    | Value            |
       | Name        | Coffee           |
       | Description | Delicious coffee |
@@ -104,7 +105,7 @@ Feature: Product
       "name": "Coffee",
       "description": "Delicious coffee",
       "price": 1.23,
-      "producent": {
+      "supplier": {
         "id": @integer@,
         "name": "Coffee supplier"
       }
@@ -117,13 +118,13 @@ Feature: Product
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
     When I set header "Content-Type" with value "application/json"
-    And I send a GET request to "/product/ABC"
+    And I send a GET request to "/product/0"
     Then the response code should be 404
     And the JSON should match pattern:
     """
     {
       "code": 404,
-      "message": "Product ABC does not exists",
+      "message": "Product does not exists",
       "errors": @null@
     }
     """
@@ -133,7 +134,7 @@ Feature: Product
       | Property  | Value           |
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
-    And producent "Coffee supplier" exists with product:
+    And supplier "Coffee supplier" exists with product:
       | Property    | Value            |
       | Name        | Coffee           |
       | Description | Delicious coffee |
@@ -146,8 +147,8 @@ Feature: Product
       "name": "Better coffee",
       "description": "A really good one!",
       "price": 2.34,
-      "producent": {
-        "id": {{ producent.id }},
+      "supplier": {
+        "id": {{ supplier.id }},
         "name": "Coffee supplier"
       }
     }
@@ -160,7 +161,7 @@ Feature: Product
       "name": "Better coffee",
       "description": "A really good one!",
       "price": 2.34,
-      "producent": {
+      "supplier": {
         "id": @integer@,
         "name": "Coffee supplier"
       }
@@ -173,13 +174,13 @@ Feature: Product
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
     When I set header "Content-Type" with value "application/json"
-    And I send a POST request to "/product/ABC"
+    And I send a POST request to "/product/0"
     Then the response code should be 404
     And the JSON should match pattern:
     """
     {
       "code": 404,
-      "message": "Product ABC does not exists",
+      "message": "Product does not exists",
       "errors": @null@
     }
     """
@@ -189,7 +190,7 @@ Feature: Product
       | Property  | Value           |
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
-    And producent "Coffee supplier" exists with product:
+    And supplier "Coffee supplier" exists with product:
       | Property    | Value            |
       | Name        | Coffee           |
       | Description | Delicious coffee |
@@ -202,7 +203,7 @@ Feature: Product
       "name": null,
       "description": null,
       "price": null,
-      "producent": null
+      "supplier": null
     }
     """
     Then the response code should be 400
@@ -225,7 +226,7 @@ Feature: Product
               "This value should not be blank."
             ]
           },
-          "producent": {
+          "supplier": {
             "errors": [
               "This value should not be blank."
             ]
@@ -240,7 +241,7 @@ Feature: Product
       | Property  | Value           |
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
-    And producent "Coffee supplier" exists with product:
+    And supplier "Coffee supplier" exists with product:
       | Property    | Value             |
       | Name        | Coffee            |
       | Description | Delicious coffees |
@@ -256,29 +257,26 @@ Feature: Product
       | Roles     | ROLE_ADMIN      |
     And I am authenticated as "admin"
     When I set header "Content-Type" with value "application/json"
-    And I send a DELETE request to "/product/ABC"
+    And I send a DELETE request to "/product/0"
     Then the response code should be 404
     And the JSON should match pattern:
     """
     {
       "code": 404,
-      "message": "Product ABC does not exists",
+      "message": "Product does not exists",
       "errors": @null@
     }
     """
 
   Scenario: list products
-    Given User "admin" exists with:
-      | Property  | Value           |
-      | Roles     | ROLE_ADMIN      |
-    And I am authenticated as "admin"
-    And producent "Coffee supplier" exists with product:
+    And I am authenticated as "regular-user"
+    And supplier "Coffee supplier" exists with product:
       | Property    | Value             |
       | Name        | Coffee            |
       | Description | Delicious coffees |
       | Price       | 1.23              |
     When I set header "Content-Type" with value "application/json"
-    And I send a GET request to "/product"
+    And I send a GET request to "/product/"
     Then the response code should be 200
     And the JSON should match pattern:
     """
@@ -290,7 +288,7 @@ Feature: Product
           "name": "Coffee",
           "description": "Delicious coffees",
           "price": 1.23,
-          "producent": {
+          "supplier": {
               "name": "Coffee supplier"
           }
         }

@@ -4,6 +4,7 @@ namespace AppBundle\DataFixtures\ORM;
 
 use AppBundle\Entity\Producent;
 use AppBundle\Entity\Product;
+use AppBundle\Entity\Supplier;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -29,8 +30,8 @@ class KafoData implements FixtureInterface, ContainerAwareInterface
      */
     public function load(ObjectManager $manager)
     {
-        $producent = new Producent('Kafo');
-        $manager->persist($producent);
+        $supplier = new Supplier('Kafo');
+        $manager->persist($supplier);
 
         $products = [
             ['name' => 'Barazylia Santos (250g)', 'price' => 19.00],
@@ -39,7 +40,7 @@ class KafoData implements FixtureInterface, ContainerAwareInterface
         ];
 
         foreach ($products as $product) {
-            $entity = new Product($product['name'], $product['price'], $producent);
+            $entity = new Product($product['name'], $product['price'], $supplier);
 
             if (isset($product['description'])) {
                 $entity->setDescription($product['description']);

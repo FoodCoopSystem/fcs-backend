@@ -2,10 +2,20 @@ AppBundle\Entity\Product:
     properties:
         name:
             - NotBlank: ~
-        producent:
+        supplier:
             - NotBlank: ~
         price:
             - Type:
                 type: "float"
                 message: "The value {{ value }} is not a valid {{ type }}."
+            - NotBlank: ~
+
+AppBundle\Entity\Order:
+    properties:
+        executionAt:
+            - NotBlank: ~
+
+AppBundle\Entity\Supplier:
+    properties:
+        name:
             - NotBlank: ~

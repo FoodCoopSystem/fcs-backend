@@ -2,7 +2,10 @@
 
 namespace AppBundle\Behat\Context;
 
-use AppBundle\Entity\Producent;
+use AppBundle\Entity\Basket;
+use AppBundle\Entity\Order;
+use AppBundle\Entity\OrderItem;
+use AppBundle\Entity\Supplier;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\User;
 use AppBundle\Request\Criteria;
@@ -51,6 +54,7 @@ class DatabaseContext implements Context, KernelAwareContext
             $entity->{$setter}($value);
         }
 
+        $this->getParameterBag()->set('user', $entity);
         $em = $this->getEntityManager();
         $em->persist($entity);
         $em->flush();
@@ -74,32 +78,32 @@ class DatabaseContext implements Context, KernelAwareContext
     }
 
     /**
-     * @Given /^producent "([^"]*)" exists$/
+     * @Given /^supplier "([^"]*)" exists$/
      */
-    public function producentExists($name)
+    public function supplierExists($name)
     {
-        $producent = new Producent($name);
-        $this->getEntityManager()->persist($producent);
+        $supplier = new Supplier($name);
+        $this->getEntityManager()->persist($supplier);
         $this->getEntityManager()->flush();
 
-        $this->getParameterBag()->set('producent', $producent);
+        $this->getParameterBag()->set('supplier', $supplier);
 
-        return $producent;
+        return $supplier;
     }
 
     /**
-     * @Given /^producent "([^"]*)" exists with product:$/
+     * @Given /^supplier "([^"]*)" exists with product:$/
      */
-    public function producentExistsWithProduct($name, TableNode $table)
+    public function supplierExistsWithProduct($name, TableNode $table)
     {
         $data = $table->getRowsHash();
-        $producent = $this->producentExists($name);
+        $supplier = $this->supplierExists($name);
 
-        $product = new Product($data['Name'], $data['Price'], $producent);
+        $product = new Product($data['Name'], (float)$data['Price'], $supplier);
         if (isset($data['Description'])) {
             $product->setDescription($data['Description']);
         }
-
+var_dump($product->getPrice());
         $this->getEntityManager()->persist($product);
         $this->getEntityManager()->flush();
 
@@ -117,6 +121,117 @@ class DatabaseContext implements Context, KernelAwareContext
         $product = $repository->findByCriteria(new Criteria(['id' => $product->getId()]));
         if ($product) {
             throw new \Exception('Product exists');
+        }
+    }
+
+    /**
+     * @Given /^supplier should not exists$/
+     */
+    public function supplierShouldNotExists()
+    {
+        $supplier = $this->getParameterBag()->get('supplier');
+        $repository = $this->getEntityManager()->getRepository('AppBundle:Supplier');
+        $supplier = $repository->findByCriteria(new Criteria(['id' => $supplier->getId()]));
+        if ($supplier) {
+            throw new \Exception('Supplier exists');
+        }
+    }
+
+    /**
+     * @Given /^order on "([^"]*)" exists$/
+     */
+    public function orderOnExists($date, $active = false)
+    {
+        $order = new Order(new \DateTime($date));
+        $order->setActive($active);
+        $this->getEntityManager()->persist($order);
+        $this->getEntityManager()->flush();
+
+        $this->getParameterBag()->set('order', $order);
+
+        return $order;
+    }
+
+    /**
+     * @Given /^order should not exists$/
+     */
+    public function orderShouldNotExists()
+    {
+        $order = $this->getParameterBag()->get('order');
+        $repository = $this->getEntityManager()->getRepository('AppBundle:Order');
+        $order = $repository->findByCriteria(new Criteria(['id' => $order->getId()]));
+
+        if ($order) {
+            throw new \Exception('Order exists');
+        }
+    }
+
+    /**
+     * @Given /^order should be active$/
+     */
+    public function orderShouldBeActive()
+    {
+        $order = $this->getParameterBag()->get('order');
+        $this->getEntityManager()->refresh($order);
+
+        /** @var Order $order */
+        if (!$order->isActive()) {
+            throw new \Exception('Order is not active');
+        }
+    }
+
+    /**
+     * @Given /^active order on "([^"]*)" exists$/
+     */
+    public function activeOrderOnExists($date)
+    {
+        $this->orderOnExists($date, $active = true);
+    }
+
+    /**
+     * @Given /^in order there is item with (\d+) products$/
+     */
+    public function inOrderThereIsItemWithProducts($quantity)
+    {
+        $order = $this->getParameterBag()->get('order');
+        $product = $this->getParameterBag()->get('product');
+        $owner = $this->getParameterBag()->get('user');
+        $basket = new Basket();
+        $basket->setProduct($product);
+        $basket->setOwner($owner);
+        $basket->setQuantity($quantity);
+
+        $orderItem = OrderItem::createFromBasket($basket, $order);
+        $this->getEntityManager()->persist($orderItem);
+        $this->getEntityManager()->flush();
+    }
+
+    /**
+     * @Given /^basket item with "([^"]*)" products exists$/
+     */
+    public function basketItemWithProductsExists($quantity)
+    {
+        $product = $this->getParameterBag()->get('product');
+        $user = $this->getParameterBag()->get('user');
+        $basketItem = new Basket();
+        $basketItem->setProduct($product);
+        $basketItem->setQuantity($quantity);
+        $basketItem->setOwner($user);
+        $this->getEntityManager()->persist($basketItem);
+        $this->getEntityManager()->flush();
+        $this->getParameterBag()->set('basket', $basketItem);
+    }
+
+    /**
+     * @Given /^basket should not exists$/
+     */
+    public function basketShouldNotExists()
+    {
+        $basket = $this->getParameterBag()->get('basket');
+        $repository = $this->getEntityManager()->getRepository('AppBundle:Basket');
+        $basket = $repository->findByCriteria(new Criteria(['id' => $basket->getId()]));
+        if ($basket) {
+            throw new \Exception('Basket exists');
         }
     }
 }
