@@ -43,7 +43,7 @@ class WebApiContext extends BaseWebApiContext
     public function iSendARequestWithBody($method, $url, PyStringNode $string)
     {
         $name = md5($string);
-        $this->loader->setTemplate($name, $string);
+        $this->loader->setTemplate($name, (string)$string);
 
         $token = $this->getParameterBag()->get('token');
         $this->addHeader('Authorization', 'Bearer '.$token);
