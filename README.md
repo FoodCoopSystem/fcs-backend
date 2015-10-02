@@ -9,7 +9,7 @@ If you want to help us, say hello by mail: contact(at)foodcoop.pl. You can find 
 
 System is based on PHP and Symfony2 framework, fcs-backend provide API to use with fcs-frontend part (which is in under development now).
 
-First version of the system was developed in 2013 members and was based on Drupal Commerce (Drupal 7) and PHP language (https://github.com/FoodCoopSystem/foodcoopsystem).
+Prototype version of the system was developed in 2013 members and was based on Drupal Commerce (Drupal 7) and PHP language (https://github.com/FoodCoopSystem/foodcoopsystem).
 
 ## Contribution
 
