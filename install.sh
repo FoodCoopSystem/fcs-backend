@@ -31,6 +31,9 @@ curl -sS https://getcomposer.org/installer | php
 # Install all dependencies
 php composer.phar install
 
+# Create database
+ php app/console doctrine:database:drop --force   
+ php app/console doctrine:database:create  
 
 # Prepare testing configuration
 cp behat.yml.dist behat.yml
