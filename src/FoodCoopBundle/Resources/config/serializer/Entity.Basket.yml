@@ -1,0 +1,21 @@
+FoodCoopBundle\Entity\Basket:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+            type: integer
+            groups:
+                - basket_index
+                - basket_create
+        quantity:
+            expose: true
+            type: integer
+            groups:
+                - basket_index
+                - basket_create
+        product:
+            expose: true
+            type: FoodCoopBundle\Entity\Product
+            groups:
+                - basket_index
+                - basket_create

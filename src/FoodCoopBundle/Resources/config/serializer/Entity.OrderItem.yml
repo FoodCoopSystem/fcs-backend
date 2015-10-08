@@ -1,0 +1,18 @@
+FoodCoopBundle\Entity\OrderItem:
+    exclusion_policy: ALL
+    properties:
+        owner:
+            expose: true
+            type: FoodCoopBundle\Entity\User
+            groups:
+                - order_list
+        product:
+            expose: true
+            type: FoodCoopBundle\Entity\Product
+            groups:
+                - order_list
+        quantity:
+            expose: true
+            type: integer
+            groups:
+                - order_list

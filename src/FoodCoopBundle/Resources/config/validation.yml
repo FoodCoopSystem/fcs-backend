@@ -1,0 +1,21 @@
+FoodCoopBundle\Entity\Product:
+    properties:
+        name:
+            - NotBlank: ~
+        supplier:
+            - NotBlank: ~
+        price:
+            - Type:
+                type: "float"
+                message: "The value {{ value }} is not a valid {{ type }}."
+            - NotBlank: ~
+
+FoodCoopBundle\Entity\Order:
+    properties:
+        executionAt:
+            - NotBlank: ~
+
+FoodCoopBundle\Entity\Supplier:
+    properties:
+        name:
+            - NotBlank: ~
