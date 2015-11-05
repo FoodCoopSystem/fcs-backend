@@ -1,6 +1,6 @@
 <?php
 
-namespace FoodCoopSystem;
+namespace FoodCoopBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

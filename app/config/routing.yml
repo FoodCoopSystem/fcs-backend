@@ -1,5 +1,5 @@
 app:
-    resource: "@AppBundle/Controller/"
+    resource: "@FoodCoopBundle/Controller/"
     type:     annotation
 
 fos_oauth_server_token:
@@ -9,21 +9,21 @@ fos_oauth_server_authorize:
     resource: "@FOSOAuthServerBundle/Resources/config/routing/authorize.xml"
 
 basket:
-    resource: "@AppBundle/Resources/config/routing/basket.yml"
+    resource: "@FoodCoopBundle/Resources/config/routing/basket.yml"
     prefix: /basket
 
 order:
-    resource: "@AppBundle/Resources/config/routing/order.yml"
+    resource: "@FoodCoopBundle/Resources/config/routing/order.yml"
     prefix: /order
 
 supplier:
-    resource: "@AppBundle/Resources/config/routing/supplier.yml"
+    resource: "@FoodCoopBundle/Resources/config/routing/supplier.yml"
     prefix: /supplier
 
 product:
-    resource: "@AppBundle/Resources/config/routing/product.yml"
+    resource: "@FoodCoopBundle/Resources/config/routing/product.yml"
     prefix: /product
 
 user:
-    resource: "@AppBundle/Resources/config/routing/user.yml"
+    resource: "@FoodCoopBundle/Resources/config/routing/user.yml"
     prefix: /
