@@ -3,11 +3,11 @@ services:
         class: %doctrine.orm.security.user.provider.class%
         arguments:
             - @doctrine
-            - AppBundle:User
+            - FoodCoopBundle:User
             - username
 
     controller.product:
-        class: AppBundle\Controller\ProductController
+        class: FoodCoopBundle\Controller\ProductController
         arguments:
             - @action.product.create
             - @action.product.update
@@ -15,7 +15,7 @@ services:
             - @action.product.remove
 
     controller.supplier:
-        class: AppBundle\Controller\SupplierController
+        class: FoodCoopBundle\Controller\SupplierController
         arguments:
             - @action.supplier.create
             - @action.supplier.update
@@ -23,7 +23,7 @@ services:
             - @action.supplier.remove
 
     controller.basket:
-        class: AppBundle\Controller\BasketController
+        class: FoodCoopBundle\Controller\BasketController
         arguments:
             - @action.basket.create
             - @action.basket.update
@@ -32,12 +32,12 @@ services:
             - @action.basket.order
 
     controller.profile:
-        class: AppBundle\Controller\UserController
+        class: FoodCoopBundle\Controller\UserController
         arguments:
             - @=service('security.context').getToken().getUser()
 
     controller.order:
-        class: AppBundle\Controller\OrderController
+        class: FoodCoopBundle\Controller\OrderController
         arguments:
             - @action.order.create
             - @action.order.update
@@ -47,7 +47,7 @@ services:
             - @action.order.current
 
     action.product.create:
-        class: AppBundle\Actions\ProductCreateAction
+        class: FoodCoopBundle\Actions\ProductCreateAction
         arguments:
             - @event_dispatcher
             - @repository.product
@@ -57,7 +57,7 @@ services:
             - [ setRequestStack, [@request_stack]]
 
     action.product.update:
-        class: AppBundle\Actions\ProductUpdateAction
+        class: FoodCoopBundle\Actions\ProductUpdateAction
         arguments:
             - @event_dispatcher
             - @form.factory
@@ -66,18 +66,18 @@ services:
             - [ setRequestStack, [@request_stack]]
 
     action.product.index:
-        class: AppBundle\Actions\ProductIndexAction
+        class: FoodCoopBundle\Actions\ProductIndexAction
         arguments:
             - @repository.product
 
     action.product.remove:
-        class: AppBundle\Actions\ProductRemoveAction
+        class: FoodCoopBundle\Actions\ProductRemoveAction
         arguments:
             - @event_dispatcher
             - @repository.product
 
     action.order.create:
-        class: AppBundle\Actions\OrderCreateAction
+        class: FoodCoopBundle\Actions\OrderCreateAction
         arguments:
             - @event_dispatcher
             - @repository.product
@@ -87,7 +87,7 @@ services:
             - [ setRequestStack, [@request_stack]]
 
     action.order.update:
-        class: AppBundle\Actions\OrderUpdateAction
+        class: FoodCoopBundle\Actions\OrderUpdateAction
         arguments:
             - @event_dispatcher
             - @form.factory
@@ -96,30 +96,30 @@ services:
             - [ setRequestStack, [@request_stack]]
 
     action.order.index:
-        class: AppBundle\Actions\OrderIndexAction
+        class: FoodCoopBundle\Actions\OrderIndexAction
         arguments:
             - @repository.order
 
     action.order.remove:
-        class: AppBundle\Actions\OrderRemoveAction
+        class: FoodCoopBundle\Actions\OrderRemoveAction
         arguments:
             - @event_dispatcher
             - @repository.order
             - @logger
 
     action.order.activate:
-        class: AppBundle\Actions\OrderActivateAction
+        class: FoodCoopBundle\Actions\OrderActivateAction
         arguments:
             - @repository.order
 
     action.order.current:
-        class: AppBundle\Actions\OrderIndexCurrentAction
+        class: FoodCoopBundle\Actions\OrderIndexCurrentAction
         arguments:
             - @repository.order
             - @repository.order_item
 
     action.supplier.create:
-        class: AppBundle\Actions\SupplierCreateAction
+        class: FoodCoopBundle\Actions\SupplierCreateAction
         arguments:
             - @event_dispatcher
             - @repository.supplier
@@ -129,7 +129,7 @@ services:
             - [ setRequestStack, [@request_stack]]
 
     action.supplier.update:
-        class: AppBundle\Actions\SupplierUpdateAction
+        class: FoodCoopBundle\Actions\SupplierUpdateAction
         arguments:
             - @event_dispatcher
             - @form.factory
@@ -138,18 +138,18 @@ services:
             - [ setRequestStack, [@request_stack]]
 
     action.supplier.index:
-        class: AppBundle\Actions\SupplierIndexAction
+        class: FoodCoopBundle\Actions\SupplierIndexAction
         arguments:
             - @repository.supplier
 
     action.supplier.remove:
-        class: AppBundle\Actions\SupplierRemoveAction
+        class: FoodCoopBundle\Actions\SupplierRemoveAction
         arguments:
             - @event_dispatcher
             - @repository.supplier
 
     action.basket.create:
-        class: AppBundle\Actions\BasketItemCreateAction
+        class: FoodCoopBundle\Actions\BasketItemCreateAction
         arguments:
             - @event_dispatcher
             - @repository.basket
@@ -160,7 +160,7 @@ services:
             - [ setRequestStack, [@request_stack]]
 
     action.basket.update:
-        class: AppBundle\Actions\BasketItemUpdateAction
+        class: FoodCoopBundle\Actions\BasketItemUpdateAction
         arguments:
             - @event_dispatcher
             - @form.factory
@@ -170,20 +170,20 @@ services:
             - [ setRequestStack, [@request_stack]]
 
     action.basket.index:
-        class: AppBundle\Actions\BasketItemIndexAction
+        class: FoodCoopBundle\Actions\BasketItemIndexAction
         arguments:
             - @repository.basket
             - @=service('security.context').getToken().getUser()
 
     action.basket.remove:
-        class: AppBundle\Actions\BasketItemRemoveAction
+        class: FoodCoopBundle\Actions\BasketItemRemoveAction
         arguments:
             - @event_dispatcher
             - @repository.basket
             - @=service('security.context').getToken().getUser()
 
     action.basket.order:
-        class: AppBundle\Actions\BasketItemOrderAction
+        class: FoodCoopBundle\Actions\BasketItemOrderAction
         arguments:
             - @repository.basket
             - @repository.order
@@ -192,7 +192,7 @@ services:
             - @=service('security.context').getToken().getUser()
 
     listener.action:
-        class: AppBundle\EventListener\DoctrineListener
+        class: FoodCoopBundle\EventListener\DoctrineListener
         arguments:
             - @doctrine.orm.default_entity_manager
         tags:
@@ -201,7 +201,7 @@ services:
             - { name: kernel.event_listener, event: action.remove, method: onEntityRemove }
 
     listener.password:
-        class: AppBundle\EventListener\PasswordListener
+        class: FoodCoopBundle\EventListener\PasswordListener
         arguments:
             - @security.password_encoder
         tags:
@@ -209,90 +209,90 @@ services:
             - { name: doctrine.event_listener, event: preUpdate }
 
     form.type.product:
-        class: AppBundle\Form\ProductType
+        class: FoodCoopBundle\Form\ProductType
         arguments:
             - @doctrine.orm.entity_manager
 
     form.type.order:
-        class: AppBundle\Form\OrderType
+        class: FoodCoopBundle\Form\OrderType
         arguments:
             - @doctrine.orm.entity_manager
 
     form.type.supplier:
-        class: AppBundle\Form\SupplierType
+        class: FoodCoopBundle\Form\SupplierType
         arguments:
             - @doctrine.orm.entity_manager
 
     form.type.basket:
-        class: AppBundle\Form\BasketType
+        class: FoodCoopBundle\Form\BasketType
         arguments:
             - @doctrine.orm.entity_manager
 
     repository.product:
-        class: AppBundle\Entity\ProductRepository
+        class: FoodCoopBundle\Entity\ProductRepository
         factory_service: doctrine.orm.default_entity_manager
         factory_method: getRepository
         arguments:
-            - AppBundle\Entity\Product
+            - FoodCoopBundle\Entity\Product
 
     repository.supplier:
-        class: AppBundle\Entity\SupplierRepository
+        class: FoodCoopBundle\Entity\SupplierRepository
         factory_service: doctrine.orm.default_entity_manager
         factory_method: getRepository
         arguments:
-            - AppBundle\Entity\Supplier
+            - FoodCoopBundle\Entity\Supplier
 
     repository.basket:
-        class: AppBundle\Entity\BasketRepository
+        class: FoodCoopBundle\Entity\BasketRepository
         factory_service: doctrine.orm.default_entity_manager
         factory_method: getRepository
         arguments:
-            - AppBundle\Entity\Basket
+            - FoodCoopBundle\Entity\Basket
 
     repository.order:
-        class: AppBundle\Entity\OrderRepository
+        class: FoodCoopBundle\Entity\OrderRepository
         factory_service: doctrine.orm.default_entity_manager
         factory_method: getRepository
         arguments:
-            - AppBundle\Entity\Order
+            - FoodCoopBundle\Entity\Order
 
     repository.order_item:
-        class: AppBundle\Entity\OrderItemRepository
+        class: FoodCoopBundle\Entity\OrderItemRepository
         factory_service: doctrine.orm.default_entity_manager
         factory_method: getRepository
         arguments:
-            - AppBundle\Entity\OrderItem
+            - FoodCoopBundle\Entity\OrderItem
 
     codifico_core.param_converter.query_criteria_converter:
-        class: AppBundle\Request\ParamConverter\CriteriaParamConverter
+        class: FoodCoopBundle\Request\ParamConverter\CriteriaParamConverter
         arguments:
             - @serializer
         tags:
             - { name: request.param_converter, converter: query_criteria_converter }
 
     param_converter.product:
-        class: AppBundle\Request\ParamConverter\ProductParamConverter
+        class: FoodCoopBundle\Request\ParamConverter\ProductParamConverter
         arguments:
             - @doctrine
         tags:
             - { name: request.param_converter, converter: product_converter, priority: 1 }
 
     param_converter.order:
-        class: AppBundle\Request\ParamConverter\OrderParamConverter
+        class: FoodCoopBundle\Request\ParamConverter\OrderParamConverter
         arguments:
             - @doctrine
         tags:
             - { name: request.param_converter, converter: order_converter, priority: 1 }
 
     param_converter.supplier:
-        class: AppBundle\Request\ParamConverter\SupplierParamConverter
+        class: FoodCoopBundle\Request\ParamConverter\SupplierParamConverter
         arguments:
             - @doctrine
         tags:
             - { name: request.param_converter, converter: supplier_converter, priority: 1 }
 
     param_converter.basket_item:
-        class: AppBundle\Request\ParamConverter\BasketItemParamConverter
+        class: FoodCoopBundle\Request\ParamConverter\BasketItemParamConverter
         arguments:
             - @doctrine
         tags:

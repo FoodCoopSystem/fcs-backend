@@ -17,7 +17,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codifico/Actions/zipball/83ca8ad2c4e04bbdd22ff1e055ebf6efe9d89760",
+                "url": "https://api.github.com/repos/Codifico/Actions/zipball/7e25023bb4d0dc63a11c6892fa112e345aed5d08",
                 "reference": "83ca8ad2c4e04bbdd22ff1e055ebf6efe9d89760",
                 "shasum": ""
             },
@@ -860,7 +860,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/migrations/zipball/6c527d8ccbccec5257bb2c92bca973653b1e3976",
+                "url": "https://api.github.com/repos/doctrine/migrations/zipball/68cc7bf629a7c1fc0696e583cc8ed46f897d0afb",
                 "reference": "78954cce4962a4655ff47c0751eb78021fbaf2cc",
                 "shasum": ""
             },
@@ -3015,7 +3015,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ciaranmcnulty/phpspec-typehintedmethods/zipball/caa7c4cd604f5d1f8df94d57f005abd81a6eb7f2",
+                "url": "https://api.github.com/repos/ciaranmcnulty/phpspec-typehintedmethods/zipball/a36bfff36f8413808a32452f8d5544cb4924d1ec",
                 "reference": "caa7c4cd604f5d1f8df94d57f005abd81a6eb7f2",
                 "shasum": ""
             },
@@ -3055,12 +3055,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codifico/ParameterBagExtension.git",
-                "reference": "8815495a7a873ec1ddcaef5eae19037df3263bd2"
+                "reference": "8855f7c20df353f21f8cd73e57fce08fb6701348"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/Codifico/ParameterBagExtension/zipball/8855f7c20df353f21f8cd73e57fce08fb6701348",
-                "reference": "8815495a7a873ec1ddcaef5eae19037df3263bd2",
+                "reference": "8855f7c20df353f21f8cd73e57fce08fb6701348",
                 "shasum": ""
             },
             "require": {
@@ -3097,7 +3097,7 @@
                 "codifico",
                 "parameter"
             ],
-            "time": "2014-10-01 07:24:18"
+            "time": "2015-09-02 14:09:25"
         },
         {
             "name": "codifico/phpspec-rest-view-extension",

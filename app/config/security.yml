@@ -4,7 +4,7 @@ security:
             id: codifico_user_provider
 
     encoders:
-        AppBundle\Entity\User:
+        FoodCoopBundle\Entity\User:
             algorithm:          sha512
             iterations:         5000
 
