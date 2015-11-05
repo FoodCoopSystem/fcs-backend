@@ -8,13 +8,13 @@ default:
     suites:
         app_bundle:
             type: symfony_bundle
-            bundle: AppBundle
+            bundle: FoodCoopBundle
             paths:
-                - src/AppBundle/Features/
+                - src/FoodCoopBundle/Features/
             contexts:
-                - AppBundle\Behat\Context\FeatureContext
-                - AppBundle\Behat\Context\WebApiContext
-                - AppBundle\Behat\Context\DatabaseContext
-                - AppBundle\Behat\Context\MatcherContext
+                - FoodCoopBundle\Behat\Context\FeatureContext
+                - FoodCoopBundle\Behat\Context\WebApiContext
+                - FoodCoopBundle\Behat\Context\DatabaseContext
+                - FoodCoopBundle\Behat\Context\MatcherContext
 
 

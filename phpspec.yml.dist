@@ -1,6 +1,6 @@
 suites:
     app_bundle:
-        spec_path: src/AppBundle/
+        spec_path: src/FoodCoopBundle/
 
 extensions:
     - Cjm\PhpSpec\Extension\TypeHintedMethodsExtension
